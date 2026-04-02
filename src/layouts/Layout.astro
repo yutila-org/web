@@ -1,0 +1,160 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Yutila - Software, Games, Hardware, and Infrastructure" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="/" class="logo">
+					<img src="/favicon.svg" alt="Yutila" style="height: 40px; width: auto;" />
+				</a>
+				<div class="links">
+					<a href="/software">Software</a>
+					<a href="/games">Games</a>
+					<a href="/hardware">Hardware</a>
+					<a href="/infrastructure">Infrastructure</a>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer>
+			<div class="footer-links">
+				<a href="/contact">Contact</a>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--bg-color: #171717;
+		--text-color: #FAFAFA;
+		--text-muted: #A1A1AA;
+		--border-color: #27272A;
+		--yutila-green: #5EBD3E;
+		--yutila-yellow: #FFB900;
+		--yutila-orange: #F78200;
+		--yutila-red: #E23B38;
+		--yutila-purple: #973999;
+		--yutila-blue: #009CDF;
+	}
+	
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+
+	html, body {
+		margin: 0;
+		padding: 0;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		background-color: var(--bg-color);
+		color: var(--text-color);
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	header {
+		border-bottom: 1px solid var(--border-color);
+		padding: 1.5rem 0;
+		position: relative;
+	}
+
+	header::after {
+		content: '';
+		position: absolute;
+		bottom: -1px;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, var(--yutila-green), var(--yutila-yellow), var(--yutila-orange), var(--yutila-red), var(--yutila-purple), var(--yutila-blue));
+	}
+
+	nav {
+		max-width: 1440px;
+		width: 100%;
+		margin: 0 auto;
+		padding: 0 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.logo img {
+		display: block;
+	}
+
+	.links {
+		display: flex;
+		gap: 2rem;
+	}
+
+	a {
+		color: var(--text-muted);
+		text-decoration: none;
+		transition: color 0.2s ease;
+		font-size: 0.95rem;
+	}
+
+	a:hover {
+		color: var(--text-color);
+	}
+
+	main {
+		flex: 1;
+		max-width: 1440px;
+		width: 100%;
+		margin: 0 auto;
+		padding: 4rem 2rem;
+	}
+
+	footer {
+		border-top: 1px solid var(--border-color);
+		padding: 2rem 0;
+		margin-top: auto;
+	}
+
+	.footer-links {
+		max-width: 1440px;
+		width: 100%;
+		margin: 0 auto;
+		padding: 0 2rem;
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+	}
+
+	@media (max-width: 768px) {
+		nav {
+			flex-direction: column;
+			gap: 1rem;
+		}
+		.links {
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 1rem;
+		}
+	}
+</style>
