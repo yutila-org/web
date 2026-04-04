@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web",
+  "main": ".worker-next/index.mjs",
+  "compatibility_date": "2024-04-04",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": ".worker-next/assets",
+    "binding": "ASSETS"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "23c1a1cfe197434cada771eef1522f09"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
