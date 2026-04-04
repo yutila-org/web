@@ -5,6 +5,10 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Contact Yutila">
 	<div class="contact-container">
 		<section class="contact-hero">
+			<a href="/" class="back-link">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+				Back Home
+			</a>
 			<h1>Contact</h1>
 			<p class="subtitle">Get in touch with us through any of the channels below.</p>
 		</section>
@@ -102,7 +106,24 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.contact-hero {
-		padding-top: 2rem;
+		padding-top: 1rem;
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+		margin-bottom: 2rem;
+		text-decoration: none;
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.back-link:hover {
+		color: var(--text-color);
+		transform: translateX(-4px);
 	}
 
 	h1 {
