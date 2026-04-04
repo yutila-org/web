@@ -1,0 +1,225 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About Yutila">
+	<div class="about-container">
+		<section class="about-hero">
+			<h1>About</h1>
+			<p class="subtitle">Software, games and hardware.</p>
+		</section>
+
+		<section class="content-section">
+			<div class="card glass-panel">
+				<div class="card-glow"></div>
+				<h2>Our Mission</h2>
+				<p>We are a multidisciplinary studio that has moved past our hobbyist roots and are now organized into four core domains: <strong style="color: var(--yutila-purple)">Governance</strong>, <strong style="color: var(--yutila-red)">Security</strong>, <strong style="color: var(--yutila-blue)">Architecture</strong>, and <strong style="color: var(--yutila-orange)">Engineering</strong>.</p>
+				<p>Our goal is to build an equitable organization driven by contributor passion, delivering exceptional work. We challenge conventional paradigms to advance technology, digital art, and interactive media. Yutila is a structured collective where specialized talent converges to create unparalleled systems.</p>
+			</div>
+
+			<div class="card glass-panel status-card">
+				<div class="card-glow"></div>
+				<h2>Operational Status</h2>
+				<div class="status-badge">
+					<span class="pulse-dot"></span>
+					Pre-revenue
+				</div>
+				<p>Operating under a strict zero-budget mandate, we rely on high technical competency, dedication, and open-source collaboration. Our ecosystem is built by specialists who are driven by the ambition to craft exceptional systems.</p>
+			</div>
+		</section>
+
+		<section class="roles-cta">
+			<h2>Find Your Place in Our Role Structure</h2>
+			<p>Delve into the operational architecture of Yutila. Our roles specification outlines the comprehensive hierarchy and distribution of responsibilities, illustrating how our divisions synchronize to execute our collective vision.</p>
+			<a href="/about/roles" class="btn-primary">
+				View Organization Roles
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+			</a>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.about-container {
+		display: flex;
+		flex-direction: column;
+		gap: 4rem;
+	}
+
+	.about-hero {
+		padding-top: 2rem;
+	}
+
+	h1 {
+		font-size: clamp(3rem, 8vw, 4.5rem);
+		font-weight: 800;
+		line-height: 1.1;
+		margin: 0 0 1rem 0;
+		letter-spacing: -0.02em;
+	}
+
+	.subtitle {
+		font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+		color: var(--text-color);
+		opacity: 0.9;
+		margin: 0;
+		max-width: 800px;
+	}
+
+	.content-section {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.glass-panel {
+		background: rgba(39, 39, 42, 0.4);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 16px;
+		padding: 2.5rem;
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.glass-panel:hover {
+		transform: translateY(-4px);
+		border-color: rgba(255, 255, 255, 0.1);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+	}
+
+	.card-glow {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+
+	.glass-panel:hover .card-glow {
+		opacity: 1;
+	}
+
+	.card h2 {
+		font-size: 1.8rem;
+		font-weight: 700;
+		margin: 0 0 1.5rem 0;
+		color: var(--text-color);
+	}
+
+	.card p {
+		font-size: 1.05rem;
+		color: var(--text-muted);
+		line-height: 1.7;
+		margin: 0 0 1rem 0;
+	}
+
+	.card p:last-child {
+		margin-bottom: 0;
+	}
+
+	.status-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		background: rgba(94, 189, 62, 0.1);
+		border: 1px solid rgba(94, 189, 62, 0.2);
+		color: var(--yutila-green);
+		padding: 0.5rem 1rem;
+		border-radius: 9999px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+	}
+
+	.pulse-dot {
+		width: 8px;
+		height: 8px;
+		background-color: var(--yutila-green);
+		border-radius: 50%;
+		box-shadow: 0 0 0 0 rgba(94, 189, 62, 0.7);
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: scale(0.95);
+			box-shadow: 0 0 0 0 rgba(94, 189, 62, 0.7);
+		}
+		70% {
+			transform: scale(1);
+			box-shadow: 0 0 0 6px rgba(94, 189, 62, 0);
+		}
+		100% {
+			transform: scale(0.95);
+			box-shadow: 0 0 0 0 rgba(94, 189, 62, 0);
+		}
+	}
+
+	.roles-cta {
+		background: linear-gradient(145deg, #1f1f22, #171717);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+		padding: 3rem;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.roles-cta h2 {
+		margin: 0;
+		font-size: 2rem;
+	}
+
+	.roles-cta p {
+		color: var(--text-muted);
+		font-size: 1.1rem;
+		max-width: 600px;
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: var(--text-color);
+		color: var(--bg-color);
+		font-weight: 600;
+		font-size: 1.05rem;
+		padding: 0.8rem 1.5rem;
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		margin-top: 1rem;
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+	}
+
+	.btn-primary svg {
+		transition: transform 0.2s ease;
+	}
+
+	.btn-primary:hover svg {
+		transform: translateX(4px);
+	}
+
+	@media (max-width: 768px) {
+		.content-section {
+			grid-template-columns: 1fr;
+		}
+		.roles-cta {
+			padding: 2rem 1.5rem;
+		}
+	}
+</style>

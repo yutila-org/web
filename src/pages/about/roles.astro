@@ -1,0 +1,434 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const orgStructure = [
+  {
+    pillar: "Governance",
+    color: "var(--yutila-purple)",
+    description: "Directs high-level strategy, resource distribution, and organizational vision.",
+    roles: [
+      {
+        title: "Chief Executive",
+        desc: "Directs strategic roadmap, high-level resource distribution, and organizational vision.",
+        access: "Owner",
+        criteria: ["Strategic Planning", "Lifecycle Management", "Resource Optimization"]
+      },
+      {
+        title: "Repository Administrator",
+        desc: "Administers version control environments, repository permissions, and CI/CD security protocols.",
+        access: "Owner",
+        criteria: ["VCS Admin", "CI/CD Orchestration", "IAM Governance"]
+      },
+      {
+        title: "Organizational Architect",
+        desc: "Engineers internal infrastructure, legal frameworks, and intellectual property management systems.",
+        access: "Admin",
+        criteria: ["Systems Thinking", "Infrastructure Design", "Regulatory Compliance"]
+      }
+    ]
+  },
+  {
+    pillar: "Architecture",
+    color: "var(--yutila-blue)",
+    description: "Establishes core software frameworks, coding standards, and system-wide architecture.",
+    roles: [
+      {
+        title: "Systems Architect",
+        desc: "Establishes core software frameworks, coding standards, and system-wide architecture.",
+        access: "Admin",
+        criteria: ["Software Abstractions", "Memory Management", "Architectural Patterns"]
+      },
+      {
+        title: "Interface Designer",
+        desc: "Architects data exchange protocols, interface contracts, and hardware-software abstractions.",
+        access: "Admin",
+        criteria: ["Protocol Design", "Data Marshalling", "HW/SW Interfacing"]
+      },
+      {
+        title: "Tech Debt Auditor",
+        desc: "Analyzes structural inefficiencies, identifies technical debt, and orchestrates refactoring cycles.",
+        access: "Maintainer",
+        criteria: ["System Optimization", "Refactoring Strategy", "Static/Dynamic Analysis"]
+      }
+    ]
+  },
+  {
+    pillar: "Engineering",
+    color: "var(--yutila-orange)",
+    description: "Engineers and integrates core software systems, hardware-software interfaces, and high-performance components.",
+    roles: [
+      {
+        title: "Systems Engineer",
+        desc: "Engineers and integrates core software systems, hardware-software interfaces, and high-performance architectural components across the technical stack.",
+        access: "Write",
+        criteria: ["System Integration", "Multi-paradigm Programming", "Architectural Reliability"]
+      },
+      {
+        title: "Web Engineer",
+        desc: "Develops and deploys web services, payment gateways, and backend infrastructure for revenue products.",
+        access: "Write",
+        criteria: ["API Integration", "Web Deployment", "Backend Architecture", "SaaS Implementation"]
+      },
+      {
+        title: "Embedded Systems Engineer",
+        desc: "Develops hardware abstraction layers, system firmware, and real-time operating logic.",
+        access: "Write",
+        criteria: ["Firmware/RTOS", "HW Communication Protocols", "Driver Dev"]
+      },
+      {
+        title: "DevOps Engineer",
+        desc: "Automates developer workflows, build pipelines, and containerized deployment infrastructure.",
+        access: "Admin",
+        criteria: ["Automation Toolchains", "IaC", "Build System Architecture"]
+      },
+      {
+        title: "UI/UX Engineer",
+        desc: "Implements interactive interface systems, web frontends, SaaS dashboards, and user experience logic.",
+        access: "Write",
+        criteria: ["Interface Engineering", "Web Frontends", "UX Frameworks", "Dashboard Integration"]
+      },
+      {
+        title: "Game Designer",
+        desc: "Designs interactive logic, gameplay loops, and technical mechanics specifications while encompassing narrative, dialogue, lore, and every other creative or technical aspect that game development entails.",
+        access: "Write",
+        criteria: ["Mechanics Design", "Systems Balancing", "Interactive Logic", "Narrative & Technical Writing"]
+      },
+      {
+        title: "Technical Artist",
+        desc: "Develops automated asset pipelines, shader logic, and engineering-to-creative bridge tools.",
+        access: "Write",
+        criteria: ["Graphics Pipelines", "Pipeline Automation", "Shader Logic"]
+      }
+    ]
+  },
+  {
+    pillar: "Security",
+    color: "var(--yutila-red)",
+    description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security policies.",
+    roles: [
+      {
+        title: "Incident Commander",
+        desc: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
+        access: "Admin",
+        criteria: ["SecOps Orchestration", "Threat Intelligence", "Incident Management", "Digital Forensics"]
+      },
+      {
+        title: "Incident Responder",
+        desc: "Executes technical containment protocols, system remediation, and forensic evidence collection during active security events under the orchestration of the Incident Commander.",
+        access: "Maintainer",
+        criteria: ["Threat Containment", "Log Analysis", "System Remediation", "Forensic Evidence Handling"]
+      },
+      {
+        title: "Penetration Tester",
+        desc: "Executes adversarial security assessments, offensive simulations, and vulnerability validation.",
+        access: "Read",
+        criteria: ["Offensive Security", "Vulnerability Research", "Adversarial Infrastructure"]
+      },
+      {
+        title: "Security Policy Officer",
+        desc: "Establishes security standards, identity management policies, and cryptographic protocols.",
+        access: "Admin",
+        criteria: ["Cryptographic Standards", "Security Governance", "Identity Management"]
+      },
+      {
+        title: "Binary Auditor",
+        desc: "Conducts automated fuzzing and manual binary analysis for memory safety exploits.",
+        access: "Maintainer",
+        criteria: ["Memory Safety", "Reverse Engineering", "Exploit Mitigation"]
+      }
+    ]
+  }
+];
+---
+
+<Layout title="Yutila Roles & Organization">
+  <div class="roles-container">
+    <div class="header-section">
+      <a href="/about" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to About
+      </a>
+      <h1>Organizational Structure</h1>
+      <p class="subtitle">A detailed overview of our core pillars and specialized roles.</p>
+    </div>
+
+    <div class="pillars-container">
+      {orgStructure.map(pillar => (
+        <section class="pillar-section" style={`--pillar-color: ${pillar.color}`}>
+          <div class="pillar-header">
+            <h2>{pillar.pillar}</h2>
+            <p>{pillar.description}</p>
+          </div>
+          
+          <div class="roles-grid">
+            {pillar.roles.map(role => (
+              <div class="role-card">
+                <div class="role-header">
+                  <h3>{role.title}</h3>
+                  <span class={`access-badge access-${role.access.toLowerCase()}`}>
+                    {role.access}
+                  </span>
+                </div>
+                
+                <p class="role-desc">{role.desc}</p>
+
+                <div class="criteria-list">
+                  {role.criteria.map(criterion => (
+                    <span class="criterion-tag">{criterion}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .roles-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .header-section {
+    padding-top: 1rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--text-color);
+    transform: translateX(-4px);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .pillars-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  .pillar-section {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .pillar-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--pillar-color), transparent);
+    border-radius: 4px;
+  }
+
+  .pillar-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .pillar-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--pillar-color);
+    letter-spacing: -0.01em;
+  }
+
+  .pillar-header p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 700px;
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .role-card {
+    background: rgba(39, 39, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .role-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, var(--pillar-color), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: screen;
+  }
+
+  .role-card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .role-card:hover::after {
+    opacity: 0.05;
+  }
+
+  .role-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .role-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.3;
+  }
+
+  .access-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .access-owner {
+    background: rgba(255, 185, 0, 0.15);
+    color: var(--yutila-yellow);
+    border: 1px solid rgba(255, 185, 0, 0.3);
+  }
+
+  .access-admin {
+    background: rgba(226, 59, 56, 0.15);
+    color: var(--yutila-red);
+    border: 1px solid rgba(226, 59, 56, 0.3);
+  }
+
+  .access-write {
+    background: rgba(94, 189, 62, 0.15);
+    color: var(--yutila-green);
+    border: 1px solid rgba(94, 189, 62, 0.3);
+  }
+
+  .access-maintainer {
+    background: rgba(0, 156, 223, 0.15);
+    color: var(--yutila-blue);
+    border: 1px solid rgba(0, 156, 223, 0.3);
+  }
+
+  .access-read {
+    background: rgba(161, 161, 170, 0.15);
+    color: var(--text-muted);
+    border: 1px solid rgba(161, 161, 170, 0.3);
+  }
+
+  .role-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+    flex: 1;
+  }
+
+  .role-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .meta-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .meta-label {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .meta-value {
+    color: var(--text-color);
+  }
+
+  .criteria-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.25rem;
+  }
+
+  .criterion-tag {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    .roles-grid {
+      grid-template-columns: 1fr;
+    }
+    .pillar-header h2 {
+      font-size: 2rem;
+    }
+  }
+</style>

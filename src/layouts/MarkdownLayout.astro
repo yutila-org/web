@@ -1,0 +1,157 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+	<div class="markdown-wrapper">
+		<div class="content-header">
+			<a href="/terms" class="back-link">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+				Back to Terms
+			</a>
+			<h1>{frontmatter.title}</h1>
+			{frontmatter.lastEdited && <p class="last-edited">Last Edited: {frontmatter.lastEdited}</p>}
+		</div>
+
+		<article class="prose">
+			<slot />
+		</article>
+	</div>
+</Layout>
+
+<style is:global>
+	.markdown-wrapper {
+		max-width: 900px;
+		margin: 0 auto;
+		padding-bottom: 4rem;
+	}
+
+	.content-header {
+		margin-bottom: 3rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+		margin-bottom: 2rem;
+		text-decoration: none;
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.back-link:hover {
+		color: var(--text-color);
+		transform: translateX(-4px);
+	}
+
+	.content-header h1 {
+		font-size: clamp(2.5rem, 5vw, 3.5rem);
+		font-weight: 800;
+		line-height: 1.1;
+		margin: 0 0 1rem 0;
+		letter-spacing: -0.02em;
+	}
+
+	.last-edited {
+		color: var(--yutila-orange);
+		font-weight: 600;
+		font-size: 0.95rem;
+		margin: 0;
+	}
+
+	/* Markdown Prose Styles */
+	.prose {
+		color: var(--text-color);
+		line-height: 1.7;
+		font-size: 1.05rem;
+	}
+
+	.prose h1, .prose h2, .prose h3, .prose h4 {
+		color: var(--text-color);
+		font-weight: 700;
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		line-height: 1.3;
+	}
+
+	.prose h1 { font-size: 2.25rem; }
+    .prose h1:first-child { display: none; } /* Hide the very first h1 if it duplicates the title */
+
+	.prose h2 { font-size: 1.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+	.prose h3 { font-size: 1.4rem; }
+
+	.prose p {
+		margin-bottom: 1.25rem;
+		color: var(--text-muted);
+	}
+
+	.prose a {
+		color: var(--yutila-blue);
+		text-decoration: none;
+	}
+
+	.prose a:hover {
+		text-decoration: underline;
+	}
+
+	.prose ul, .prose ol {
+		margin-bottom: 1.25rem;
+		padding-left: 1.5rem;
+		color: var(--text-muted);
+	}
+
+	.prose li {
+		margin-bottom: 0.5rem;
+	}
+
+	.prose strong {
+		color: var(--text-color);
+		font-weight: 600;
+	}
+
+	.prose table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 2rem 0;
+		background: rgba(39, 39, 42, 0.3);
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+	.prose th, .prose td {
+		padding: 1rem;
+		text-align: left;
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	.prose th {
+		background: rgba(255, 255, 255, 0.05);
+		font-weight: 600;
+		color: var(--text-color);
+	}
+
+	.prose tr:last-child td {
+		border-bottom: none;
+	}
+
+	.prose code {
+		background: rgba(255, 255, 255, 0.1);
+		padding: 0.2rem 0.4rem;
+		border-radius: 4px;
+		font-size: 0.9em;
+		font-family: monospace;
+	}
+
+	.prose img {
+		max-width: 100%;
+		height: auto;
+		border-radius: 8px;
+		margin: 2rem 0;
+	}
+</style>
