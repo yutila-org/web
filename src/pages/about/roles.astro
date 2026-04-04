@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 const orgStructure = [
   {
     pillar: "Governance",
-    color: "var(--yutila-purple)",
+    color: "var(--yutila-orange)",
     description: "Directs high-level strategy, resource distribution, and organizational vision.",
     roles: [
       {
@@ -28,8 +28,45 @@ const orgStructure = [
     ]
   },
   {
+    pillar: "Security",
+    color: "var(--yutila-red)",
+    description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security policies.",
+    roles: [
+      {
+        title: "Incident Commander",
+        desc: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
+        access: "Admin",
+        criteria: ["SecOps Orchestration", "Threat Intelligence", "Incident Management", "Digital Forensics"]
+      },
+      {
+        title: "Incident Responder",
+        desc: "Executes technical containment protocols, system remediation, and forensic evidence collection during active security events under the orchestration of the Incident Commander.",
+        access: "Maintainer",
+        criteria: ["Threat Containment", "Log Analysis", "System Remediation", "Forensic Evidence Handling"]
+      },
+      {
+        title: "Penetration Tester",
+        desc: "Executes adversarial security assessments, offensive simulations, and vulnerability validation.",
+        access: "Read",
+        criteria: ["Offensive Security", "Vulnerability Research", "Adversarial Infrastructure"]
+      },
+      {
+        title: "Security Policy Officer",
+        desc: "Establishes security standards, identity management policies, and cryptographic protocols.",
+        access: "Admin",
+        criteria: ["Cryptographic Standards", "Security Governance", "Identity Management"]
+      },
+      {
+        title: "Binary Auditor",
+        desc: "Conducts automated fuzzing and manual binary analysis for memory safety exploits.",
+        access: "Maintainer",
+        criteria: ["Memory Safety", "Reverse Engineering", "Exploit Mitigation"]
+      }
+    ]
+  },
+  {
     pillar: "Architecture",
-    color: "var(--yutila-blue)",
+    color: "var(--yutila-green)",
     description: "Establishes core software frameworks, coding standards, and system-wide architecture.",
     roles: [
       {
@@ -54,7 +91,7 @@ const orgStructure = [
   },
   {
     pillar: "Engineering",
-    color: "var(--yutila-orange)",
+    color: "var(--yutila-blue)",
     description: "Engineers and integrates core software systems, hardware-software interfaces, and high-performance components.",
     roles: [
       {
@@ -98,43 +135,6 @@ const orgStructure = [
         desc: "Develops automated asset pipelines, shader logic, and engineering-to-creative bridge tools.",
         access: "Write",
         criteria: ["Graphics Pipelines", "Pipeline Automation", "Shader Logic"]
-      }
-    ]
-  },
-  {
-    pillar: "Security",
-    color: "var(--yutila-red)",
-    description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security policies.",
-    roles: [
-      {
-        title: "Incident Commander",
-        desc: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
-        access: "Admin",
-        criteria: ["SecOps Orchestration", "Threat Intelligence", "Incident Management", "Digital Forensics"]
-      },
-      {
-        title: "Incident Responder",
-        desc: "Executes technical containment protocols, system remediation, and forensic evidence collection during active security events under the orchestration of the Incident Commander.",
-        access: "Maintainer",
-        criteria: ["Threat Containment", "Log Analysis", "System Remediation", "Forensic Evidence Handling"]
-      },
-      {
-        title: "Penetration Tester",
-        desc: "Executes adversarial security assessments, offensive simulations, and vulnerability validation.",
-        access: "Read",
-        criteria: ["Offensive Security", "Vulnerability Research", "Adversarial Infrastructure"]
-      },
-      {
-        title: "Security Policy Officer",
-        desc: "Establishes security standards, identity management policies, and cryptographic protocols.",
-        access: "Admin",
-        criteria: ["Cryptographic Standards", "Security Governance", "Identity Management"]
-      },
-      {
-        title: "Binary Auditor",
-        desc: "Conducts automated fuzzing and manual binary analysis for memory safety exploits.",
-        access: "Maintainer",
-        criteria: ["Memory Safety", "Reverse Engineering", "Exploit Mitigation"]
       }
     ]
   }
