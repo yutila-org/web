@@ -5,32 +5,20 @@ const orgStructure = [
   {
     pillar: "Governance",
     color: "var(--yutila-yellow)",
-    description: "Directs high-level strategy, resource distribution, and organizational vision.",
+    description: "Directs organizational strategy, drives comprehensive system design across all disciplines and can engineer implementations.",
     roles: [
       {
-        title: "Chief Executive",
-        desc: "Directs strategic roadmap, high-level resource distribution, and organizational vision.",
+        title: "Founder",
+        desc: "Directs organizational strategy, drives comprehensive system design across all disciplines and can engineer implementations.",
         access: "Owner",
-        criteria: ["Strategic Planning", "Lifecycle Management", "Resource Optimization"]
-      },
-      {
-        title: "Repository Administrator",
-        desc: "Administers version control environments, repository permissions, and CI/CD security protocols.",
-        access: "Owner",
-        criteria: ["VCS Admin", "CI/CD Orchestration", "IAM Governance"]
-      },
-      {
-        title: "Organizational Architect",
-        desc: "Engineers internal infrastructure, legal frameworks, and intellectual property management systems.",
-        access: "Admin",
-        criteria: ["Systems Thinking", "Infrastructure Design", "Regulatory Compliance"]
+        criteria: ["Strategic Planning", "System Design", "Full-Stack Engineering"]
       }
     ]
   },
   {
     pillar: "Security",
     color: "var(--yutila-red)",
-    description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security policies.",
+    description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
     roles: [
       {
         title: "Incident Commander",
@@ -43,98 +31,32 @@ const orgStructure = [
         desc: "Executes technical containment protocols, system remediation, and forensic evidence collection during active security events under the orchestration of the Incident Commander.",
         access: "Maintainer",
         criteria: ["Threat Containment", "Log Analysis", "System Remediation", "Forensic Evidence Handling"]
-      },
-      {
-        title: "Penetration Tester",
-        desc: "Executes adversarial security assessments, offensive simulations, and vulnerability validation.",
-        access: "Read",
-        criteria: ["Offensive Security", "Vulnerability Research", "Adversarial Infrastructure"]
-      },
-      {
-        title: "Security Policy Officer",
-        desc: "Establishes security standards, identity management policies, and cryptographic protocols.",
-        access: "Admin",
-        criteria: ["Cryptographic Standards", "Security Governance", "Identity Management"]
-      },
-      {
-        title: "Binary Auditor",
-        desc: "Conducts automated fuzzing and manual binary analysis for memory safety exploits.",
-        access: "Maintainer",
-        criteria: ["Memory Safety", "Reverse Engineering", "Exploit Mitigation"]
       }
     ]
   },
   {
     pillar: "Architecture",
     color: "var(--yutila-green)",
-    description: "Establishes core software frameworks, coding standards, and system-wide architecture.",
+    description: "Primary lead for cross-domain structural design, interface definition, and technical standards.",
     roles: [
       {
         title: "Systems Architect",
-        desc: "Establishes core software frameworks, coding standards, and system-wide architecture.",
-        access: "Admin",
-        criteria: ["Software Abstractions", "Memory Management", "Architectural Patterns"]
-      },
-      {
-        title: "Interface Designer",
-        desc: "Architects data exchange protocols, interface contracts, and hardware-software abstractions.",
-        access: "Admin",
-        criteria: ["Protocol Design", "Data Marshalling", "HW/SW Interfacing"]
-      },
-      {
-        title: "Tech Debt Auditor",
-        desc: "Analyzes structural inefficiencies, identifies technical debt, and orchestrates refactoring cycles.",
-        access: "Maintainer",
-        criteria: ["System Optimization", "Refactoring Strategy", "Static/Dynamic Analysis"]
+        desc: "Primary lead for cross-domain structural design, interface definition, and technical standards. Oversees supply chain integrity and participates in implementation to ensure the codebase adheres to architectural rigor and zero-cost principles.",
+        access: "Write",
+        criteria: ["Structural Design", "Interface Definition", "Technical Standards", "Supply Chain Integrity"]
       }
     ]
   },
   {
     pillar: "Engineering",
     color: "var(--yutila-blue)",
-    description: "Engineers and integrates core software systems, hardware-software interfaces, and high-performance components.",
+    description: "Primary lead for multidisciplinary implementation and feature development across the full stack.",
     roles: [
       {
         title: "Systems Engineer",
-        desc: "Engineers and integrates core software systems, hardware-software interfaces, and high-performance architectural components across the technical stack.",
+        desc: "Primary lead for multidisciplinary implementation and feature development across the full stack. Ensures performance and reliability while actively contributing to architectural design to verify technical feasibility.",
         access: "Write",
-        criteria: ["System Integration", "Multi-paradigm Programming", "Architectural Reliability"]
-      },
-      {
-        title: "Web Engineer",
-        desc: "Develops and deploys web services, payment gateways, and backend infrastructure for revenue products.",
-        access: "Write",
-        criteria: ["API Integration", "Web Deployment", "Backend Architecture", "SaaS Implementation"]
-      },
-      {
-        title: "Embedded Systems Engineer",
-        desc: "Develops hardware abstraction layers, system firmware, and real-time operating logic.",
-        access: "Write",
-        criteria: ["Firmware/RTOS", "HW Communication Protocols", "Driver Dev"]
-      },
-      {
-        title: "DevOps Engineer",
-        desc: "Automates developer workflows, build pipelines, and containerized deployment infrastructure.",
-        access: "Admin",
-        criteria: ["Automation Toolchains", "IaC", "Build System Architecture"]
-      },
-      {
-        title: "UI/UX Engineer",
-        desc: "Implements interactive interface systems, web frontends, SaaS dashboards, and user experience logic.",
-        access: "Write",
-        criteria: ["Interface Engineering", "Web Frontends", "UX Frameworks", "Dashboard Integration"]
-      },
-      {
-        title: "Game Designer",
-        desc: "Designs interactive logic, gameplay loops, and technical mechanics specifications while encompassing narrative, dialogue, lore, and every other creative or technical aspect that game development entails.",
-        access: "Write",
-        criteria: ["Mechanics Design", "Systems Balancing", "Interactive Logic", "Narrative & Technical Writing"]
-      },
-      {
-        title: "Technical Artist",
-        desc: "Develops automated asset pipelines, shader logic, and engineering-to-creative bridge tools.",
-        access: "Write",
-        criteria: ["Graphics Pipelines", "Pipeline Automation", "Shader Logic"]
+        criteria: ["Full-Stack Implementation", "Performance Engineering", "Architectural Contribution", "Technical Feasibility"]
       }
     ]
   }
