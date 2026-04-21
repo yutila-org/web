@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: "Security Policies"
-lastEdited: "4/4/2026"
+lastEdited: "21/4/2026"
 ---
 
 # **1. Introduction and Scope**
@@ -57,6 +57,15 @@ All security incidents must be reported immediately to the **Incident Commander*
 
 [Cybersecurity Incident Response Playbook](https://docs.google.com/document/u/0/d/1faOWnyPoHZEcmH6mGq8jeMZkJM67jygJauDEy3kvd54/edit)
 
+### **3.3.1. Escalation Policy**
+
+In the event of a security anomaly, personnel are required to follow the established escalation path:
+
+- **Tier 1 (Individual Contributor/Developer):** Initial discovery. Alert the team lead and open an internal low-priority security ticket. Do not publicize the finding.
+- **Tier 2 (Security Engineering Team):** Triages the ticket. If validated and categorized as High or Critical severity, the team immediately hands over control to the Incident Commander.
+- **Tier 3 (Incident Commander):** Implements containment procedures, convenes the crisis management team, and decides whether legal and executive leadership need to be involved.
+- **Tier 4 (Executive & Legal):** Handles public vulnerability disclosure, law enforcement collaboration, and regulatory compliance reporting (e.g., data breach notifications within statutory timelines).
+
 ## **3.4. Coordinated Vulnerability Disclosure (CVD)**
 
 All external vulnerability reports submitted via the Yutila repository channels or email must be handled following the [OpenSSF Coordinated Vulnerability Disclosure Process](https://www.google.com/search?q=https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md).
@@ -91,7 +100,16 @@ All software development must utilize a CI/CD pipeline that is configured to enf
 2. **Dependency Vulnerability Scanning:** All third-party libraries and dependencies used in the project must be scanned for known vulnerabilities (e.g., against CVE databases).
 3. **Mandatory Pass/Fail Enforcement:** The pipeline must automatically FAIL and block deployment if tests do not pass or if High/Critical vulnerabilities are detected, *unless a formal Vulnerability Waiver and risk-acceptance justification is documented and approved by the Security Policy Officer.*
 
-## **4.3. Special Requirements for Game Development (Where Applicable)**
+## **4.3. Security Orchestration, Automation, and Response (SOAR)**
+
+To provide continuous visibility and threat remediation, the organization relies on a Security Orchestration, Automation, and Response (SOAR) architecture:
+
+* **Wazuh (SIEM & XDR):** Deployed across all hosts for continuous intrusion detection, security monitoring, and log correlation.
+* **Trivy:** Integrated into container registries and CI pipelines to continuously evaluate container images, file systems, and SBOMs for vulnerabilities.
+* **GitLeaks:** Enforced as a pre-commit hook and a CI action to detect and block the injection of hardcoded secrets or sensitive configuration data.
+* **GitHub Actions:** Serves as the primary automation orchestrator, triggering Trivy and GitLeaks scans on pull requests, and orchestrating deployment blocks if security criteria are not met.
+
+## **4.4. Special Requirements for Game Development (Where Applicable)**
 
 For all software classified as games or entertainment products, the following security measures are mandatory:
 
@@ -99,14 +117,14 @@ For all software classified as games or entertainment products, the following se
 * **Secure Backend Systems:** All server-side logic, APIs, and services supporting the game must fully adhere to all standards and requirements defined in Section 1 and Section 2 of this policy.
 * **Client-Side Sensitive Data Protection:** Any sensitive data stored on the client side (e.g., authentication tokens, payment information, personal data) must be protected using strong encryption and secure storage mechanisms.
 
-## **4.4. Language-Specific Security Standards**
+## **4.5. Language-Specific Security Standards**
 
 To ensure memory safety and prevent language-specific vulnerabilities natively, all development must adhere strictly to established secure coding standards for the respective language:
 
 * **C:** All C-based development, including the Camelot framework, must adhere to the [SEI CERT C Coding Standard](https://www.google.com/search?q=https://wiki.sei.cmu.edu/confluence/display/c/SEI%2BCERT%2BC%2BCoding%2BStandard). Compliance is structurally enforced via the project `Makefile` and CI pipeline; no code shall be merged unless it compiles with `-Wall -Wextra -Wpedantic -Werror`, passes all unit/integration tests with Clang/GCC Sanitizers enabled (`-fsanitize=address,undefined,leak`), and satisfies [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) static analysis using `cert-*` check profiles.
 * *(Additional language standards will be documented here prior to the adoption of new stacks in production).*
 
-## **4.5. Third-Party Dependency Evaluation**
+## **4.6. Third-Party Dependency Evaluation**
 
 Integrating unverified third-party libraries introduces immediate supply chain risk. To mitigate this, all integrated third-party code and internal distributions must conform to the [OpenChain ISO/IEC 5230](https://www.google.com/search?q=https://www.openchainproject.org/resources/iso-iec-5230) and [ISO/IEC 18974](https://www.google.com/search?q=https://www.openchainproject.org/resources/iso-iec-18974) standards for license compliance and security.
 
@@ -123,14 +141,6 @@ To balance development velocity with security, the Architecture pillar maintains
 **Transitive Auditing**
 
 Prior to integration, the full dependency tree must be queried via [deps.dev](https://deps.dev/) to identify hidden transitive vulnerabilities or abandoned sub-dependencies. Approval is contingent on the health of the entire recursive tree, not just the top-level package.
-
-# **5. Telemetry and Data Policy**
-
-The collection of all telemetry and usage data must comply with the Linux Foundation's Telemetry Data Policy and all applicable privacy laws.
-
-* **Transparency:** Users must be explicitly informed about what data is collected, why it is collected, and how they can opt-out (where applicable).
-* **Minimization:** Only the minimum necessary data required for function, performance, or security purposes shall be collected.
-* **Anonymization:** Personal data must be anonymized or pseudonymized where technically feasible and relevant to the purpose of collection.
 
 # **Appendix**
 
