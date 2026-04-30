@@ -33,23 +33,6 @@ const { frontmatter } = Astro.props;
 		border-bottom: 1px solid var(--border-color);
 	}
 
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		color: var(--text-muted);
-		font-size: 0.95rem;
-		font-weight: 500;
-		margin-bottom: 2rem;
-		text-decoration: none;
-		transition: color 0.2s ease, transform 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--text-color);
-		transform: translateX(-4px);
-	}
-
 	.content-header h1 {
 		font-size: clamp(2.5rem, 5vw, 3.5rem);
 		font-weight: 800;
@@ -122,12 +105,15 @@ const { frontmatter } = Astro.props;
 		background: rgba(39, 39, 42, 0.3);
 		border-radius: 8px;
 		overflow: hidden;
+		display: block;
+		overflow-x: auto;
 	}
 
 	.prose th, .prose td {
 		padding: 1rem;
 		text-align: left;
 		border-bottom: 1px solid var(--border-color);
+		min-width: 120px;
 	}
 
 	.prose th {

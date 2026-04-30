@@ -51,14 +51,14 @@ const orgStructure = [
 ---
 
 <Layout title="Yutila Roles & Organization">
-  <div class="roles-container">
-    <div class="header-section">
+  <div class="page-container roles-page">
+    <div class="page-header">
       <a href="/about" class="back-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to About
       </a>
       <h1>Organizational Structure</h1>
-      <p class="subtitle">A detailed overview of our core pillars and specialized roles.</p>
+      <p class="page-subtitle">A detailed overview of our core pillars and specialized roles.</p>
     </div>
 
     <div class="pillars-container">
@@ -96,47 +96,8 @@ const orgStructure = [
 </Layout>
 
 <style>
-  .roles-container {
-    display: flex;
-    flex-direction: column;
+  .roles-page {
     gap: 4rem;
-  }
-
-  .header-section {
-    padding-top: 1rem;
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin-bottom: 2rem;
-    text-decoration: none;
-    transition: color 0.2s ease, transform 0.2s ease;
-  }
-
-  .back-link:hover {
-    color: var(--text-color);
-    transform: translateX(-4px);
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 0 0 1rem 0;
-    letter-spacing: -0.02em;
-  }
-
-  .subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    color: var(--text-muted);
-    max-width: 600px;
-    line-height: 1.6;
-    margin: 0;
   }
 
   .pillars-container {
@@ -182,7 +143,7 @@ const orgStructure = [
 
   .roles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
   }
 
@@ -290,28 +251,6 @@ const orgStructure = [
     line-height: 1.6;
     margin: 0 0 1.5rem 0;
     flex: 1;
-  }
-
-  .role-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  .meta-group {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .meta-label {
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-
-  .meta-value {
-    color: var(--text-color);
   }
 
   .criteria-list {

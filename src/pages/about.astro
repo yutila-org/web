@@ -3,25 +3,25 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="About Yutila">
-	<div class="about-container">
-		<section class="about-hero">
+	<div class="page-container">
+		<div class="page-header">
 			<a href="/" class="back-link">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
 				Back Home
 			</a>
 			<h1>About</h1>
-			<p class="subtitle">Software, games and hardware.</p>
-		</section>
+			<p class="page-subtitle about-subtitle">Software, games and hardware.</p>
+		</div>
 
 		<section class="content-section">
-			<div class="card glass-panel">
+			<div class="glass-card mission-card">
 				<div class="card-glow"></div>
 				<h2>Our Mission</h2>
 				<p>We are a multidisciplinary studio that has moved past our hobbyist roots and are now organized into three core domains: <strong style="color: var(--yutila-red)">Governance</strong>, <strong style="color: var(--yutila-green)">Security</strong>, and <strong style="color: var(--yutila-blue)">Engineering</strong>.</p>
 				<p>Our goal is to build an equitable organization driven by contributor passion, delivering exceptional work. We challenge conventional paradigms to advance technology, digital art, and interactive media. Yutila is a structured collective where specialized talent converges to create unparalleled systems.</p>
 			</div>
 
-			<div class="card glass-panel status-card">
+			<div class="glass-card status-card">
 				<div class="card-glow"></div>
 				<h2>Operational Status</h2>
 				<div class="status-badge">
@@ -44,46 +44,14 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	.about-container {
-		display: flex;
-		flex-direction: column;
+	.page-container {
 		gap: 4rem;
 	}
 
-	.about-hero {
-		padding-top: 1rem;
-	}
-
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		color: var(--text-muted);
-		font-size: 0.95rem;
-		font-weight: 500;
-		margin-bottom: 2rem;
-		text-decoration: none;
-		transition: color 0.2s ease, transform 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--text-color);
-		transform: translateX(-4px);
-	}
-
-	h1 {
-		font-size: clamp(3rem, 8vw, 4.5rem);
-		font-weight: 800;
-		line-height: 1.1;
-		margin: 0 0 1rem 0;
-		letter-spacing: -0.02em;
-	}
-
-	.subtitle {
+	.about-subtitle {
 		font-size: clamp(1.2rem, 2.5vw, 1.5rem);
 		color: var(--text-color);
 		opacity: 0.9;
-		margin: 0;
 		max-width: 800px;
 	}
 
@@ -93,54 +61,29 @@ import Layout from '../layouts/Layout.astro';
 		gap: 2rem;
 	}
 
-	.glass-panel {
-		background: rgba(39, 39, 42, 0.4);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		border: 1px solid rgba(255, 255, 255, 0.05);
-		border-radius: 16px;
+	.glass-card {
 		padding: 2.5rem;
-		position: relative;
-		overflow: hidden;
-		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 	}
 
-	.glass-panel:hover {
-		transform: translateY(-4px);
-		border-color: rgba(255, 255, 255, 0.1);
+	.glass-card:hover {
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 	}
 
-	.card-glow {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 1px;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-		opacity: 0;
-		transition: opacity 0.5s ease;
-	}
-
-	.glass-panel:hover .card-glow {
-		opacity: 1;
-	}
-
-	.card h2 {
+	.glass-card h2 {
 		font-size: 1.8rem;
 		font-weight: 700;
 		margin: 0 0 1.5rem 0;
 		color: var(--text-color);
 	}
 
-	.card p {
+	.glass-card p {
 		font-size: 1.05rem;
 		color: var(--text-muted);
 		line-height: 1.7;
 		margin: 0 0 1rem 0;
 	}
 
-	.card p:last-child {
+	.glass-card p:last-child {
 		margin-bottom: 0;
 	}
 

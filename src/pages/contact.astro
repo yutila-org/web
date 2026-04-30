@@ -3,18 +3,18 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Contact Yutila">
-	<div class="contact-container">
-		<section class="contact-hero">
+	<div class="page-container">
+		<div class="page-header">
 			<a href="/" class="back-link">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
 				Back Home
 			</a>
 			<h1>Contact</h1>
-			<p class="subtitle">Get in touch with us through any of the channels below.</p>
-		</section>
+			<p class="page-subtitle contact-subtitle">Get in touch with us through any of the channels below.</p>
+		</div>
 
 		<section class="channels-grid">
-			<a href="https://discord.gg/ndZdYbzVGP" target="_blank" rel="noopener noreferrer" class="channel-card glass-panel" id="contact-discord">
+			<a href="https://discord.gg/ndZdYbzVGP" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-discord">
 				<div class="card-glow"></div>
 				<div class="channel-icon" style="--channel-color: #5865F2;">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
@@ -30,7 +30,7 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
-			<a href="https://bsky.app/profile/yutila.bsky.social" target="_blank" rel="noopener noreferrer" class="channel-card glass-panel" id="contact-bluesky">
+			<a href="https://bsky.app/profile/yutila.bsky.social" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-bluesky">
 				<div class="card-glow"></div>
 				<div class="channel-icon" style="--channel-color: #0085ff;">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-1 0 24 24" fill="currentColor">
@@ -46,7 +46,7 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
-			<a href="https://www.youtube.com/@yutila_org" target="_blank" rel="noopener noreferrer" class="channel-card glass-panel" id="contact-youtube">
+			<a href="https://www.youtube.com/@yutila_org" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-youtube">
 				<div class="card-glow"></div>
 				<div class="channel-icon" style="--channel-color: #FF0000;">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
@@ -62,7 +62,7 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
-			<a href="https://fairplay.video/channel/yutila" target="_blank" rel="noopener noreferrer" class="channel-card glass-panel" id="contact-fairplay">
+			<a href="https://fairplay.video/channel/yutila" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-fairplay">
 				<div class="card-glow"></div>
 				<div class="channel-icon" style="--channel-color: #0088cc;">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
@@ -78,7 +78,7 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
-			<a href="mailto:yutila@atomicmail.io" class="channel-card glass-panel" id="contact-email">
+			<a href="mailto:yutila@atomicmail.io" class="glass-card channel-card" id="contact-email">
 				<div class="card-glow"></div>
 				<div class="channel-icon" style="--channel-color: var(--yutila-green);">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -99,48 +99,14 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	.contact-container {
-		display: flex;
-		flex-direction: column;
+	.page-container {
 		gap: 4rem;
-		max-width: 1000px;
-		margin: 0 auto;
 	}
 
-	.contact-hero {
-		padding-top: 1rem;
-	}
-
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		color: var(--text-muted);
-		font-size: 0.95rem;
-		font-weight: 500;
-		margin-bottom: 2rem;
-		text-decoration: none;
-		transition: color 0.2s ease, transform 0.2s ease;
-	}
-
-	.back-link:hover {
-		color: var(--text-color);
-		transform: translateX(-4px);
-	}
-
-	h1 {
-		font-size: clamp(3rem, 8vw, 4.5rem);
-		font-weight: 800;
-		line-height: 1.1;
-		margin: 0 0 1rem 0;
-		letter-spacing: -0.02em;
-	}
-
-	.subtitle {
+	.contact-subtitle {
 		font-size: clamp(1.2rem, 2.5vw, 1.5rem);
 		color: var(--text-color);
 		opacity: 0.9;
-		margin: 0;
 		max-width: 800px;
 	}
 
@@ -150,45 +116,17 @@ import Layout from '../layouts/Layout.astro';
 		gap: 1rem;
 	}
 
-	.glass-panel {
-		background: rgba(39, 39, 42, 0.4);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		border: 1px solid rgba(255, 255, 255, 0.05);
-		border-radius: 16px;
-		padding: 2rem 2.5rem;
-		position: relative;
-		overflow: hidden;
-		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	.glass-panel:hover {
-		transform: translateY(-4px);
-		border-color: rgba(255, 255, 255, 0.1);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-	}
-
-	.card-glow {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 1px;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-		opacity: 0;
-		transition: opacity 0.5s ease;
-	}
-
-	.glass-panel:hover .card-glow {
-		opacity: 1;
-	}
-
 	.channel-card {
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
 		text-decoration: none;
 		cursor: pointer;
+		padding: 2rem 2.5rem;
+	}
+
+	.channel-card:hover {
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 	}
 
 	.channel-icon {
@@ -205,7 +143,7 @@ import Layout from '../layouts/Layout.astro';
 		transition: transform 0.3s ease, background 0.3s ease;
 	}
 
-	.glass-panel:hover .channel-icon {
+	.channel-card:hover .channel-icon {
 		transform: scale(1.08);
 		background: color-mix(in srgb, var(--channel-color) 20%, transparent);
 	}
@@ -241,7 +179,7 @@ import Layout from '../layouts/Layout.astro';
 		transition: all 0.3s ease;
 	}
 
-	.glass-panel:hover .channel-arrow {
+	.channel-card:hover .channel-arrow {
 		opacity: 1;
 		transform: translate(0, 0);
 	}

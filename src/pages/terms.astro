@@ -3,18 +3,18 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Terms & Policies">
-	<div class="terms-container">
-		<div class="header-section">
+	<div class="page-container">
+		<div class="page-header">
             <a href="/" class="back-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                 Back Home
             </a>
 			<h1>Terms</h1>
-			<p class="subtitle">Legal, security, and operational guidelines.</p>
+			<p class="page-subtitle">Legal, security, and operational guidelines.</p>
 		</div>
 
 		<div class="documents-grid">
-			<a href="/terms/security" class="doc-card">
+			<a href="/terms/security" class="glass-card doc-card">
 				<div class="card-glow" style="--glow-color: var(--yutila-red)"></div>
 				<div class="doc-icon" style="color: var(--yutila-red)">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -23,7 +23,7 @@ import Layout from '../layouts/Layout.astro';
 				<p>Review our comprehensive security governance, framework standards, and secure development lifecycle rules.</p>
 			</a>
 
-			<a href="/terms/privacy" class="doc-card">
+			<a href="/terms/privacy" class="glass-card doc-card">
 				<div class="card-glow" style="--glow-color: var(--yutila-blue, #3b82f6)"></div>
 				<div class="doc-icon" style="color: var(--yutila-blue, #3b82f6)">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -32,7 +32,7 @@ import Layout from '../layouts/Layout.astro';
 				<p>Understand how we process, protect, and minimize data to guarantee your fundamental right to privacy.</p>
 			</a>
 
-			<a href="/terms/ethics" class="doc-card">
+			<a href="/terms/ethics" class="glass-card doc-card">
 				<div class="card-glow" style="--glow-color: var(--yutila-green, #10b981)"></div>
 				<div class="doc-icon" style="color: var(--yutila-green, #10b981)">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
@@ -45,91 +45,16 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	.terms-container {
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-        max-width: 1000px;
-        margin: 0 auto;
-	}
-
-	.header-section {
-		padding-top: 1rem;
-	}
-
-    .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        font-weight: 500;
-        margin-bottom: 2rem;
-        text-decoration: none;
-        transition: color 0.2s ease, transform 0.2s ease;
-    }
-
-    .back-link:hover {
-        color: var(--text-color);
-        transform: translateX(-4px);
-    }
-
-	h1 {
-		font-size: clamp(3rem, 7vw, 4.5rem);
-		font-weight: 800;
-		line-height: 1.1;
-		margin: 0 0 1rem 0;
-		letter-spacing: -0.02em;
-	}
-
-	.subtitle {
-		font-size: clamp(1.1rem, 2vw, 1.3rem);
-		color: var(--text-muted);
-		max-width: 600px;
-		line-height: 1.6;
-		margin: 0;
-	}
-
 	.documents-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 		gap: 1.5rem;
 	}
 
 	.doc-card {
-		background: rgba(39, 39, 42, 0.4);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		border: 1px solid rgba(255, 255, 255, 0.05);
-		border-radius: 16px;
-		padding: 2rem;
 		display: flex;
 		flex-direction: column;
 		text-decoration: none;
-		position: relative;
-		overflow: hidden;
-		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	.doc-card:hover {
-		transform: translateY(-4px);
-		border-color: rgba(255, 255, 255, 0.1);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-	}
-
-	.card-glow {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 2px;
-		background: linear-gradient(90deg, transparent, var(--glow-color), transparent);
-		opacity: 0;
-		transition: opacity 0.5s ease;
-	}
-
-	.doc-card:hover .card-glow {
-		opacity: 1;
 	}
 
 	.doc-icon {
@@ -157,5 +82,11 @@ import Layout from '../layouts/Layout.astro';
 		line-height: 1.6;
 		margin: 0;
 		flex: 1;
+	}
+
+	@media (max-width: 768px) {
+		.documents-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

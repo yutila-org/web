@@ -147,7 +147,93 @@ const { title } = Astro.props;
 		justify-content: center;
 	}
 
+	/* Shared page container */
+	.page-container {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	/* Shared page header */
+	.page-header {
+		padding-top: 1rem;
+	}
+
+	.page-header h1 {
+		font-size: clamp(3rem, 7vw, 4.5rem);
+		font-weight: 800;
+		line-height: 1.1;
+		margin: 0 0 1rem 0;
+		letter-spacing: -0.02em;
+	}
+
+	.page-subtitle {
+		font-size: clamp(1.1rem, 2vw, 1.3rem);
+		color: var(--text-muted);
+		max-width: 600px;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	/* Shared back link */
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+		margin-bottom: 2rem;
+		text-decoration: none;
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.back-link:hover {
+		color: var(--text-color);
+		transform: translateX(-4px);
+	}
+
+	/* Shared glass card */
+	.glass-card {
+		background: rgba(39, 39, 42, 0.4);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 16px;
+		padding: 2rem;
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.glass-card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(255, 255, 255, 0.1);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+	}
+
+	/* Shared card glow */
+	.card-glow {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: linear-gradient(90deg, transparent, var(--glow-color, rgba(255, 255, 255, 0.2)), transparent);
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+
+	.glass-card:hover .card-glow {
+		opacity: 1;
+	}
+
 	@media (max-width: 768px) {
+		main {
+			padding: 2rem 1rem;
+		}
 		nav {
 			flex-direction: column;
 			gap: 1rem;
