@@ -14,17 +14,17 @@ The collection of all telemetry, analytics, and usage data complies with the pri
 
 We operate under three primary tenets of data collection:
 
-* **Transparency:** Users must be explicitly informed about what data is collected, why it is collected, who has access to it, and how they can opt-out (where applicable). Silence does not equal consent.
-* **Minimization:** Only the minimum necessary data required for function, performance routing, or essential security auditing shall be collected. We do not aggregate data.
-* **Anonymization:** Any personal data that must be collected is anonymized, aggregated, or pseudonymized where technically feasible and relevant to the purpose of collection.
+- **Transparency:** Users must be explicitly informed about what data is collected, why it is collected, who has access to it, and how they can opt-out (where applicable). Silence does not equal consent.
+- **Minimization:** Only the minimum necessary data required for function, performance routing, or essential security auditing shall be collected. We do not aggregate data.
+- **Anonymization:** Any personal data that must be collected is anonymized, aggregated, or pseudonymized where technically feasible and relevant to the purpose of collection.
 
 # **3. How We Use Information**
 
 We only process data when it is legally justified. The legal bases upon which we collect data include:
 
-* **Contractual Necessity:** Data required to deliver the core service you requested (e.g., account creation, multiplayer matchmaking).
-* **Legitimate Interests:** Data required for strict security auditing, fraud prevention, and ensuring system stability.
-* **Explicit Consent:** Data used for non-essential telemetry or marketing purposes. Consent for these categories is strictly opt-in.
+- **Contractual Necessity:** Data required to deliver the core service you requested (e.g., account creation, multiplayer matchmaking).
+- **Legitimate Interests:** Data required for strict security auditing, fraud prevention, and ensuring system stability.
+- **Explicit Consent:** Data used for non-essential telemetry or marketing purposes. Consent for these categories is strictly opt-in.
 
 # **4. Your Data Rights**
 
