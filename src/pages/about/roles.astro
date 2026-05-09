@@ -296,6 +296,7 @@ const orgStructure = [
 
   .role-desc.expanded {
     -webkit-line-clamp: unset;
+    display: block;
   }
 
   .read-more-btn {
@@ -389,16 +390,16 @@ const orgStructure = [
             btn.textContent = 'Read more';
             btn.setAttribute('aria-expanded', 'false');
             
-            // Temporarily remove clamp to measure true content height,
-            // because -webkit-line-clamp makes scrollHeight === clientHeight
+            // Measure the current clamped height
             const clampedHeight = desc.clientHeight;
-            desc.style.webkitLineClamp = 'unset';
-            desc.style.overflow = 'visible';
-            const fullHeight = desc.scrollHeight;
-            desc.style.webkitLineClamp = '';
-            desc.style.overflow = '';
+            
+            // Temporarily add the expanded class to get the full unclamped height
+            desc.classList.add('expanded');
+            const fullHeight = desc.clientHeight;
+            desc.classList.remove('expanded');
 
-            if (fullHeight > clampedHeight + 1) {
+            // If expanding it increased the height, then text was truncated
+            if (fullHeight > clampedHeight) {
               btn.style.display = 'inline-block';
             } else {
               btn.style.display = 'none';
