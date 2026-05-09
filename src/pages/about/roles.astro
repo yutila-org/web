@@ -376,7 +376,6 @@ const orgStructure = [
 
 <script>
   function setupReadMore() {
-    // Defer measurement until after the browser has completed layout
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         const cards = document.querySelectorAll('.role-card');
@@ -385,13 +384,21 @@ const orgStructure = [
           const btn = card.querySelector('.read-more-btn') as HTMLButtonElement;
           
           if (desc && btn) {
-            // Reset state for re-runs
+            // Reset state
             desc.classList.remove('expanded');
             btn.textContent = 'Read more';
             btn.setAttribute('aria-expanded', 'false');
             
-            // Check if text is clamped (scrollHeight > clientHeight means overflow)
-            if (desc.scrollHeight > desc.clientHeight + 1) {
+            // Temporarily remove clamp to measure true content height,
+            // because -webkit-line-clamp makes scrollHeight === clientHeight
+            const clampedHeight = desc.clientHeight;
+            desc.style.webkitLineClamp = 'unset';
+            desc.style.overflow = 'visible';
+            const fullHeight = desc.scrollHeight;
+            desc.style.webkitLineClamp = '';
+            desc.style.overflow = '';
+
+            if (fullHeight > clampedHeight + 1) {
               btn.style.display = 'inline-block';
             } else {
               btn.style.display = 'none';
