@@ -12,6 +12,15 @@ import Layout from '../layouts/Layout.astro';
 			<h1>Governance</h1>
 			<p class="page-subtitle">Internal policies, operational registries and response playbooks.</p>
 		</div>
+		<section class="roles-cta">
+			<div class="roles-cta-content">
+				<h2>Roles</h2>
+				<p>Delve into the operational architecture of Yutila. Our roles specification outlines the comprehensive hierarchy and distribution of responsibilities, illustrating how our divisions synchronize to execute our collective vision.</p>
+			</div>
+			<a href="/governance/roles" class="btn-primary btn-square" aria-label="View Organization Roles">
+				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+			</a>
+		</section>
 
 		<div class="category-section">
 			<h2 class="category-title">Security & Privacy</h2>
@@ -142,9 +151,83 @@ import Layout from '../layouts/Layout.astro';
 		flex: 1;
 	}
 
+	.roles-cta {
+		background: linear-gradient(145deg, #1f1f22, #171717);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+		padding: 2.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		margin-bottom: 3.5rem;
+	}
+
+	.roles-cta-content {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		text-align: left;
+		flex: 1;
+	}
+
+	.roles-cta h2 {
+		margin: 0;
+		font-size: 2rem;
+	}
+
+	.roles-cta p {
+		color: var(--text-muted);
+		font-size: 1.05rem;
+		max-width: 700px;
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: var(--text-color);
+		color: var(--bg-color);
+		font-weight: 600;
+		font-size: 1.05rem;
+		padding: 0.8rem 1.5rem;
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		flex-shrink: 0;
+	}
+
+	.btn-square {
+		width: 4rem;
+		height: 4rem;
+		padding: 0;
+		justify-content: center;
+		border-radius: 12px;
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+	}
+
+	.btn-primary svg {
+		transition: transform 0.2s ease;
+	}
+
+	.btn-primary:hover svg {
+		transform: translateX(4px);
+	}
+
 	@media (max-width: 768px) {
 		.documents-grid {
 			grid-template-columns: 1fr;
+		}
+		.roles-cta {
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 2rem 1.5rem;
 		}
 	}
 </style>

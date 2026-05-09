@@ -99,15 +99,6 @@ import Layout from '../layouts/Layout.astro';
 				<p class="conclusion-text">This governance-led approach ensures every project scales with the engineering rigor and security expected of a professional enterprise.</p>
 			</div>
 		</section>
-
-		<section class="roles-cta">
-			<h2>Roles</h2>
-			<p>Delve into the operational architecture of Yutila. Our roles specification outlines the comprehensive hierarchy and distribution of responsibilities, illustrating how our divisions synchronize to execute our collective vision.</p>
-			<a href="/about/roles" class="btn-primary">
-				View Organization Roles
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-			</a>
-		</section>
 	</div>
 </Layout>
 
@@ -272,65 +263,10 @@ import Layout from '../layouts/Layout.astro';
 		}
 	}
 
-	.roles-cta {
-		background: linear-gradient(145deg, #1f1f22, #171717);
-		border: 1px solid var(--border-color);
-		border-radius: 16px;
-		padding: 3rem;
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1.5rem;
-	}
-
-	.roles-cta h2 {
-		margin: 0;
-		font-size: 2rem;
-	}
-
-	.roles-cta p {
-		color: var(--text-muted);
-		font-size: 1.1rem;
-		max-width: 600px;
-		margin: 0;
-		line-height: 1.6;
-	}
-
-	.btn-primary {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		background: var(--text-color);
-		color: var(--bg-color);
-		font-weight: 600;
-		font-size: 1.05rem;
-		padding: 0.8rem 1.5rem;
-		border-radius: 8px;
-		text-decoration: none;
-		transition: all 0.2s ease;
-		margin-top: 1rem;
-	}
-
-	.btn-primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-	}
-
-	.btn-primary svg {
-		transition: transform 0.2s ease;
-	}
-
-	.btn-primary:hover svg {
-		transform: translateX(4px);
-	}
 
 	@media (max-width: 768px) {
 		.content-section {
 			grid-template-columns: 1fr;
-		}
-		.roles-cta {
-			padding: 2rem 1.5rem;
 		}
 	}
 </style>
