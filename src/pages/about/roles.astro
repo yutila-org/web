@@ -376,35 +376,40 @@ const orgStructure = [
 
 <script>
   function setupReadMore() {
-    const cards = document.querySelectorAll('.role-card');
-    cards.forEach(card => {
-      const desc = card.querySelector('.role-desc');
-      const btn = card.querySelector('.read-more-btn');
-      
-      if (desc && btn) {
-        // Reset state for re-runs
-        desc.classList.remove('expanded');
-        btn.textContent = 'Read more';
-        btn.setAttribute('aria-expanded', 'false');
-        
-        // Check if text is clamped
-        if (desc.scrollHeight > desc.clientHeight) {
-          (btn as HTMLElement).style.display = 'inline-block';
-        } else {
-          (btn as HTMLElement).style.display = 'none';
-        }
+    // Defer measurement until after the browser has completed layout
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const cards = document.querySelectorAll('.role-card');
+        cards.forEach(card => {
+          const desc = card.querySelector('.role-desc') as HTMLElement;
+          const btn = card.querySelector('.read-more-btn') as HTMLButtonElement;
+          
+          if (desc && btn) {
+            // Reset state for re-runs
+            desc.classList.remove('expanded');
+            btn.textContent = 'Read more';
+            btn.setAttribute('aria-expanded', 'false');
+            
+            // Check if text is clamped (scrollHeight > clientHeight means overflow)
+            if (desc.scrollHeight > desc.clientHeight + 1) {
+              btn.style.display = 'inline-block';
+            } else {
+              btn.style.display = 'none';
+            }
 
-        // We use an inline handler or replace the element to prevent multiple listeners on Astro page loads
-        const newBtn = btn.cloneNode(true) as HTMLButtonElement;
-        btn.parentNode?.replaceChild(newBtn, btn);
+            // Clone button to prevent duplicate listeners on Astro page transitions
+            const newBtn = btn.cloneNode(true) as HTMLButtonElement;
+            btn.parentNode?.replaceChild(newBtn, btn);
 
-        newBtn.addEventListener('click', () => {
-          desc.classList.toggle('expanded');
-          const isExpanded = desc.classList.contains('expanded');
-          newBtn.textContent = isExpanded ? 'Read less' : 'Read more';
-          newBtn.setAttribute('aria-expanded', isExpanded.toString());
+            newBtn.addEventListener('click', () => {
+              desc.classList.toggle('expanded');
+              const isExpanded = desc.classList.contains('expanded');
+              newBtn.textContent = isExpanded ? 'Read less' : 'Read more';
+              newBtn.setAttribute('aria-expanded', isExpanded.toString());
+            });
+          }
         });
-      }
+      });
     });
   }
 
