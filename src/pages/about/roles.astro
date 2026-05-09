@@ -87,7 +87,10 @@ const orgStructure = [
                   </span>
                 </div>
                 
-                <p class="role-desc">{role.desc}</p>
+                <div class="role-desc-container">
+                  <p class="role-desc">{role.desc}</p>
+                  <button class="read-more-btn" aria-expanded="false">Read more</button>
+                </div>
 
                 {(role.leads?.length > 0 || role.assignees?.length > 0) && (
                   <div class="role-members">
@@ -182,7 +185,7 @@ const orgStructure = [
     transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
-    height: 340px;
+    min-height: 340px;
   }
 
   .role-card::after {
@@ -271,17 +274,49 @@ const orgStructure = [
     border: 1px solid rgba(161, 161, 170, 0.3);
   }
 
+  .role-desc-container {
+    flex: 1;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .role-desc {
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.6;
-    margin: 0 0 1.5rem 0;
-    flex: 1;
+    margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .role-desc.expanded {
+    -webkit-line-clamp: unset;
+  }
+
+  .read-more-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.2);
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    display: none; /* hidden by default, shown via JS */
+  }
+
+  .read-more-btn:hover {
+    color: #fff;
+    text-decoration-color: #fff;
   }
 
   .role-members {
@@ -338,3 +373,41 @@ const orgStructure = [
     }
   }
 </style>
+
+<script>
+  function setupReadMore() {
+    const cards = document.querySelectorAll('.role-card');
+    cards.forEach(card => {
+      const desc = card.querySelector('.role-desc');
+      const btn = card.querySelector('.read-more-btn');
+      
+      if (desc && btn) {
+        // Reset state for re-runs
+        desc.classList.remove('expanded');
+        btn.textContent = 'Read more';
+        btn.setAttribute('aria-expanded', 'false');
+        
+        // Check if text is clamped
+        if (desc.scrollHeight > desc.clientHeight) {
+          (btn as HTMLElement).style.display = 'inline-block';
+        } else {
+          (btn as HTMLElement).style.display = 'none';
+        }
+
+        // We use an inline handler or replace the element to prevent multiple listeners on Astro page loads
+        const newBtn = btn.cloneNode(true) as HTMLButtonElement;
+        btn.parentNode?.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+          desc.classList.toggle('expanded');
+          const isExpanded = desc.classList.contains('expanded');
+          newBtn.textContent = isExpanded ? 'Read less' : 'Read more';
+          newBtn.setAttribute('aria-expanded', isExpanded.toString());
+        });
+      }
+    });
+  }
+
+  setupReadMore();
+  document.addEventListener('astro:page-load', setupReadMore);
+</script>
