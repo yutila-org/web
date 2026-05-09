@@ -9,7 +9,7 @@ const orgStructure = [
     roles: [
       {
         title: "Founder",
-        desc: "Leads organizational strategy and multidisciplinary system design. Capable of hands-on engineering across all domains.",
+        desc: "Leads organizational strategy and multidisciplinary system design. Capable of hands-on engineering across all domains. Directs the highest level roadmap and resource distribution to ensure long-term sustainability and architectural alignment across all active initiatives.",
         access: "Owner",
         leads: ["Acrilic", "Spider-Kyle"],
         assignees: [],
@@ -24,7 +24,7 @@ const orgStructure = [
     roles: [
       {
         title: "SecOps Director",
-        desc: "Oversees security architecture and operations. Directs incident response, threat intelligence, and aligns security strategy with risk tolerance.",
+        desc: "Oversees security architecture and operations. Directs incident response, threat intelligence, and aligns security strategy with risk tolerance. Responsible for building robust monitoring pipelines and establishing organizational security policies to mitigate emerging threats.",
         access: "Admin",
         leads: ["Acrilic"],
         assignees: [],
@@ -32,7 +32,7 @@ const orgStructure = [
       },
       {
         title: "SecOps Operator",
-        desc: "Executes continuous security testing, detection engineering, and infrastructure hardening. Front-line responder during active security threats.",
+        desc: "Executes continuous security testing, detection engineering, and infrastructure hardening. Front-line responder during active security threats. Conducts deep-dive log analysis, forensic evidence collection, and automated vulnerability scanning to secure the perimeter.",
         access: "Maintainer",
         leads: [],
         assignees: [],
@@ -47,7 +47,7 @@ const orgStructure = [
     roles: [
       {
         title: "Systems Engineer",
-        desc: "Drives full-stack implementation and technical standards. Ensures system performance, reliability, and architectural integrity across domains.",
+        desc: "Drives full-stack implementation and technical standards. Ensures system performance, reliability, and architectural integrity across domains. Works closely with other engineering teams to implement high-performance subsystems and optimize technical debt.",
         access: "Write",
         leads: [],
         assignees: ["Lain"],
@@ -67,6 +67,11 @@ const orgStructure = [
       </a>
       <h1>Organizational Structure</h1>
       <p class="page-subtitle">A detailed overview of our core pillars and specialized roles.</p>
+      
+      <div class="role-distinctions">
+        <p><strong>Leads:</strong> Primary directors who oversee strategy and high-level execution for a role.</p>
+        <p><strong>Assignees:</strong> Active contributors who implement features and execute tasks within that role's domain.</p>
+      </div>
     </div>
 
     <div class="pillars-container">
@@ -87,26 +92,32 @@ const orgStructure = [
                   </span>
                 </div>
                 
-                <div class="role-desc-container">
+                <expandable-desc>
                   <p class="role-desc">{role.desc}</p>
                   <button class="read-more-btn" aria-expanded="false">Read more</button>
-                </div>
+                </expandable-desc>
 
                 {(role.leads?.length > 0 || role.assignees?.length > 0) && (
-                  <div class="role-members">
-                    {role.leads?.length > 0 && (
-                      <div class="member-group">
-                        <span class="member-label">Leads:</span>
-                        <span class="member-names">{role.leads.join(', ')}</span>
-                      </div>
-                    )}
-                    {role.assignees?.length > 0 && (
-                      <div class="member-group">
-                        <span class="member-label">Assignees:</span>
-                        <span class="member-names">{role.assignees.join(', ')}</span>
-                      </div>
-                    )}
-                  </div>
+                  <details class="role-members-details">
+                    <summary class="members-summary">
+                      Members
+                      <svg class="members-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </summary>
+                    <div class="role-members-content">
+                      {role.leads?.length > 0 && (
+                        <div class="member-group">
+                          <span class="member-label">Leads:</span>
+                          <span class="member-names">{role.leads.join(', ')}</span>
+                        </div>
+                      )}
+                      {role.assignees?.length > 0 && (
+                        <div class="member-group">
+                          <span class="member-label">Assignees:</span>
+                          <span class="member-names">{role.assignees.join(', ')}</span>
+                        </div>
+                      )}
+                    </div>
+                  </details>
                 )}
 
                 <div class="criteria-list">
@@ -126,6 +137,31 @@ const orgStructure = [
 <style>
   .roles-page {
     gap: 4rem;
+  }
+
+  .role-distinctions {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 2rem;
+    max-width: 700px;
+  }
+
+  .role-distinctions p {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .role-distinctions p:last-child {
+    margin-bottom: 0;
+  }
+
+  .role-distinctions strong {
+    color: var(--text-color);
   }
 
   .pillars-container {
@@ -274,7 +310,7 @@ const orgStructure = [
     border: 1px solid rgba(161, 161, 170, 0.3);
   }
 
-  .role-desc-container {
+  expandable-desc {
     flex: 1;
     margin: 0 0 1.5rem 0;
     display: flex;
@@ -302,33 +338,80 @@ const orgStructure = [
   .read-more-btn {
     background: none;
     border: none;
-    color: var(--text-color);
+    color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 500;
     padding: 0;
     margin-top: 0.5rem;
     cursor: pointer;
     text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.2);
+    text-decoration-color: rgba(255, 255, 255, 0.1);
     text-underline-offset: 4px;
     transition: color 0.2s ease, text-decoration-color 0.2s ease;
     display: none; /* hidden by default, shown via JS */
   }
 
   .read-more-btn:hover {
-    color: #fff;
-    text-decoration-color: #fff;
+    color: var(--text-color);
+    text-decoration-color: var(--text-color);
   }
 
-  .role-members {
+  /* Members Collapsible Styles */
+  .role-members-details {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .role-members-details[open] {
+    padding-bottom: 0.75rem;
+  }
+
+  .role-members-details > summary {
+    list-style: none;
+  }
+  
+  .role-members-details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .members-summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    user-select: none;
+    transition: background 0.2s ease, color 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .members-summary:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-color);
+  }
+
+  .members-arrow {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+  }
+
+  .role-members-details[open] .members-arrow {
+    transform: rotate(180deg);
+  }
+
+  .role-members-content {
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 0.25rem;
   }
 
   .member-group {
@@ -376,51 +459,74 @@ const orgStructure = [
 </style>
 
 <script>
-  function setupReadMore() {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const cards = document.querySelectorAll('.role-card');
-        cards.forEach(card => {
-          const desc = card.querySelector('.role-desc') as HTMLElement;
-          const btn = card.querySelector('.read-more-btn') as HTMLButtonElement;
-          
-          if (desc && btn) {
-            // Reset state
-            desc.classList.remove('expanded');
-            btn.textContent = 'Read more';
-            btn.setAttribute('aria-expanded', 'false');
-            
-            // Measure the current clamped height
-            const clampedHeight = desc.clientHeight;
-            
-            // Temporarily add the expanded class to get the full unclamped height
-            desc.classList.add('expanded');
-            const fullHeight = desc.clientHeight;
-            desc.classList.remove('expanded');
+  class ExpandableDesc extends HTMLElement {
+    private desc: HTMLElement | null;
+    private btn: HTMLButtonElement | null;
+    private isExpanded: boolean = false;
+    private resizeObserver: ResizeObserver | null = null;
 
-            // If expanding it increased the height, then text was truncated
-            if (fullHeight > clampedHeight) {
-              btn.style.display = 'inline-block';
-            } else {
-              btn.style.display = 'none';
-            }
+    constructor() {
+      super();
+      this.desc = this.querySelector('.role-desc');
+      this.btn = this.querySelector('.read-more-btn');
+    }
 
-            // Clone button to prevent duplicate listeners on Astro page transitions
-            const newBtn = btn.cloneNode(true) as HTMLButtonElement;
-            btn.parentNode?.replaceChild(newBtn, btn);
+    connectedCallback() {
+      if (this.desc && this.btn) {
+        this.btn.addEventListener('click', () => this.toggle());
+        
+        // Use ResizeObserver to reliably detect layout/font changes
+        this.resizeObserver = new ResizeObserver(() => this.checkTruncation());
+        this.resizeObserver.observe(this.desc);
+        
+        // Initial check
+        requestAnimationFrame(() => this.checkTruncation());
+      }
+    }
 
-            newBtn.addEventListener('click', () => {
-              desc.classList.toggle('expanded');
-              const isExpanded = desc.classList.contains('expanded');
-              newBtn.textContent = isExpanded ? 'Read less' : 'Read more';
-              newBtn.setAttribute('aria-expanded', isExpanded.toString());
-            });
-          }
-        });
-      });
-    });
+    disconnectedCallback() {
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+      }
+    }
+
+    checkTruncation() {
+      if (!this.desc || !this.btn || this.isExpanded) return;
+
+      // Measure
+      const clampedHeight = this.desc.clientHeight;
+      this.desc.classList.add('expanded');
+      const fullHeight = this.desc.clientHeight;
+      this.desc.classList.remove('expanded');
+
+      // Add a small threshold (1px) to prevent floating point false positives
+      if (fullHeight > clampedHeight + 1) {
+        this.btn.style.display = 'inline-block';
+      } else {
+        this.btn.style.display = 'none';
+      }
+    }
+
+    toggle() {
+      if (!this.desc || !this.btn) return;
+      
+      this.isExpanded = !this.isExpanded;
+      if (this.isExpanded) {
+        this.desc.classList.add('expanded');
+        this.btn.textContent = 'Read less';
+        this.btn.setAttribute('aria-expanded', 'true');
+      } else {
+        this.desc.classList.remove('expanded');
+        this.btn.textContent = 'Read more';
+        this.btn.setAttribute('aria-expanded', 'false');
+        // Re-check just in case window was resized while expanded
+        this.checkTruncation();
+      }
+    }
   }
 
-  setupReadMore();
-  document.addEventListener('astro:page-load', setupReadMore);
+  // Register Web Component if not already defined (important for Astro View Transitions)
+  if (!customElements.get('expandable-desc')) {
+    customElements.define('expandable-desc', ExpandableDesc);
+  }
 </script>
