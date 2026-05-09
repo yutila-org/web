@@ -1,0 +1,20 @@
+---
+import BackLink from './BackLink.astro';
+
+interface Props {
+	backHref: string;
+	backLabel: string;
+	title: string;
+	subtitle?: string;
+	subtitleClass?: string;
+}
+
+const { backHref, backLabel, title, subtitle, subtitleClass } = Astro.props;
+---
+
+<div class="page-header">
+	<BackLink href={backHref} label={backLabel} />
+	<h1>{title}</h1>
+	{subtitle && <p class:list={["page-subtitle", subtitleClass]}>{subtitle}</p>}
+	<slot />
+</div>

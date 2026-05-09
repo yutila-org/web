@@ -1,99 +1,98 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ExternalArrow from '../components/ExternalArrow.astro';
+
+const channels = [
+	{
+		href: "https://discord.gg/ndZdYbzVGP",
+		id: "contact-discord",
+		color: "#5865F2",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+		</svg>`,
+		title: "Discord",
+		description: "Join our community server for real-time discussions and updates.",
+		external: true,
+	},
+	{
+		href: "https://bsky.app/profile/yutila.bsky.social",
+		id: "contact-bluesky",
+		color: "#0085ff",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-1 0 24 24" fill="currentColor">
+			<path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.601 3.495 6.19 3.244-4.597.792-6.107 3.408-3.432 6.028 2.527 2.476 4.432 1.782 6.108-.449 1.045-1.392 1.427-2.204 1.51-2.582.083.378.465 1.19 1.51 2.582 1.676 2.231 3.581 2.925 6.108.449 2.675-2.62 1.165-5.236-3.432-6.028 2.589.251 5.405-.617 6.19-3.244C21.622 9.418 22 4.458 22 3.768c0-.688-.139-1.86-.902-2.203-.659-.299-1.664-.621-4.3 1.24C14.046 4.747 11.087 8.686 12 10.8z"/>
+		</svg>`,
+		title: "Bluesky",
+		description: "Follow us on Bluesky for announcements and project showcases.",
+		external: true,
+	},
+	{
+		href: "https://www.youtube.com/@yutila_org",
+		id: "contact-youtube",
+		color: "#FF0000",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+		</svg>`,
+		title: "YouTube",
+		description: "Watch development logs, tutorials, and behind-the-scenes content.",
+		external: true,
+	},
+	{
+		href: "https://fairplay.video/channel/yutila",
+		id: "contact-fairplay",
+		color: "#0088cc",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 2.4A9.6 9.6 0 0 1 21.6 12 9.6 9.6 0 0 1 12 21.6 9.6 9.6 0 0 1 2.4 12 9.6 9.6 0 0 1 12 2.4zM9.6 7.2v9.6l8.4-4.8z"/>
+		</svg>`,
+		title: "FairPlay",
+		description: "Ad-free, no tracking, community-driven video platform.",
+		external: true,
+	},
+	{
+		href: "mailto:yutila@atomicmail.io",
+		id: "contact-email",
+		color: "var(--yutila-green)",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<rect x="2" y="4" width="20" height="16" rx="2"></rect>
+			<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+		</svg>`,
+		title: "Email",
+		description: `Reach us directly at <span class="email-highlight">yutila@atomicmail.io</span> for inquiries.`,
+		external: false,
+	},
+];
 ---
 
 <Layout title="Contact Yutila">
 	<div class="page-container">
-		<div class="page-header">
-			<a href="/" class="back-link">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-				Back Home
-			</a>
-			<h1>Contact</h1>
-			<p class="page-subtitle contact-subtitle">Get in touch with us through any of the channels below.</p>
-		</div>
+		<PageHeader
+			backHref="/"
+			backLabel="Back Home"
+			title="Contact"
+			subtitle="Get in touch with us through any of the channels below."
+			subtitleClass="contact-subtitle"
+		/>
 
 		<section class="channels-grid">
-			<a href="https://discord.gg/ndZdYbzVGP" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-discord">
-				<div class="card-glow"></div>
-				<div class="channel-icon" style="--channel-color: #5865F2;">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-					</svg>
-				</div>
-				<div class="channel-info">
-					<h3>Discord</h3>
-					<p>Join our community server for real-time discussions and updates.</p>
-				</div>
-				<div class="channel-arrow">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-				</div>
-			</a>
-
-			<a href="https://bsky.app/profile/yutila.bsky.social" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-bluesky">
-				<div class="card-glow"></div>
-				<div class="channel-icon" style="--channel-color: #0085ff;">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="-1 0 24 24" fill="currentColor">
-						<path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.601 3.495 6.19 3.244-4.597.792-6.107 3.408-3.432 6.028 2.527 2.476 4.432 1.782 6.108-.449 1.045-1.392 1.427-2.204 1.51-2.582.083.378.465 1.19 1.51 2.582 1.676 2.231 3.581 2.925 6.108.449 2.675-2.62 1.165-5.236-3.432-6.028 2.589.251 5.405-.617 6.19-3.244C21.622 9.418 22 4.458 22 3.768c0-.688-.139-1.86-.902-2.203-.659-.299-1.664-.621-4.3 1.24C14.046 4.747 11.087 8.686 12 10.8z"/>
-					</svg>
-				</div>
-				<div class="channel-info">
-					<h3>Bluesky</h3>
-					<p>Follow us on Bluesky for announcements and project showcases.</p>
-				</div>
-				<div class="channel-arrow">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-				</div>
-			</a>
-
-			<a href="https://www.youtube.com/@yutila_org" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-youtube">
-				<div class="card-glow"></div>
-				<div class="channel-icon" style="--channel-color: #FF0000;">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-					</svg>
-				</div>
-				<div class="channel-info">
-					<h3>YouTube</h3>
-					<p>Watch development logs, tutorials, and behind-the-scenes content.</p>
-				</div>
-				<div class="channel-arrow">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-				</div>
-			</a>
-
-			<a href="https://fairplay.video/channel/yutila" target="_blank" rel="noopener noreferrer" class="glass-card channel-card" id="contact-fairplay">
-				<div class="card-glow"></div>
-				<div class="channel-icon" style="--channel-color: #0088cc;">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 2.4A9.6 9.6 0 0 1 21.6 12 9.6 9.6 0 0 1 12 21.6 9.6 9.6 0 0 1 2.4 12 9.6 9.6 0 0 1 12 2.4zM9.6 7.2v9.6l8.4-4.8z"/>
-					</svg>
-				</div>
-				<div class="channel-info">
-					<h3>FairPlay</h3>
-					<p>Ad-free, no tracking, community-driven video platform.</p>
-				</div>
-				<div class="channel-arrow">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-				</div>
-			</a>
-
-			<a href="mailto:yutila@atomicmail.io" class="glass-card channel-card" id="contact-email">
-				<div class="card-glow"></div>
-				<div class="channel-icon" style="--channel-color: var(--yutila-green);">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<rect x="2" y="4" width="20" height="16" rx="2"></rect>
-						<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-					</svg>
-				</div>
-				<div class="channel-info">
-					<h3>Email</h3>
-					<p>Reach us directly at <span class="email-highlight">yutila@atomicmail.io</span> for inquiries.</p>
-				</div>
-				<div class="channel-arrow">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-				</div>
-			</a>
+			{channels.map(channel => (
+				<a
+					href={channel.href}
+					target={channel.external ? "_blank" : undefined}
+					rel={channel.external ? "noopener noreferrer" : undefined}
+					class="glass-card channel-card"
+					id={channel.id}
+				>
+					<div class="card-glow"></div>
+					<div class="channel-icon" style={`--channel-color: ${channel.color};`}>
+						<Fragment set:html={channel.icon} />
+					</div>
+					<div class="channel-info">
+						<h3>{channel.title}</h3>
+						<p set:html={channel.description} />
+					</div>
+					<ExternalArrow />
+				</a>
+			))}
 		</section>
 	</div>
 </Layout>

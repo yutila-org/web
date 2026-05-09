@@ -1,17 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
 ---
 
 <Layout title="Governance & Documentation">
 	<div class="page-container">
-		<div class="page-header">
-            <a href="/" class="back-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back Home
-            </a>
-			<h1>Governance</h1>
-			<p class="page-subtitle">Internal policies, operational registries and response playbooks.</p>
-		</div>
+		<PageHeader
+			backHref="/"
+			backLabel="Back Home"
+			title="Governance"
+			subtitle="Internal policies, operational registries and response playbooks."
+		/>
 		<section class="roles-cta">
 			<div class="roles-cta-content">
 				<h2>Roles</h2>

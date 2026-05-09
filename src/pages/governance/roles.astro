@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
 
 const orgStructure = [
   {
@@ -60,19 +61,17 @@ const orgStructure = [
 
 <Layout title="Yutila Roles & Organization">
   <div class="page-container roles-page">
-    <div class="page-header">
-      <a href="/governance" class="back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Back to Governance
-      </a>
-      <h1>Organizational Structure</h1>
-      <p class="page-subtitle">A detailed overview of our core pillars and specialized roles.</p>
-      
+    <PageHeader
+      backHref="/governance"
+      backLabel="Back to Governance"
+      title="Organizational Structure"
+      subtitle="A detailed overview of our core pillars and specialized roles."
+    >
       <div class="role-distinctions">
         <p><strong>Leads:</strong> Primary directors who oversee strategy and high-level execution for a role.</p>
         <p><strong>Assignees:</strong> Active contributors who implement features and execute tasks within that role's domain.</p>
       </div>
-    </div>
+    </PageHeader>
 
     <div class="pillars-container">
       {orgStructure.map(pillar => (
@@ -348,7 +347,7 @@ const orgStructure = [
     text-decoration-color: rgba(255, 255, 255, 0.1);
     text-underline-offset: 4px;
     transition: color 0.2s ease, text-decoration-color 0.2s ease;
-    display: none; /* hidden by default, shown via JS */
+    display: none;
   }
 
   .read-more-btn:hover {
@@ -356,7 +355,6 @@ const orgStructure = [
     text-decoration-color: var(--text-color);
   }
 
-  /* Members Collapsible Styles */
   .role-members-details {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -475,11 +473,9 @@ const orgStructure = [
       if (this.desc && this.btn) {
         this.btn.addEventListener('click', () => this.toggle());
         
-        // Use ResizeObserver to reliably detect layout/font changes
         this.resizeObserver = new ResizeObserver(() => this.checkTruncation());
         this.resizeObserver.observe(this.desc);
         
-        // Initial check
         requestAnimationFrame(() => this.checkTruncation());
       }
     }
@@ -493,13 +489,11 @@ const orgStructure = [
     checkTruncation() {
       if (!this.desc || !this.btn || this.isExpanded) return;
 
-      // Measure
       const clampedHeight = this.desc.clientHeight;
       this.desc.classList.add('expanded');
       const fullHeight = this.desc.clientHeight;
       this.desc.classList.remove('expanded');
 
-      // Add a small threshold (1px) to prevent floating point false positives
       if (fullHeight > clampedHeight + 1) {
         this.btn.style.display = 'inline-block';
       } else {
@@ -519,13 +513,11 @@ const orgStructure = [
         this.desc.classList.remove('expanded');
         this.btn.textContent = 'Read more';
         this.btn.setAttribute('aria-expanded', 'false');
-        // Re-check just in case window was resized while expanded
         this.checkTruncation();
       }
     }
   }
 
-  // Register Web Component if not already defined (important for Astro View Transitions)
   if (!customElements.get('expandable-desc')) {
     customElements.define('expandable-desc', ExpandableDesc);
   }
