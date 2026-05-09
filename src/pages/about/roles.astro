@@ -9,11 +9,11 @@ const orgStructure = [
     roles: [
       {
         title: "Founder",
-        desc: "Directs organizational strategy, drives comprehensive system design across all disciplines and can engineer implementations.",
+        desc: "Leads organizational strategy and multidisciplinary system design. Capable of hands-on engineering across all domains.",
         access: "Owner",
         leads: ["Acrilic", "Spider-Kyle"],
         assignees: [],
-        criteria: ["Strategic Direction", "Multidisciplinary Design", "Core Engineering"]
+        criteria: ["Strategy", "System Design", "Engineering"]
       }
     ]
   },
@@ -24,19 +24,19 @@ const orgStructure = [
     roles: [
       {
         title: "SecOps Director",
-        desc: "The SecOps Director oversees the architectural integrity and operational readiness of the entire security ecosystem. This role orchestrates the convergence of threat intelligence, offensive simulations, and incident response workflows to ensure a unified defense strategy. As the ultimate authority during critical security events, the Director directs high-level response tactics, manages the feedback loop between forensic findings and long-term security roadmaps, and ensures that all technical operations align with the organization’s risk tolerance and engineering standards.",
+        desc: "Oversees security architecture and operations. Directs incident response, threat intelligence, and aligns security strategy with risk tolerance.",
         access: "Admin",
         leads: ["Acrilic"],
         assignees: [],
-        criteria: ["Security Orchestration", "Strategic Response", "Forensic Oversight", "Architecture Governance", "Threat Intelligence", "Risk Mitigation"]
+        criteria: ["SecOps", "Incident Management", "Architecture", "Threat Intelligence"]
       },
       {
         title: "SecOps Operator",
-        desc: "This role serves as the primary technical engine for the security lifecycle, bridging the gap between offensive exploitation and defensive hardening. The Operator performs continuous security testing to identify systemic weaknesses while simultaneously implementing detection logic and infrastructure patching. During active threats, they function as the front-line responder, executing containment protocols and gathering forensic evidence to ensure that every incident results in a measurable improvement to the production environment’s resilience.",
+        desc: "Executes continuous security testing, detection engineering, and infrastructure hardening. Front-line responder during active security threats.",
         access: "Maintainer",
         leads: [],
         assignees: [],
-        criteria: ["Threat Simulation", "Detection Engineering", "Active Remediation", "Digital Forensics", "Infrastructure Hardening", "Vulnerability Research"]
+        criteria: ["Pen-Testing", "Detection", "Forensics", "Hardening"]
       }
     ]
   },
@@ -47,11 +47,11 @@ const orgStructure = [
     roles: [
       {
         title: "Systems Engineer",
-        desc: "Primary lead for cross-domain structural design, multidisciplinary implementation, and technical standards. Oversees supply chain integrity and full-stack feature development, ensuring performance, reliability, and architectural rigor while adhering to zero-cost principles.",
+        desc: "Drives full-stack implementation and technical standards. Ensures system performance, reliability, and architectural integrity across domains.",
         access: "Write",
         leads: [],
         assignees: ["Lain"],
-        criteria: ["Structural Design", "Technical Standards", "Supply Chain Validation", "Interface Modeling", "Multi-Domain Implementation", "Performance Optimization", "Design Feasibility", "Full-Stack Development"]
+        criteria: ["Architecture", "Full-Stack", "Performance", "Optimization"]
       }
     ]
   }
@@ -182,6 +182,7 @@ const orgStructure = [
     transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
+    height: 340px;
   }
 
   .role-card::after {
@@ -276,6 +277,11 @@ const orgStructure = [
     line-height: 1.6;
     margin: 0 0 1.5rem 0;
     flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .role-members {

@@ -13,65 +13,96 @@ import Layout from '../layouts/Layout.astro';
 			<p class="page-subtitle">Internal policies, operational registries and response playbooks.</p>
 		</div>
 
-		<div class="documents-grid">
-			<a href="/governance/security" class="glass-card doc-card">
-				<div class="card-glow" style="--glow-color: var(--yutila-red)"></div>
-				<div class="doc-icon" style="color: var(--yutila-red)">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-				</div>
-				<h2>Security Policies</h2>
-				<p>Review our comprehensive security governance, framework standards, and secure development lifecycle rules.</p>
-			</a>
+		<div class="category-section">
+			<h2 class="category-title">Security & Privacy</h2>
+			<div class="documents-grid">
+				<a href="/governance/security" class="glass-card doc-card">
+					<div class="card-glow" style="--glow-color: var(--yutila-red)"></div>
+					<div class="doc-icon" style="color: var(--yutila-red)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+					</div>
+					<h2>Security Policies</h2>
+					<p>Review our comprehensive security governance, framework standards, and secure development lifecycle rules.</p>
+				</a>
 
-			<a href="/governance/privacy" class="glass-card doc-card">
-				<div class="card-glow" style="--glow-color: var(--yutila-blue, #3b82f6)"></div>
-				<div class="doc-icon" style="color: var(--yutila-blue, #3b82f6)">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-				</div>
-				<h2>Privacy Policies</h2>
-				<p>Understand how we process, protect, and minimize data to guarantee your fundamental right to privacy.</p>
-			</a>
+				<a href="/governance/privacy" class="glass-card doc-card">
+					<div class="card-glow" style="--glow-color: var(--yutila-blue, #3b82f6)"></div>
+					<div class="doc-icon" style="color: var(--yutila-blue, #3b82f6)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+					</div>
+					<h2>Privacy Policies</h2>
+					<p>Understand how we process, protect, and minimize data to guarantee your fundamental right to privacy.</p>
+				</a>
+			</div>
+		</div>
 
-			<a href="/governance/ethics" class="glass-card doc-card">
-				<div class="card-glow" style="--glow-color: var(--yutila-green, #10b981)"></div>
-				<div class="doc-icon" style="color: var(--yutila-green, #10b981)">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-				</div>
-				<h2>Deontological Code</h2>
-				<p>Read our Code of Ethics guiding our engineering and development procedures per international standards.</p>
-			</a>
+		<div class="category-section">
+			<h2 class="category-title">Governance & Ethics</h2>
+			<div class="documents-grid">
+				<a href="/governance/ethics" class="glass-card doc-card">
+					<div class="card-glow" style="--glow-color: var(--yutila-green, #10b981)"></div>
+					<div class="doc-icon" style="color: var(--yutila-green, #10b981)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+					</div>
+					<h2>Deontological Code</h2>
+					<p>Read our Code of Ethics guiding our engineering and development procedures per international standards.</p>
+				</a>
+			</div>
+		</div>
 
-			<a href="/governance/dependencies" class="glass-card doc-card">
-				<div class="card-glow" style="--glow-color: var(--yutila-orange, #f97316)"></div>
-				<div class="doc-icon" style="color: var(--yutila-orange, #f97316)">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-				</div>
-				<h2>Dependency Registry</h2>
-				<p>Authorized database of dependencies and compliance with organizational security policies.</p>
-			</a>
+		<div class="category-section">
+			<h2 class="category-title">Dependencies & Access</h2>
+			<div class="documents-grid">
+				<a href="/governance/dependencies" class="glass-card doc-card">
+					<div class="card-glow" style="--glow-color: var(--yutila-orange, #f97316)"></div>
+					<div class="doc-icon" style="color: var(--yutila-orange, #f97316)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+					</div>
+					<h2>Dependency Registry</h2>
+					<p>Authorized database of dependencies and compliance with organizational security policies.</p>
+				</a>
 
-			<a href="/governance/access-control" class="glass-card doc-card">
-				<div class="card-glow" style="--glow-color: var(--yutila-purple, #9333ea)"></div>
-				<div class="doc-icon" style="color: var(--yutila-purple, #9333ea)">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-				</div>
-				<h2>Access Control</h2>
-				<p>Hybrid RBAC/ABAC framework defining individual resource provisioning and structural oversight.</p>
-			</a>
+				<a href="/governance/access-control" class="glass-card doc-card">
+					<div class="card-glow" style="--glow-color: var(--yutila-purple, #9333ea)"></div>
+					<div class="doc-icon" style="color: var(--yutila-purple, #9333ea)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+					</div>
+					<h2>Access Control</h2>
+					<p>Hybrid RBAC/ABAC framework defining individual resource provisioning and structural oversight.</p>
+				</a>
+			</div>
+		</div>
 
-			<a href="/governance/incident-response-playbook" class="glass-card doc-card">
-				<div class="card-glow" style="--glow-color: var(--yutila-indigo, #6366f1)"></div>
-				<div class="doc-icon" style="color: var(--yutila-indigo, #6366f1)">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M12 6v6l3-3-3-3"></path></svg>
-				</div>
-				<h2>Incident Playbook</h2>
-				<p>Step-by-step procedures for detecting, containing, and recovering from cybersecurity incidents.</p>
-			</a>
+		<div class="category-section">
+			<h2 class="category-title">Incident & Playbook</h2>
+			<div class="documents-grid">
+				<a href="/governance/incident-response-playbook" class="glass-card doc-card">
+					<div class="card-glow" style="--glow-color: var(--yutila-indigo, #6366f1)"></div>
+					<div class="doc-icon" style="color: var(--yutila-indigo, #6366f1)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M12 6v6l3-3-3-3"></path></svg>
+					</div>
+					<h2>Incident Playbook</h2>
+					<p>Step-by-step procedures for detecting, containing, and recovering from cybersecurity incidents.</p>
+				</a>
+			</div>
 		</div>
 	</div>
 </Layout>
 
 <style>
+	.category-section {
+		margin-bottom: 3rem;
+	}
+
+	.category-title {
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: var(--text-color);
+		margin-bottom: 1.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
 	.documents-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: "Dependency Registry"
-lastEdited: "30/4/2026"
+lastEdited: "9/5/2026"
 ---
 
 This document serves as the authorized database of dependencies for the Yutila website repository. All additions must comply with the organizational security policies regarding supply chain risk, licensing, and transitive auditing.
@@ -31,8 +31,8 @@ Dependencies requiring a formal audit, specific version pinning, and technical j
 
 | Ecosystem | Package Name | Version Constraint | License | Audit Date | Justification |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| npm | `motion` | `>=10.16.0, <11.0.0` | MIT | 2026-04-30 | Required for core UI animations. Full transitive tree verified via deps.dev. |
-| npm | `clsx` | `^2.1.0` | MIT | 2026-04-30 | Standard utility for conditional Tailwind class merging. No transitive bloat. |
+| npm | `motion` | `>=10.16.0, <11.0.0` | MIT | 30/4/2026 | Required for core UI animations. Full transitive tree verified via deps.dev. |
+| npm | `clsx` | `^2.1.0` | MIT | 30/4/2026 | Standard utility for conditional Tailwind class merging. No transitive bloat. |
 
 ## 3. Blocked Dependencies (Tier 3)
 
