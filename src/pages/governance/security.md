@@ -53,7 +53,7 @@ The security team is responsible for reviewing and approving all security polici
 
 ## **3.3. Incident Response and Business Continuity**
 
-All security incidents must be reported immediately to the **Incident Commander** via the designated secure channel. The Incident Commander will orchestrate the response following the documented procedures in the playbook linked below:
+All security incidents must be reported immediately to the **SecOps Director** via the designated secure channel. The SecOps Director will orchestrate the response following the documented procedures in the playbook linked below:
 
 [Cybersecurity Incident Response Playbook](/governance/incident-response-playbook)
 
@@ -62,15 +62,15 @@ All security incidents must be reported immediately to the **Incident Commander*
 In the event of a security anomaly, personnel are required to follow the established escalation path:
 
 - **Tier 1 (Individual Contributor/Developer):** Initial discovery. Alert the team lead and open an internal low-priority security ticket. Do not publicize the finding.
-- **Tier 2 (Security Engineering Team):** Triages the ticket. If validated and categorized as High or Critical severity, the team immediately hands over control to the Incident Commander.
-- **Tier 3 (Incident Commander):** Implements containment procedures, convenes the crisis management team, and decides whether legal and executive leadership need to be involved.
+- **Tier 2 (Security Engineering Team):** Triages the ticket. If validated and categorized as High or Critical severity, the team immediately hands over control to the SecOps Director.
+- **Tier 3 (SecOps Director):** Implements containment procedures, convenes the crisis management team, and decides whether legal and executive leadership need to be involved.
 - **Tier 4 (Executive & Legal):** Handles public vulnerability disclosure, law enforcement collaboration, and regulatory compliance reporting (e.g., data breach notifications within statutory timelines).
 
 ## **3.4. Coordinated Vulnerability Disclosure (CVD)**
 
-All external vulnerability reports submitted via the Yutila repository channels or email must be handled following the [OpenSSF Coordinated Vulnerability Disclosure Process](https://www.google.com/search?q=https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md).
+All external vulnerability reports submitted via the Yutila repository channels or email must be handled following the [OpenSSF Coordinated Vulnerability Disclosure Process](https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md).
 
-- The Incident Commander will validate the report and establish a secure communication channel with the researcher.
+- The SecOps Director will validate the report and establish a secure communication channel with the researcher.
 - Patches must be developed in an embargoed, private environment.
 - Public disclosure and security advisories will only be published simultaneously with the deployment of the remediated release.
 
@@ -121,19 +121,19 @@ For all software classified as games or entertainment products, the following se
 
 To ensure memory safety and prevent language-specific vulnerabilities natively, all development must adhere strictly to established secure coding standards for the respective language:
 
-- **C:** All C-based development, including the Camelot framework, must adhere to the [SEI CERT C Coding Standard](https://www.google.com/search?q=https://wiki.sei.cmu.edu/confluence/display/c/SEI%2BCERT%2BC%2BCoding%2BStandard). Compliance is structurally enforced via the project `Makefile` and CI pipeline; no code shall be merged unless it compiles with `-Wall -Wextra -Wpedantic -Werror`, passes all unit/integration tests with Clang/GCC Sanitizers enabled (`-fsanitize=address,undefined,leak`), and satisfies [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) static analysis using `cert-*` check profiles.
+- **C:** All C-based development, including the Camelot framework, must adhere to the [SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard). Compliance is structurally enforced via the project `Makefile` and CI pipeline; no code shall be merged unless it compiles with `-Wall -Wextra -Wpedantic -Werror`, passes all unit/integration tests with Clang/GCC Sanitizers enabled (`-fsanitize=address,undefined,leak`), and satisfies [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) static analysis using `cert-*` check profiles.
 - *(Additional language standards will be documented here prior to the adoption of new stacks in production).*
 
 ## **4.6. Third-Party Dependency Evaluation**
 
-Integrating unverified third-party libraries introduces immediate supply chain risk. To mitigate this, all integrated third-party code and internal distributions must conform to the [OpenChain ISO/IEC 5230](https://www.google.com/search?q=https://www.openchainproject.org/resources/iso-iec-5230) and [ISO/IEC 18974](https://www.google.com/search?q=https://www.openchainproject.org/resources/iso-iec-18974) standards for license compliance and security.
+Integrating unverified third-party libraries introduces immediate supply chain risk. To mitigate this, all integrated third-party code and internal distributions must conform to the [OpenChain ISO/IEC 5230](https://www.openchainproject.org/resources/iso-iec-5230) and [ISO/IEC 18974](https://www.openchainproject.org/resources/iso-iec-18974) standards for license compliance and security.
 
 **Tiered Dependency Registry**
 
 To balance development velocity with security, the Architecture pillar maintains a tiered model for validating external Open Source Software (OSS) before adoption into the production baseline:
 
 - **Tier 1 (Inherited Trust):** Dependencies from the yutila-org core registry or top-tier foundations (e.g., Linux Foundation, Apache, Google, Microsoft) with a GitHub Star count >1000 and active maintenance (commit within 6 months) are pre-validated for prototyping.
-- **Tier 2 (Manual Audit):** New or niche dependencies require a formal “Dependency Review” issue. The Architecture pillar must evaluate the project’s security posture using the [OpenSSF Concise Guide for Evaluating OSS](https://www.google.com/search?q=https://openssf.org/blog/2022/06/30/a-concise-guide-for-evaluating-open-source-software/), [SAFECode Principles](https://safecode.org/), and the [OpenSSF Scorecard](https://securityscorecards.dev/).
+- **Tier 2 (Manual Audit):** New or niche dependencies require a formal “Dependency Review” issue. The Architecture pillar must evaluate the project’s security posture using the [OpenSSF Concise Guide for Evaluating OSS](https://openssf.org/blog/2022/06/30/a-concise-guide-for-evaluating-open-source-software/), [SAFECode Principles](https://safecode.org/), and the [OpenSSF Scorecard](https://securityscorecards.dev/).
 - **Tier 3 (Blocked):** Dependencies with “Copyleft” licenses (e.g., [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html), [AGPL](https://www.gnu.org/licenses/agpl-3.0.en.html)) for non-open Source projects or known “Critical” vulnerabilities are strictly prohibited from the production baseline.
   - **Copyleft Rationale (For Non-Open Source Projects):** Copyleft licenses contain viral derivative-work clauses. Statically or dynamically linking GPLv3/AGPL code into proprietary or revenue-generating Yutila projects legally triggers this clause, mandating the public release of our entire closed-source IP under the same open license. To preserve our ability to monetize software or keep specific logic proprietary, only permissive licenses (e.g., [MIT](https://opensource.org/license/mit/), [Apache 2.0](https://opensource.org/license/apache-2-0/), [BSD-3-Clause](https://opensource.org/license/bsd-3-clause/)) are authorized for integration into non-open source tracks.
   - **Vulnerability Rationale:** “Critical” CVSS dependencies often enable unauthenticated Remote Code Execution (RCE). Deploying these risks a container escape, exposing the centralized physical infrastructure to complete compromise.

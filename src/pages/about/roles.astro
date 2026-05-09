@@ -11,7 +11,9 @@ const orgStructure = [
         title: "Founder",
         desc: "Directs organizational strategy, drives comprehensive system design across all disciplines and can engineer implementations.",
         access: "Owner",
-        criteria: ["Strategic Planning", "System Design", "Full-Stack Engineering"]
+        leads: ["Acrilic", "Spider-Kyle"],
+        assignees: [],
+        criteria: ["Strategic Direction", "Multidisciplinary Design", "Core Engineering"]
       }
     ]
   },
@@ -21,16 +23,20 @@ const orgStructure = [
     description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
     roles: [
       {
-        title: "Incident Commander",
-        desc: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
+        title: "SecOps Director",
+        desc: "The SecOps Director oversees the architectural integrity and operational readiness of the entire security ecosystem. This role orchestrates the convergence of threat intelligence, offensive simulations, and incident response workflows to ensure a unified defense strategy. As the ultimate authority during critical security events, the Director directs high-level response tactics, manages the feedback loop between forensic findings and long-term security roadmaps, and ensures that all technical operations align with the organization’s risk tolerance and engineering standards.",
         access: "Admin",
-        criteria: ["SecOps Orchestration", "Threat Intelligence", "Incident Management", "Digital Forensics"]
+        leads: ["Acrilic"],
+        assignees: [],
+        criteria: ["Security Orchestration", "Strategic Response", "Forensic Oversight", "Architecture Governance", "Threat Intelligence", "Risk Mitigation"]
       },
       {
-        title: "Incident Responder",
-        desc: "Executes technical containment protocols, system remediation, and forensic evidence collection during active security events under the orchestration of the Incident Commander.",
+        title: "SecOps Operator",
+        desc: "This role serves as the primary technical engine for the security lifecycle, bridging the gap between offensive exploitation and defensive hardening. The Operator performs continuous security testing to identify systemic weaknesses while simultaneously implementing detection logic and infrastructure patching. During active threats, they function as the front-line responder, executing containment protocols and gathering forensic evidence to ensure that every incident results in a measurable improvement to the production environment’s resilience.",
         access: "Maintainer",
-        criteria: ["Threat Containment", "Log Analysis", "System Remediation", "Forensic Evidence Handling"]
+        leads: [],
+        assignees: [],
+        criteria: ["Threat Simulation", "Detection Engineering", "Active Remediation", "Digital Forensics", "Infrastructure Hardening", "Vulnerability Research"]
       }
     ]
   },
@@ -43,7 +49,9 @@ const orgStructure = [
         title: "Systems Engineer",
         desc: "Primary lead for cross-domain structural design, multidisciplinary implementation, and technical standards. Oversees supply chain integrity and full-stack feature development, ensuring performance, reliability, and architectural rigor while adhering to zero-cost principles.",
         access: "Write",
-        criteria: ["Structural Design", "Technical Standards", "Full-Stack Performance", "Architectural Feasibility"]
+        leads: [],
+        assignees: ["Lain"],
+        criteria: ["Structural Design", "Technical Standards", "Supply Chain Validation", "Interface Modeling", "Multi-Domain Implementation", "Performance Optimization", "Design Feasibility", "Full-Stack Development"]
       }
     ]
   }
@@ -80,6 +88,23 @@ const orgStructure = [
                 </div>
                 
                 <p class="role-desc">{role.desc}</p>
+
+                {(role.leads?.length > 0 || role.assignees?.length > 0) && (
+                  <div class="role-members">
+                    {role.leads?.length > 0 && (
+                      <div class="member-group">
+                        <span class="member-label">Leads:</span>
+                        <span class="member-names">{role.leads.join(', ')}</span>
+                      </div>
+                    )}
+                    {role.assignees?.length > 0 && (
+                      <div class="member-group">
+                        <span class="member-label">Assignees:</span>
+                        <span class="member-names">{role.assignees.join(', ')}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div class="criteria-list">
                   {role.criteria.map(criterion => (
@@ -251,6 +276,33 @@ const orgStructure = [
     line-height: 1.6;
     margin: 0 0 1.5rem 0;
     flex: 1;
+  }
+
+  .role-members {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .member-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .member-label {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .member-names {
+    color: var(--text-color);
   }
 
   .criteria-list {

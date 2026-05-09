@@ -28,7 +28,7 @@ This section focuses on the proactive steps required before an incident occurs, 
 
 The active Incident Response Team (IRT) roles and their assignees are dynamically maintained in the [Roles](/about/roles) matrix.
 
-- **Single Source of Truth:** Refer to the "Security" pillar within the organizational matrix to identify the current Primary Owner and Fallback/Support personnel for critical response roles, specifically the **Incident Commander** and **Security Policy Officer**.
+- **Single Source of Truth:** Refer to the "Security" pillar within the organizational matrix to identify the current Primary Owner and Fallback/Support personnel for critical response roles, specifically the **SecOps Director** and **Security Policy Officer**.
 
 - **Contact Protocol:** Primary owners must be contacted immediately via the primary secure internal channel. If the primary owner is unreachable or the primary communication system is compromised, escalation immediately shifts to the designated Fallback/Support personnel using the offline backup contact registry.
 
@@ -70,7 +70,7 @@ The Security Lead Analyst will perform initial triage and assign a severity base
 
 | Severity | Description | Trigger for Escalation |
 | :---- | :---- | :---- |
-| **Critical** | Immediate and widespread impact on core services, significant data breach, or unauthorized access to production infrastructure. | Immediate notification of Incident Commander. |
+| **Critical** | Immediate and widespread impact on core services, significant data breach, or unauthorized access to production infrastructure. | Immediate notification of SecOps Director. |
 | **High** | Significant impact on one business unit or system; high-risk finding from DAST/SAST detected in pre-prod (Security Governance Policy, Sec. 4.2). | Incident Response Team (IRT) mobilization within 1 hour. |
 | **Medium** | Minor service disruption or localized security violation; high-risk finding from Risk Assessment (Security Governance Policy, Sec. 3.1). | Formal IRT notification within 4 hours. |
 | **Low** | Minimal impact, usually resolved by Level 1 support (e.g., failed log-in attempts). | Tracked and monitored, no IRT required. |
@@ -85,7 +85,7 @@ The team must quickly validate the incident and gather initial evidence.
 
 3. **Logging:** Ensure all logs are secured and not overwritten.
 
-4. **Chain of Custody:** If the incident is severe enough that it may require legal, regulatory, or law enforcement action, all digital evidence (logs, memory dumps, disk images) must be collected and preserved in a legally sound manner. The Incident Commander must ensure documentation of exactly who handled the evidence, when it was collected, and how it was securely stored.
+4. **Chain of Custody:** If the incident is severe enough that it may require legal, regulatory, or law enforcement action, all digital evidence (logs, memory dumps, disk images) must be collected and preserved in a legally sound manner. The SecOps Director must ensure documentation of exactly who handled the evidence, when it was collected, and how it was securely stored.
 
 # **4\. Response and Containment**
 
@@ -113,7 +113,7 @@ Eliminate the root cause of the incident.
 
 During a High or Critical incident, communication must be strictly managed to prevent misinformation and ensure regulatory compliance:
 
-- **Internal Communication:** The Incident Commander is solely responsible for providing status updates to the core team and executive leadership.
+- **Internal Communication:** The SecOps Director is solely responsible for providing status updates to the core team and executive leadership.
 
 - **External Notification:** Public Relations and Legal Counsel will collaborate to determine if, when, and how external stakeholders (affected users, partners, regulatory bodies) must be notified. All external communication must comply with applicable data breach notification laws and align with the organization's transparency standards.
 
@@ -157,7 +157,7 @@ During active breaches, responders should not rely on memory for complex isolati
 
 In the event of network isolation or vendor downtime, responders must not rely on live web access.
 
-- **Mirroring**: Every Incident Responder should have access to a local copy of the SANS DFIR Cheat Sheets or at least be able to not require them for regular operation.
+- **Mirroring**: Every SecOps Operator should have access to a local copy of the SANS DFIR Cheat Sheets or at least be able to not require them for regular operation.
 
 - **Storage**: Store these files in the organizational vault/incident-response/procedures/ directory on local machines.
 

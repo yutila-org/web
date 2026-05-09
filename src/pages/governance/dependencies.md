@@ -11,20 +11,20 @@ This document serves as the authorized database of dependencies for the Yutila w
 To protect proprietary IP from viral open-source mandates, all third-party code must utilize permissive licenses. 
 
 - **Permitted Licenses:** MIT, Apache-2.0, BSD-3-Clause, ISC.
-- **Strictly Prohibited:** GPLv3, AGPL (and any other Copyleft licenses).
+- **Strictly Prohibited:** GPLv3, AGPL (and any other Copyleft licenses) *(Applies to non-open source projects only)*. 
 
 ## 2. Approved Dependencies
 
 ### Tier 1: Inherited Trust
 Dependencies originating from top-tier foundations or highly active ecosystems (>1000 GitHub stars, active maintenance). These are pre-validated for integration.
 
-| Ecosystem | Package Name | License | Source / Maintainer | Validation Metric |
+| Ecosystem | Package Name | License | Source | Validation Metric |
 | :--- | :--- | :--- | :--- | :--- |
 | npm | `astro` | MIT | withastro | Official framework, active |
 | npm | `react` | MIT | facebook | Top-tier foundation, active |
 | npm | `react-dom` | MIT | facebook | Top-tier foundation, active |
 | npm | `tailwindcss` | MIT | tailwindlabs | >1k stars, active |
-| npm | `typescript` | Apache-2.0 | microsoft | Top-tier foundation, active |
+| npm | `typescript` | Apache-2.0 | Microsoft | Top-tier foundation, active |
 
 ### Tier 2: Manually Audited
 Dependencies requiring a formal audit, specific version pinning, and technical justification due to niche use cases or smaller maintainer footprints.
