@@ -13,7 +13,7 @@ Astro SSR application deployed natively to **Cloudflare Workers**. All security 
 
 ---
 
-## 🚀 Development & Commands
+## Development and Commands
 
 Run these commands from the root directory to manage the application lifecycle:
 
@@ -37,11 +37,13 @@ Run these commands from the root directory to manage the application lifecycle:
 
 ---
 
-## 🛡️ Edge Security Architecture
+## Edge Security Architecture
 
 ### HTTP Headers (`src/middleware.ts`)
 
-Every response passes through our custom Astro middleware, which injects a strict baseline of security headers:
+Every response passes through our custom Astro middleware, which injects a strict baseline of security headers. Headers are defined as a static `Record<string, string>` map and applied via an `Object.entries` loop. This trades negligible iteration overhead for a single-source-of-truth declaration that is trivial to extend.
+
+To add a new header, append a key-value pair to the `securityHeaders` object. No other code changes are required.
 
 | Header | Value | Purpose |
 |---|---|---|
@@ -75,7 +77,7 @@ Sessions use the `cloudflare-kv-binding` driver. The session cookie is hardened 
 
 ---
 
-## 🔗 Extending the CSP
+## Extending the CSP
 
 > [!CAUTION]
 > **Never use wildcards in the CSP.** Always whitelist the exact, fully-qualified domain names you trust.
@@ -106,3 +108,59 @@ connect-src 'self' https://plausible.io;
 ```csp
 img-src 'self' https://cdn.example.com;
 ```
+
+---
+
+## Maintainer Standards
+
+### Code is Documentation
+
+This codebase enforces a zero-comment policy. All inline comments, block comments, JSDoc annotations, HTML comments, and CSS comments have been removed. No new comments are to be introduced.
+
+Domain logic must be expressed entirely through:
+
+- **Strong typing** -- use explicit TypeScript interfaces and typed props for all component contracts.
+- **Descriptive naming** -- variable, function, and component names must be self-documenting. Prefer verbose clarity over terse abbreviation.
+- **Structural architecture** -- file placement, component boundaries, and data flow should make intent obvious without supplementary prose.
+
+If a block of code requires a comment to be understood, that block must be refactored until the comment becomes unnecessary.
+
+### Standard Components
+
+Three reusable components under `src/components/` replace previously duplicated markup. All new pages and layouts must use these components instead of inlining equivalent markup.
+
+| Component | Props | Usage |
+|---|---|---|
+| `BackLink.astro` | `href: string`, `label: string` | Renders a back-navigation link with an arrow SVG. Used in page headers and the markdown layout. |
+| `PageHeader.astro` | `backHref: string`, `backLabel: string`, `title: string`, `subtitle?: string`, `subtitleClass?: string` | Renders the full page header block: `BackLink` + `<h1>` + optional subtitle. Accepts a `<slot>` for additional header content (see `roles.astro` for the slot pattern). |
+| `ExternalArrow.astro` | None | Renders the external-link arrow icon (`channel-arrow`). Used inside channel/contact card links. |
+
+`PageHeader` internally imports and renders `BackLink`; consuming pages do not need to import both.
+
+### Data-Driven UI Pattern
+
+Static, repetitive UI blocks must be refactored into frontmatter data arrays mapped to a single template. The canonical example is `src/pages/contact.astro`, where five channel cards are defined as an array of objects and rendered via `.map()`.
+
+#### Structure
+
+```
+---
+const items = [
+  { href: "...", title: "...", icon: `<svg>...</svg>`, ... },
+];
+---
+
+{items.map(item => (
+  <a href={item.href}>
+    <Fragment set:html={item.icon} />
+    <h3>{item.title}</h3>
+  </a>
+))}
+```
+
+#### Requirements
+
+- Each data object must have a consistent shape. Define a TypeScript `interface` or inline type when the array exceeds three entries.
+- SVG markup stored as template literal strings is rendered via Astro's `set:html` directive. This bypasses Astro's default HTML escaping.
+- `set:html` performs no validation. A malformed SVG string will silently produce broken markup with no build-time or runtime error. Verify all raw SVG content renders correctly in the dev server before committing.
+- Boolean flags (e.g., `external: true`) control conditional attribute emission (`target`, `rel`). Pass `undefined` to omit an attribute entirely rather than passing an empty string.
