@@ -83,8 +83,8 @@ This policy outlines the mandatory security requirements for all software develo
 
 All developed software must undergo security testing governed by the formal Application Security Testing Analysis (ASTA) framework. To support our strictly zero-cost, open-source pipeline hosted entirely on a single 2013 Mac Pro server utilizing `ubuntu-latest` ephemeral GitHub Actions runners, ASTA operates as a bifurcated system:
 
-- **General Tools:** Applied globally to all repositories. Includes Trivy (SAST/Filesystem/IaC), Gitleaks (Secrets), Syft (SBOM), and OpenSSF Scorecard.
-- **Domain-Specific Tools:** Executed conditionally, only when the target repository contains matching language or infrastructure signatures. Includes Hadolint (Docker), Detekt (Kotlin), Find Sec Bugs (JVM bytecode), MobSF (Android binaries), Jazzer (JVM fuzzing), and OWASP ZAP (Web/API DAST).
+- **General Tools:** Applied globally to all repositories. Includes Trivy (SAST/Filesystem/IaC), Gitleaks (Secrets), and Syft (SBOM).
+- **Domain-Specific Tools:** Executed conditionally, only when the target repository contains matching language or infrastructure signatures. Includes Hadolint (Docker), Detekt (Kotlin), Find Sec Bugs (JVM bytecode), MobSF (Android binaries), Jazzer (JVM fuzzing), OWASP ZAP (Web/API DAST), and OpenSSF Scorecard (public repositories only — requires GitHub GraphQL API access unavailable to the default `GITHUB_TOKEN` on private repositories).
 
 ### **ASTA Three-Stage Pipeline**
 
@@ -110,7 +110,7 @@ All software development must utilize a CI/CD pipeline that is configured to enf
 To provide continuous visibility and threat remediation, the organization relies on a Security Orchestration, Automation, and Response (SOAR) architecture:
 
 - **Wazuh (SIEM & XDR):** Deployed across all hosts for continuous intrusion detection, security monitoring, and log correlation.
-- **General ASTA Tools (Trivy, Syft, Gitleaks, OpenSSF Scorecard):** Orchestrated globally across all CI pipelines to evaluate file systems, generate SBOMs, block hardcoded secrets, and assess repository health.
+- **General ASTA Tools (Trivy, Syft, Gitleaks):** Orchestrated globally across all CI pipelines to evaluate file systems, generate SBOMs, and block hardcoded secrets.
 - **Domain-Specific ASTA Tools:** Hadolint, Detekt, Find Sec Bugs, MobSF, Jazzer, and OWASP ZAP are conditionally orchestrated based on repository signatures, providing targeted linting, static analysis, dynamic testing, and fuzzing only when their respective domains are present.
 - **GitHub Actions:** Serves as the primary automation orchestrator, conditionally triggering Stage 1 and Stage 2 ASTA scans on pull requests based on repository domains, managing the asynchronous scheduling of Stage 3 execution, and orchestrating deployment blocks if security criteria are not met.
 
@@ -163,7 +163,7 @@ To maintain a zero-cost, high-integrity CI/CD pipeline, the following open-sourc
 - **Secrets Management:** [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) (Native Platform Feature)
 - **Secret Scanning:** [Gitleaks](https://github.com/gitleaks/gitleaks) (MIT License)
 - **SBOM Generation:** [Syft by Anchore](https://github.com/anchore/syft) (Apache 2.0 License)
-- **Repository Security Posture:** [OpenSSF Scorecard](https://github.com/ossf/scorecard) (Apache 2.0 License)
+- **Repository Security Posture (Public Repos Only):** [OpenSSF Scorecard](https://github.com/ossf/scorecard) (Apache 2.0 License)
 - **Docker Linting:** [Hadolint](https://github.com/hadolint/hadolint) (GPL-3.0 License)
 - **Kotlin Static Analysis:** [Detekt](https://github.com/detekt/detekt) (Apache 2.0 License)
 - **JVM Static Analysis:** [Find Sec Bugs](https://find-sec-bugs.github.io/) (LGPL-3.0 License)
