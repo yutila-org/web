@@ -84,7 +84,7 @@ This policy outlines the mandatory security requirements for all software develo
 All developed software must undergo security testing governed by the formal Application Security Testing Analysis (ASTA) framework. To support our strictly zero-cost, open-source pipeline hosted entirely on a single 2013 Mac Pro server utilizing `ubuntu-latest` ephemeral GitHub Actions runners, ASTA operates as a bifurcated system:
 
 - **General Tools:** Applied globally to all repositories. Includes Trivy (SAST/Filesystem/IaC), Gitleaks (Secrets), and Syft (SBOM).
-- **Domain-Specific Tools:** Executed conditionally, only when the target repository contains matching language or infrastructure signatures. Includes Hadolint (Docker), Detekt (Kotlin), Find Sec Bugs (JVM bytecode), MobSF (Android binaries), Jazzer (JVM fuzzing), OWASP ZAP (Web/API DAST), and OpenSSF Scorecard (public repositories only — requires GitHub GraphQL API access unavailable to the default `GITHUB_TOKEN` on private repositories).
+- **Domain-Specific Tools:** Executed conditionally, only when the target repository contains matching language or infrastructure signatures. Includes Hadolint (Docker), Detekt (Kotlin), Find Sec Bugs (JVM bytecode), MobSF (Android binaries), Jazzer (JVM fuzzing), ZAP by Checkmarx (Web/API DAST), and OpenSSF Scorecard (public repositories only — requires GitHub GraphQL API access unavailable to the default `GITHUB_TOKEN` on private repositories).
 
 ### **ASTA Three-Stage Pipeline**
 
@@ -95,7 +95,7 @@ To explicitly prevent hardware timeouts and runner exhaustion on the Mac Pro, to
 - **Stage 2 (CI/CD - Medium Speed):** Executed synchronously during the core integration and build phase.
   - Tools: Trivy, Syft, Find Sec Bugs, MobSF Static Analysis.
 - **Stage 3 (Asynchronous/Local - High Resource):** Executed asynchronously (e.g., scheduled nightly tasks) or locally. **This stage must not run synchronously in standard PR actions to avoid runner exhaustion.**
-  - Tools: Jazzer, MobSF Dynamic Analysis, OWASP ZAP.
+  - Tools: Jazzer, MobSF Dynamic Analysis, ZAP by Checkmarx.
 
 ## **4.2. Continuous Integration/Continuous Delivery (CI/CD) Security Requirements**
 
@@ -111,7 +111,7 @@ To provide continuous visibility and threat remediation, the organization relies
 
 - **Wazuh (SIEM & XDR):** Deployed across all hosts for continuous intrusion detection, security monitoring, and log correlation.
 - **General ASTA Tools (Trivy, Syft, Gitleaks):** Orchestrated globally across all CI pipelines to evaluate file systems, generate SBOMs, and block hardcoded secrets.
-- **Domain-Specific ASTA Tools:** Hadolint, Detekt, Find Sec Bugs, MobSF, Jazzer, and OWASP ZAP are conditionally orchestrated based on repository signatures, providing targeted linting, static analysis, dynamic testing, and fuzzing only when their respective domains are present.
+- **Domain-Specific ASTA Tools:** Hadolint, Detekt, Find Sec Bugs, MobSF, Jazzer, and ZAP by Checkmarx are conditionally orchestrated based on repository signatures, providing targeted linting, static analysis, dynamic testing, and fuzzing only when their respective domains are present.
 - **GitHub Actions:** Serves as the primary automation orchestrator, conditionally triggering Stage 1 and Stage 2 ASTA scans on pull requests based on repository domains, managing the asynchronous scheduling of Stage 3 execution, and orchestrating deployment blocks if security criteria are not met.
 
 ## **4.4. Special Requirements for Game Development (Where Applicable)**
@@ -159,7 +159,7 @@ Prior to integration, the full dependency tree must be queried via [deps.dev](ht
 To maintain a zero-cost, high-integrity CI/CD pipeline, the following open-source tools are mandated for all organizational repositories:
 
 - **SAST & Vulnerability Scanning:** [Trivy by Aqua Security](https://aquasecurity.github.io/trivy/) (Apache 2.0 License)
-- **DAST:** [OWASP ZAP (Zed Attack Proxy)](https://www.zaproxy.org/) (Apache 2.0 License)
+- **DAST:** [ZAP by Checkmarx (Zed Attack Proxy)](https://www.zaproxy.org/) (Apache 2.0 License)
 - **Secrets Management:** [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) (Native Platform Feature)
 - **Secret Scanning:** [Gitleaks](https://github.com/gitleaks/gitleaks) (MIT License)
 - **SBOM Generation:** [Syft by Anchore](https://github.com/anchore/syft) (Apache 2.0 License)
