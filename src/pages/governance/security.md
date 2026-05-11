@@ -79,17 +79,23 @@ This policy outlines the mandatory security requirements for all software develo
 
 **Human Verification (Peer Review):** Automated security scanners are supplementary and do not replace logical architectural review. Code merged into production branches requires human peer review, except under authorized “Solo Contributor” or “Emergency Merge” conditions. Bypassing human review requires the commit to be cryptographically signed and successfully pass all mandatory automated pipeline status checks (e.g., SAST, Secret Scanning, SBOM).
 
-## **4.1. Quality Assurance and Security Testing**
+## **4.1. Application Security Testing Analysis (ASTA) Framework**
 
-All developed software must undergo the following minimum security and quality tests:
+All developed software must undergo security testing governed by the formal Application Security Testing Analysis (ASTA) framework. To support our strictly zero-cost, open-source pipeline hosted entirely on a single 2013 Mac Pro server utilizing `ubuntu-latest` ephemeral GitHub Actions runners, ASTA operates as a bifurcated system:
 
-| Title | Description | Minimum Coverage Requirement |
-| :---- | :---- | :---- |
-| Unit Tests | Isolation testing of small code components or functions. | Mandatory strictly for code paths identified as high-risk during the project's risk assessment (e.g., authentication logic, payment endpoints, game state validation). |
-| Integration Tests | Verification that different parts of the application or services work together correctly. | Required for high-risk system integration points and external network boundaries. |
-| Software Bill of Materials (SBOM) Generation | Generates a cryptographic ledger of all third-party dependencies compiled into the final binary to track supply chain vulnerabilities using tools like [Syft](https://github.com/anchore/syft). | Mandatory for all release builds. |
-| Static Application Security Testing (SAST) | Automated analysis of source code to identify structural vulnerabilities and memory safety violations before compilation. | Mandatory for all production branches. |
-| Dynamic Application Security Testing (DAST)  | Analysis of the running application to find security vulnerabilities and configuration errors. | Executed asynchronously (e.g., as a scheduled nightly CI task) against Staging environments. Synchronous execution is reserved exclusively for production release gates to prevent pipeline exhaustion. |
+- **General Tools:** Applied globally to all repositories. Includes Trivy (SAST/Filesystem/IaC), Gitleaks (Secrets), Syft (SBOM), and OpenSSF Scorecard.
+- **Domain-Specific Tools:** Executed conditionally, only when the target repository contains matching language or infrastructure signatures. Includes Hadolint (Docker), Detekt (Kotlin), Find Sec Bugs (JVM bytecode), MobSF (Android binaries), Jazzer (JVM fuzzing), and OWASP ZAP (Web/API DAST).
+
+### **ASTA Three-Stage Pipeline**
+
+To explicitly prevent hardware timeouts and runner exhaustion on the Mac Pro, tools are executed in a strict Three-Stage Pipeline. Tools will only trigger if their specific target domain is present:
+
+- **Stage 1 (Commit/PR - High Speed):** Executed synchronously on every commit and pull request.
+  - Tools: Gitleaks, Hadolint, Detekt.
+- **Stage 2 (CI/CD - Medium Speed):** Executed synchronously during the core integration and build phase.
+  - Tools: Trivy, Syft, Find Sec Bugs, MobSF Static Analysis.
+- **Stage 3 (Asynchronous/Local - High Resource):** Executed asynchronously (e.g., scheduled nightly tasks) or locally. **This stage must not run synchronously in standard PR actions to avoid runner exhaustion.**
+  - Tools: Jazzer, MobSF Dynamic Analysis, OWASP ZAP.
 
 ## **4.2. Continuous Integration/Continuous Delivery (CI/CD) Security Requirements**
 
@@ -104,9 +110,9 @@ All software development must utilize a CI/CD pipeline that is configured to enf
 To provide continuous visibility and threat remediation, the organization relies on a Security Orchestration, Automation, and Response (SOAR) architecture:
 
 - **Wazuh (SIEM & XDR):** Deployed across all hosts for continuous intrusion detection, security monitoring, and log correlation.
-- **Trivy:** Integrated into container registries and CI pipelines to continuously evaluate container images, file systems, and SBOMs for vulnerabilities.
-- **GitLeaks:** Enforced as a pre-commit hook and a CI action to detect and block the injection of hardcoded secrets or sensitive configuration data.
-- **GitHub Actions:** Serves as the primary automation orchestrator, triggering Trivy and GitLeaks scans on pull requests, and orchestrating deployment blocks if security criteria are not met.
+- **General ASTA Tools (Trivy, Syft, Gitleaks, OpenSSF Scorecard):** Orchestrated globally across all CI pipelines to evaluate file systems, generate SBOMs, block hardcoded secrets, and assess repository health.
+- **Domain-Specific ASTA Tools:** Hadolint, Detekt, Find Sec Bugs, MobSF, Jazzer, and OWASP ZAP are conditionally orchestrated based on repository signatures, providing targeted linting, static analysis, dynamic testing, and fuzzing only when their respective domains are present.
+- **GitHub Actions:** Serves as the primary automation orchestrator, conditionally triggering Stage 1 and Stage 2 ASTA scans on pull requests based on repository domains, managing the asynchronous scheduling of Stage 3 execution, and orchestrating deployment blocks if security criteria are not met.
 
 ## **4.4. Special Requirements for Game Development (Where Applicable)**
 
@@ -121,7 +127,14 @@ For all software classified as games or entertainment products, the following se
 To ensure memory safety and prevent language-specific vulnerabilities natively, all development must adhere strictly to established secure coding standards for the respective language:
 
 - **C:** All C-based development, including the Camelot framework, must adhere to the [SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard). Compliance is structurally enforced via the project `Makefile` and CI pipeline; no code shall be merged unless it compiles with `-Wall -Wextra -Wpedantic -Werror`, passes all unit/integration tests with Clang/GCC Sanitizers enabled (`-fsanitize=address,undefined,leak`), and satisfies [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) static analysis using `cert-*` check profiles.
-- *(Additional language standards will be documented here prior to the adoption of new stacks in production).*
+
+- **Java:** All JVM-based development must adhere to strict security boundaries. Find Sec Bugs is required for static bytecode analysis. Additionally, Jazzer is strictly mandated for fuzzing high-risk, untrusted data parsers (e.g., XML/RSS feeds).
+
+- **Kotlin:** Kotlin development inherits all JVM protections (Find Sec Bugs, Jazzer) and must additionally mandate the use of Detekt to enforce architectural boundaries and linting standards.
+
+- **Android:** Development for Android environments builds upon the Kotlin/Java standards. It must additionally utilize MobSF for comprehensive Android component validation.
+
+*(Additional language standards will be documented here prior to the adoption of new stacks in production).*
 
 ## **4.6. Third-Party Dependency Evaluation**
 
@@ -148,4 +161,11 @@ To maintain a zero-cost, high-integrity CI/CD pipeline, the following open-sourc
 - **SAST & Vulnerability Scanning:** [Trivy by Aqua Security](https://aquasecurity.github.io/trivy/) (Apache 2.0 License)
 - **DAST:** [OWASP ZAP (Zed Attack Proxy)](https://www.zaproxy.org/) (Apache 2.0 License)
 - **Secrets Management:** [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) (Native Platform Feature)
+- **Secret Scanning:** [Gitleaks](https://github.com/gitleaks/gitleaks) (MIT License)
 - **SBOM Generation:** [Syft by Anchore](https://github.com/anchore/syft) (Apache 2.0 License)
+- **Repository Security Posture:** [OpenSSF Scorecard](https://github.com/ossf/scorecard) (Apache 2.0 License)
+- **Docker Linting:** [Hadolint](https://github.com/hadolint/hadolint) (GPL-3.0 License)
+- **Kotlin Static Analysis:** [Detekt](https://github.com/detekt/detekt) (Apache 2.0 License)
+- **JVM Static Analysis:** [Find Sec Bugs](https://find-sec-bugs.github.io/) (LGPL-3.0 License)
+- **Mobile Security Framework:** [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) (GPL-3.0 License)
+- **JVM Fuzzing:** [Jazzer](https://github.com/CodeIntelligenceTesting/jazzer) (Apache 2.0 License)

@@ -116,7 +116,7 @@ import PageHeader from '../components/PageHeader.astro';
 
 	.content-section {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 		gap: 2rem;
 	}
 
@@ -157,7 +157,7 @@ import PageHeader from '../components/PageHeader.astro';
 
 	.incubation-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 		gap: 3rem;
 		margin: 2.5rem 0;
 	}
@@ -267,6 +267,13 @@ import PageHeader from '../components/PageHeader.astro';
 	@media (max-width: 768px) {
 		.content-section {
 			grid-template-columns: 1fr;
+		}
+		.glass-card {
+			padding: 1.5rem;
+		}
+		.incubation-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
 		}
 	}
 </style>
