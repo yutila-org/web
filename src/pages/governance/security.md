@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: "Security Policies"
-lastEdited: "9/5/2026"
+lastEdited: "11/5/2026"
 ---
 
 # **1. Introduction and Scope**
