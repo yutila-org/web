@@ -1,524 +1,618 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import PageHeader from '../../components/PageHeader.astro';
+import Layout from "../../layouts/Layout.astro";
+import PageHeader from "../../components/PageHeader.astro";
 
-const orgStructure = [
-  {
-    pillar: "Governance",
-    color: "var(--yutila-red)",
-    description: "Directs organizational strategy, drives comprehensive system design across all disciplines and can engineer implementations.",
-    roles: [
-      {
-        title: "Founder",
-        desc: "Leads organizational strategy and multidisciplinary system design. Capable of hands-on engineering across all domains. Directs the highest level roadmap and resource distribution to ensure long-term sustainability and architectural alignment across all active initiatives.",
-        access: "Owner",
-        leads: ["Acrilic", "Spider-Kyle"],
-        assignees: [],
-        criteria: ["Strategy", "System Design", "Engineering"]
-      }
-    ]
-  },
-  {
-    pillar: "Security",
-    color: "var(--yutila-green)",
-    description: "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
-    roles: [
-      {
-        title: "SecOps Director",
-        desc: "Oversees security architecture and operations. Directs incident response, threat intelligence, and aligns security strategy with risk tolerance. Responsible for building robust monitoring pipelines and establishing organizational security policies to mitigate emerging threats.",
-        access: "Admin",
-        leads: ["Acrilic"],
-        assignees: [],
-        criteria: ["SecOps", "Incident Management", "Architecture", "Threat Intelligence"]
-      },
-      {
-        title: "SecOps Operator",
-        desc: "Executes continuous security testing, detection engineering, and infrastructure hardening. Front-line responder during active security threats. Conducts deep-dive log analysis, forensic evidence collection, and automated vulnerability scanning to secure the perimeter.",
-        access: "Maintainer",
-        leads: [],
-        assignees: [],
-        criteria: ["Pen-Testing", "Detection", "Forensics", "Hardening"]
-      }
-    ]
-  },
-  {
-    pillar: "Engineering",
-    color: "var(--yutila-blue)",
-    description: "Primary lead for cross-domain structural design, interface definition, technical standards, multidisciplinary implementation, and feature development across the full stack.",
-    roles: [
-      {
-        title: "Systems Engineer",
-        desc: "Drives full-stack implementation and technical standards. Ensures system performance, reliability, and architectural integrity across domains. Works closely with other engineering teams to implement high-performance subsystems and optimize technical debt.",
-        access: "Write",
-        leads: [],
-        assignees: ["Lain"],
-        criteria: ["Architecture", "Full-Stack", "Performance", "Optimization"]
-      }
-    ]
-  }
+type PermissionLevel = "Read" | "Triage" | "Write" | "Maintain" | "Admin";
+
+interface Role {
+    title: string;
+    desc: string;
+    access: PermissionLevel;
+    leads: string[];
+    assignees: string[];
+    criteria: string[];
+}
+
+interface Pillar {
+    pillar: string;
+    color: string;
+    description: string;
+    roles: Role[];
+}
+
+const orgStructure: Pillar[] = [
+    {
+        pillar: "Governance",
+        color: "var(--yutila-red)",
+        description:
+            "Directs organizational strategy, drives comprehensive system design across all disciplines and can engineer implementations.",
+        roles: [
+            {
+                title: "Founder",
+                desc: "Leads organizational strategy and multidisciplinary system design. Capable of hands-on engineering across all domains. Directs the highest level roadmap and resource distribution to ensure long-term sustainability and architectural alignment across all active initiatives.",
+                access: "Admin",
+                leads: ["Acrilic", "Spider-Kyle"],
+                assignees: [],
+                criteria: ["Strategy", "System Design", "Engineering"],
+            },
+        ],
+    },
+    {
+        pillar: "Security",
+        color: "var(--yutila-green)",
+        description:
+            "Orchestrates continuous threat detection, SOC monitoring workflows, and directs security incident response and digital forensics.",
+        roles: [
+            {
+                title: "SecOps Director",
+                desc: "Oversees security architecture and operations. Directs incident response, threat intelligence, and aligns security strategy with risk tolerance. Responsible for building robust monitoring pipelines and establishing organizational security policies to mitigate emerging threats.",
+                access: "Admin",
+                leads: ["Acrilic"],
+                assignees: [],
+                criteria: [
+                    "SecOps",
+                    "Incident Management",
+                    "Architecture",
+                    "Threat Intelligence",
+                ],
+            },
+            {
+                title: "SecOps Operator",
+                desc: "Executes continuous security testing, detection engineering, and infrastructure hardening. Front-line responder during active security threats. Conducts deep-dive log analysis, forensic evidence collection, and automated vulnerability scanning to secure the perimeter.",
+                access: "Triage",
+                leads: [],
+                assignees: [],
+                criteria: [
+                    "Pen-Testing",
+                    "Detection",
+                    "Forensics",
+                    "Hardening",
+                ],
+            },
+        ],
+    },
+    {
+        pillar: "Engineering",
+        color: "var(--yutila-blue)",
+        description:
+            "Primary lead for cross-domain structural design, interface definition, technical standards, multidisciplinary implementation, and feature development across the full stack.",
+        roles: [
+            {
+                title: "Systems Engineer",
+                desc: "Drives full-stack implementation and technical standards. Ensures system performance, reliability, and architectural integrity across domains. Works closely with other engineering teams to implement high-performance subsystems and optimize technical debt.",
+                access: "Maintain",
+                leads: [],
+                assignees: ["Lain", "Vietexa"],
+                criteria: [
+                    "Architecture",
+                    "Full-Stack",
+                    "Performance",
+                    "Optimization",
+                ],
+            },
+        ],
+    },
 ];
 ---
 
 <Layout title="Yutila Roles & Organization">
-  <div class="page-container roles-page">
-    <PageHeader
-      backHref="/governance"
-      backLabel="Back to Governance"
-      title="Organizational Structure"
-      subtitle="A detailed overview of our core pillars and specialized roles."
-    >
-      <div class="role-distinctions">
-        <p><strong>Leads:</strong> Primary directors who oversee strategy and high-level execution for a role.</p>
-        <p><strong>Assignees:</strong> Active contributors who implement features and execute tasks within that role's domain.</p>
-      </div>
-    </PageHeader>
+    <div class="page-container roles-page">
+        <PageHeader
+            backHref="/governance"
+            backLabel="Back to Governance"
+            title="Organizational Structure"
+            subtitle="A detailed overview of our core pillars and specialized roles."
+        >
+            <div class="role-distinctions">
+                <p>
+                    <strong>Leads:</strong> Primary directors who oversee strategy
+                    and high-level execution for a role.
+                </p>
+                <p>
+                    <strong>Assignees:</strong> Active contributors who implement
+                    features and execute tasks within that role's domain.
+                </p>
+            </div>
+        </PageHeader>
 
-    <div class="pillars-container">
-      {orgStructure.map(pillar => (
-        <section class="pillar-section" style={`--pillar-color: ${pillar.color}`}>
-          <div class="pillar-header">
-            <h2>{pillar.pillar}</h2>
-            <p>{pillar.description}</p>
-          </div>
-          
-          <div class="roles-grid">
-            {pillar.roles.map(role => (
-              <div class="role-card">
-                <div class="role-header">
-                  <h3>{role.title}</h3>
-                  <span class={`access-badge access-${role.access.toLowerCase()}`}>
-                    {role.access}
-                  </span>
-                </div>
-                
-                <expandable-desc>
-                  <p class="role-desc">{role.desc}</p>
-                  <button class="read-more-btn" aria-expanded="false">Read more</button>
-                </expandable-desc>
-
-                {(role.leads?.length > 0 || role.assignees?.length > 0) && (
-                  <details class="role-members-details">
-                    <summary class="members-summary">
-                      Members
-                      <svg class="members-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </summary>
-                    <div class="role-members-content">
-                      {role.leads?.length > 0 && (
-                        <div class="member-group">
-                          <span class="member-label">Leads:</span>
-                          <span class="member-names">{role.leads.join(', ')}</span>
+        <div class="pillars-container">
+            {
+                orgStructure.map((pillar) => (
+                    <section
+                        class="pillar-section"
+                        style={`--pillar-color: ${pillar.color}`}
+                    >
+                        <div class="pillar-header">
+                            <h2>{pillar.pillar}</h2>
+                            <p>{pillar.description}</p>
                         </div>
-                      )}
-                      {role.assignees?.length > 0 && (
-                        <div class="member-group">
-                          <span class="member-label">Assignees:</span>
-                          <span class="member-names">{role.assignees.join(', ')}</span>
-                        </div>
-                      )}
-                    </div>
-                  </details>
-                )}
 
-                <div class="criteria-list">
-                  {role.criteria.map(criterion => (
-                    <span class="criterion-tag">{criterion}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      ))}
+                        <div class="roles-grid">
+                            {pillar.roles.map((role) => (
+                                <div class="role-card">
+                                    <div class="role-header">
+                                        <h3>{role.title}</h3>
+                                        <span
+                                            class={`access-badge access-${role.access.toLowerCase()}`}
+                                        >
+                                            {role.access}
+                                        </span>
+                                    </div>
+
+                                    <expandable-desc>
+                                        <p class="role-desc">{role.desc}</p>
+                                        <button
+                                            class="read-more-btn"
+                                            aria-expanded="false"
+                                        >
+                                            Read more
+                                        </button>
+                                    </expandable-desc>
+
+                                    {(role.leads?.length > 0 ||
+                                        role.assignees?.length > 0) && (
+                                        <details class="role-members-details">
+                                            <summary class="members-summary">
+                                                Members
+                                                <svg
+                                                    class="members-arrow"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <polyline points="6 9 12 15 18 9" />
+                                                </svg>
+                                            </summary>
+                                            <div class="role-members-content">
+                                                {role.leads?.length > 0 && (
+                                                    <div class="member-group">
+                                                        <span class="member-label">
+                                                            Leads:
+                                                        </span>
+                                                        <span class="member-names">
+                                                            {role.leads.join(
+                                                                ", ",
+                                                            )}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                                {role.assignees?.length > 0 && (
+                                                    <div class="member-group">
+                                                        <span class="member-label">
+                                                            Assignees:
+                                                        </span>
+                                                        <span class="member-names">
+                                                            {role.assignees.join(
+                                                                ", ",
+                                                            )}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </details>
+                                    )}
+
+                                    <div class="criteria-list">
+                                        {role.criteria.map((criterion) => (
+                                            <span class="criterion-tag">
+                                                {criterion}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                ))
+            }
+        </div>
     </div>
-  </div>
 </Layout>
 
 <style>
-  .roles-page {
-    gap: 4rem;
-  }
-
-  .role-distinctions {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    padding: 1.25rem 1.5rem;
-    margin-top: 2rem;
-    max-width: 700px;
-  }
-
-  .role-distinctions p {
-    margin: 0 0 0.5rem 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .role-distinctions p:last-child {
-    margin-bottom: 0;
-  }
-
-  .role-distinctions strong {
-    color: var(--text-color);
-  }
-
-  .pillars-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5rem;
-  }
-
-  .pillar-section {
-    position: relative;
-    padding-left: 2rem;
-  }
-
-  .pillar-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(to bottom, var(--pillar-color), transparent);
-    border-radius: 4px;
-  }
-
-  .pillar-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .pillar-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-    color: var(--pillar-color);
-    letter-spacing: -0.01em;
-  }
-
-  .pillar-header p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    margin: 0;
-    max-width: 700px;
-  }
-
-  .roles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .role-card {
-    background: rgba(39, 39, 42, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-    min-height: 340px;
-  }
-
-  .role-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top right, var(--pillar-color), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 0;
-    mix-blend-mode: screen;
-  }
-
-  .role-card:hover {
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  .role-card:hover::after {
-    opacity: 0.05;
-  }
-
-  .role-card > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .role-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .role-header h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-color);
-    line-height: 1.3;
-  }
-
-  .access-badge {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    white-space: nowrap;
-  }
-
-  .access-owner {
-    background: rgba(255, 185, 0, 0.15);
-    color: var(--yutila-yellow);
-    border: 1px solid rgba(255, 185, 0, 0.3);
-  }
-
-  .access-admin {
-    background: rgba(226, 59, 56, 0.15);
-    color: var(--yutila-red);
-    border: 1px solid rgba(226, 59, 56, 0.3);
-  }
-
-  .access-write {
-    background: rgba(94, 189, 62, 0.15);
-    color: var(--yutila-green);
-    border: 1px solid rgba(94, 189, 62, 0.3);
-  }
-
-  .access-maintainer {
-    background: rgba(0, 156, 223, 0.15);
-    color: var(--yutila-blue);
-    border: 1px solid rgba(0, 156, 223, 0.3);
-  }
-
-  .access-read {
-    background: rgba(161, 161, 170, 0.15);
-    color: var(--text-muted);
-    border: 1px solid rgba(161, 161, 170, 0.3);
-  }
-
-  expandable-desc {
-    flex: 1;
-    margin: 0 0 1.5rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .role-desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .role-desc.expanded {
-    -webkit-line-clamp: unset;
-    display: block;
-  }
-
-  .read-more-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 0;
-    margin-top: 0.5rem;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.1);
-    text-underline-offset: 4px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-    display: none;
-  }
-
-  .read-more-btn:hover {
-    color: var(--text-color);
-    text-decoration-color: var(--text-color);
-  }
-
-  .role-members-details {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
-
-  .role-members-details[open] {
-    padding-bottom: 0.75rem;
-  }
-
-  .role-members-details > summary {
-    list-style: none;
-  }
-  
-  .role-members-details > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .members-summary {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    user-select: none;
-    transition: background 0.2s ease, color 0.2s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .members-summary:hover {
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--text-color);
-  }
-
-  .members-arrow {
-    width: 16px;
-    height: 16px;
-    color: var(--text-muted);
-    transition: transform 0.3s ease;
-  }
-
-  .role-members-details[open] .members-arrow {
-    transform: rotate(180deg);
-  }
-
-  .role-members-content {
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.25rem;
-  }
-
-  .member-group {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-  }
-
-  .member-label {
-    color: var(--text-muted);
-    font-weight: 600;
-  }
-
-  .member-names {
-    color: var(--text-color);
-  }
-
-  .criteria-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: auto;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    padding-top: 1.25rem;
-  }
-
-  .criterion-tag {
-    font-size: 0.8rem;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-muted);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  @media (max-width: 768px) {
-    .roles-grid {
-      grid-template-columns: 1fr;
+    .roles-page {
+        gap: 4rem;
     }
+
+    .role-distinctions {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+        margin-top: 2rem;
+        max-width: 700px;
+    }
+
+    .role-distinctions p {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .role-distinctions p:last-child {
+        margin-bottom: 0;
+    }
+
+    .role-distinctions strong {
+        color: var(--text-color);
+    }
+
+    .pillars-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+    }
+
+    .pillar-section {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .pillar-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(
+            to bottom,
+            var(--pillar-color),
+            transparent
+        );
+        border-radius: 4px;
+    }
+
+    .pillar-header {
+        margin-bottom: 2.5rem;
+    }
+
     .pillar-header h2 {
-      font-size: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        color: var(--pillar-color);
+        letter-spacing: -0.01em;
     }
-  }
+
+    .pillar-header p {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin: 0;
+        max-width: 700px;
+    }
+
+    .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .role-card {
+        background: rgba(39, 39, 42, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        min-height: 340px;
+    }
+
+    .role-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at top right,
+            var(--pillar-color),
+            transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 0;
+        mix-blend-mode: screen;
+    }
+
+    .role-card:hover {
+        border-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .role-card:hover::after {
+        opacity: 0.05;
+    }
+
+    .role-card > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .role-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .role-header h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-color);
+        line-height: 1.3;
+    }
+
+    .access-badge {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        white-space: nowrap;
+    }
+
+    .access-admin {
+        background: rgba(226, 59, 56, 0.15);
+        color: var(--yutila-red);
+        border: 1px solid rgba(226, 59, 56, 0.3);
+    }
+
+    .access-maintain {
+        background: rgba(0, 156, 223, 0.15);
+        color: var(--yutila-blue);
+        border: 1px solid rgba(0, 156, 223, 0.3);
+    }
+
+    .access-write {
+        background: rgba(94, 189, 62, 0.15);
+        color: var(--yutila-green);
+        border: 1px solid rgba(94, 189, 62, 0.3);
+    }
+
+    .access-triage {
+        background: rgba(255, 185, 0, 0.15);
+        color: var(--yutila-yellow);
+        border: 1px solid rgba(255, 185, 0, 0.3);
+    }
+
+    .access-read {
+        background: rgba(161, 161, 170, 0.15);
+        color: var(--text-muted);
+        border: 1px solid rgba(161, 161, 170, 0.3);
+    }
+
+    expandable-desc {
+        flex: 1;
+        margin: 0 0 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .role-desc {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .role-desc.expanded {
+        -webkit-line-clamp: unset;
+        display: block;
+    }
+
+    .read-more-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0;
+        margin-top: 0.5rem;
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.1);
+        text-underline-offset: 4px;
+        transition:
+            color 0.2s ease,
+            text-decoration-color 0.2s ease;
+        display: none;
+    }
+
+    .read-more-btn:hover {
+        color: var(--text-color);
+        text-decoration-color: var(--text-color);
+    }
+
+    .role-members-details {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+    }
+
+    .role-members-details[open] {
+        padding-bottom: 0.75rem;
+    }
+
+    .role-members-details > summary {
+        list-style: none;
+    }
+
+    .role-members-details > summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .members-summary {
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        user-select: none;
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .members-summary:hover {
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-color);
+    }
+
+    .members-arrow {
+        width: 16px;
+        height: 16px;
+        color: var(--text-muted);
+        transition: transform 0.3s ease;
+    }
+
+    .role-members-details[open] .members-arrow {
+        transform: rotate(180deg);
+    }
+
+    .role-members-content {
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.25rem;
+    }
+
+    .member-group {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .member-label {
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    .member-names {
+        color: var(--text-color);
+    }
+
+    .criteria-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 1.25rem;
+    }
+
+    .criterion-tag {
+        font-size: 0.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-muted);
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .roles-grid {
+            grid-template-columns: 1fr;
+        }
+        .pillar-header h2 {
+            font-size: 2rem;
+        }
+    }
 </style>
 
 <script>
-  class ExpandableDesc extends HTMLElement {
-    private desc: HTMLElement | null;
-    private btn: HTMLButtonElement | null;
-    private isExpanded: boolean = false;
-    private resizeObserver: ResizeObserver | null = null;
+    class ExpandableDesc extends HTMLElement {
+        private desc: HTMLElement | null;
+        private btn: HTMLButtonElement | null;
+        private isExpanded: boolean = false;
+        private resizeObserver: ResizeObserver | null = null;
 
-    constructor() {
-      super();
-      this.desc = this.querySelector('.role-desc');
-      this.btn = this.querySelector('.read-more-btn');
+        constructor() {
+            super();
+            this.desc = this.querySelector(".role-desc");
+            this.btn = this.querySelector(".read-more-btn");
+        }
+
+        connectedCallback() {
+            if (this.desc && this.btn) {
+                this.btn.addEventListener("click", () => this.toggle());
+
+                this.resizeObserver = new ResizeObserver(() =>
+                    this.checkTruncation(),
+                );
+                this.resizeObserver.observe(this.desc);
+
+                requestAnimationFrame(() => this.checkTruncation());
+            }
+        }
+
+        disconnectedCallback() {
+            if (this.resizeObserver) {
+                this.resizeObserver.disconnect();
+            }
+        }
+
+        checkTruncation() {
+            if (!this.desc || !this.btn || this.isExpanded) return;
+
+            const clampedHeight = this.desc.clientHeight;
+            this.desc.classList.add("expanded");
+            const fullHeight = this.desc.clientHeight;
+            this.desc.classList.remove("expanded");
+
+            if (fullHeight > clampedHeight + 1) {
+                this.btn.style.display = "inline-block";
+            } else {
+                this.btn.style.display = "none";
+            }
+        }
+
+        toggle() {
+            if (!this.desc || !this.btn) return;
+
+            this.isExpanded = !this.isExpanded;
+            if (this.isExpanded) {
+                this.desc.classList.add("expanded");
+                this.btn.textContent = "Read less";
+                this.btn.setAttribute("aria-expanded", "true");
+            } else {
+                this.desc.classList.remove("expanded");
+                this.btn.textContent = "Read more";
+                this.btn.setAttribute("aria-expanded", "false");
+                this.checkTruncation();
+            }
+        }
     }
 
-    connectedCallback() {
-      if (this.desc && this.btn) {
-        this.btn.addEventListener('click', () => this.toggle());
-        
-        this.resizeObserver = new ResizeObserver(() => this.checkTruncation());
-        this.resizeObserver.observe(this.desc);
-        
-        requestAnimationFrame(() => this.checkTruncation());
-      }
+    if (!customElements.get("expandable-desc")) {
+        customElements.define("expandable-desc", ExpandableDesc);
     }
-
-    disconnectedCallback() {
-      if (this.resizeObserver) {
-        this.resizeObserver.disconnect();
-      }
-    }
-
-    checkTruncation() {
-      if (!this.desc || !this.btn || this.isExpanded) return;
-
-      const clampedHeight = this.desc.clientHeight;
-      this.desc.classList.add('expanded');
-      const fullHeight = this.desc.clientHeight;
-      this.desc.classList.remove('expanded');
-
-      if (fullHeight > clampedHeight + 1) {
-        this.btn.style.display = 'inline-block';
-      } else {
-        this.btn.style.display = 'none';
-      }
-    }
-
-    toggle() {
-      if (!this.desc || !this.btn) return;
-      
-      this.isExpanded = !this.isExpanded;
-      if (this.isExpanded) {
-        this.desc.classList.add('expanded');
-        this.btn.textContent = 'Read less';
-        this.btn.setAttribute('aria-expanded', 'true');
-      } else {
-        this.desc.classList.remove('expanded');
-        this.btn.textContent = 'Read more';
-        this.btn.setAttribute('aria-expanded', 'false');
-        this.checkTruncation();
-      }
-    }
-  }
-
-  if (!customElements.get('expandable-desc')) {
-    customElements.define('expandable-desc', ExpandableDesc);
-  }
 </script>
