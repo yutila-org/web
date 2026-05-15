@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Page Not Found">
+	<div class="page-container">
+		<div class="error-container">
+			<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="error-icon">
+				<circle cx="12" cy="12" r="10"/>
+				<line x1="12" y1="8" x2="12" y2="12"/>
+				<line x1="12" y1="16" x2="12.01" y2="16"/>
+			</svg>
+			<h1>404</h1>
+			<p>Either this page is wrong or in development and not yet developed.</p>
+			<p>If you think this is an issue please contact us through <a href="/contact">our contact page</a>.</p>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.page-container {
+		display: flex;
+		flex-direction: column;
+		min-height: calc(100vh - 200px);
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.error-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		background: rgba(39, 39, 42, 0.4);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 24px;
+		padding: 4rem 2rem;
+		max-width: 600px;
+		width: 100%;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+	}
+
+	.error-icon {
+		color: var(--text-color);
+		opacity: 0.8;
+		margin-bottom: 2rem;
+	}
+
+	h1 {
+		font-size: 5rem;
+		font-weight: 800;
+		margin: 0 0 1rem 0;
+		line-height: 1;
+		color: var(--text-color);
+	}
+
+	p {
+		font-size: 1.1rem;
+		color: var(--text-muted);
+		line-height: 1.6;
+		margin: 0.5rem 0;
+	}
+
+	a {
+		color: var(--text-color);
+		text-decoration: underline;
+		font-weight: 600;
+		transition: color 0.3s ease;
+	}
+
+	a:hover {
+		color: #fff;
+	}
+</style>

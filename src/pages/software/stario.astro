@@ -695,7 +695,7 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
             </div>
         </footer>
 
-        <script>
+        <script is:inline>
             // Astro module scripts are deferred, so the DOM is already ready.
             const initCarousel = () => {
                 const carousel = document.getElementById('device-carousel');
