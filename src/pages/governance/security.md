@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: "Security Policies"
-lastEdited: "11/5/2026"
+lastEdited: "15/5/2026"
 ---
 
 # **1. Introduction and Scope**
@@ -159,7 +159,7 @@ Prior to integration, the full dependency tree must be queried via [deps.dev](ht
 To maintain a zero-cost, high-integrity CI/CD pipeline, the following open-source tools are mandated for all organizational repositories:
 
 - **SAST & Vulnerability Scanning:** [Trivy by Aqua Security](https://aquasecurity.github.io/trivy/) (Apache 2.0 License)
-- **DAST:** [ZAP by Checkmarx (Zed Attack Proxy)](https://www.zaproxy.org/) (Apache 2.0 License)
+- **DAST:** [ZAP by Checkmarx (Zed Attack Proxy)](https://www.zaproxy.org/) (Apache 2.0 License).
 - **Secrets Management:** [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) (Native Platform Feature)
 - **Secret Scanning:** [Gitleaks](https://github.com/gitleaks/gitleaks) (MIT License)
 - **SBOM Generation:** [Syft by Anchore](https://github.com/anchore/syft) (Apache 2.0 License)
