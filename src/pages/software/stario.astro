@@ -234,14 +234,25 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                opacity: 0;
                 transform: translateX(100%);
-                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease-in-out;
-                will-change: transform, filter;
+                filter: blur(6px);
+                transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease-in-out;
+                z-index: 1;
             }
 
             .carousel-img.active {
+                opacity: 1;
                 transform: translateX(0);
                 filter: blur(0);
+                z-index: 2;
+            }
+
+            .carousel-img.leaving {
+                opacity: 0;
+                transform: translateX(-100%);
+                filter: blur(6px);
+                z-index: 1;
             }
 
             .features-wrapper {
@@ -717,28 +728,14 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                     currentIndex = (currentIndex + 1) % images.length;
                     const nextImg = images[currentIndex];
 
-                    // Snap the next image to the right side (off-screen) without animation
-                    nextImg.style.transition = 'none';
-                    nextImg.style.transform = 'translateX(100%)';
-                    nextImg.style.filter = 'blur(6px)';
-                    nextImg.classList.remove('active');
-                    
-                    // Force a browser reflow so the instant move takes effect immediately
-                    void nextImg.offsetWidth;
+                    // Clear previous states
+                    images.forEach(img => {
+                        img.classList.remove('active', 'leaving');
+                    });
 
-                    // Restore the transition for the sliding animation
-                    nextImg.style.transition = '';
-                    
-                    // Slide the current image out to the left and blur it
-                    currentImg.style.transform = 'translateX(-100%)';
-                    currentImg.style.filter = 'blur(6px)';
-                    currentImg.classList.remove('active');
-                    
-                    // Slide the next image into the center and remove the blur
-                    nextImg.style.transform = 'translateX(0)';
-                    nextImg.style.filter = 'blur(0)';
+                    // Trigger CSS transitions
+                    currentImg.classList.add('leaving');
                     nextImg.classList.add('active');
-                    
                 }, 4000); // Switch every 4 seconds
             };
             initCarousel();
