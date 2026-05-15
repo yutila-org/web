@@ -14,6 +14,14 @@ const icons = [
 	{ name: 'nixos', size: 40, top: 88, left: 65, dur: 47, delay: -18 },
 	{ name: 'git', size: 34, top: 62, left: 50, dur: 51, delay: -14 },
 	{ name: 'github', size: 42, top: 5, left: 35, dur: 56, delay: -22 },
+	{ name: 'typescript', size: 40, top: 75, left: 15, dur: 51, delay: -9 },
+	{ name: 'redis', size: 38, top: 85, left: 80, dur: 49, delay: -11 },
+	{ name: 'nodedotjs', size: 44, top: 60, left: 95, dur: 57, delay: -4 },
+	{ name: 'python', size: 34, top: 40, left: 18, dur: 43, delay: -17 },
+	{ name: 'html5', size: 42, top: 30, left: 85, dur: 54, delay: -13 },
+	{ name: 'javascript', size: 36, top: 50, left: 38, dur: 47, delay: -6 },
+	{ name: 'go', size: 46, top: 65, left: 68, dur: 59, delay: -21 },
+	{ name: 'markdown', size: 38, top: 12, left: 92, dur: 41, delay: -16 },
 ];
 ---
 
@@ -23,7 +31,7 @@ const icons = [
 			{icons.map((ic, i) => (
 				<img
 					class="float-icon"
-					src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${ic.name}.svg`}
+					src={`/icons/${ic.name}.svg`}
 					alt=""
 					width={ic.size}
 					height={ic.size}
@@ -83,8 +91,7 @@ const icons = [
 
 	.float-icon {
 		position: absolute;
-		opacity: 0.04;
-		filter: invert(1) brightness(0.6);
+		opacity: 0.05;
 		animation: drift 40s ease-in-out infinite alternate;
 	}
 
