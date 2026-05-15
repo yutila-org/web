@@ -68,7 +68,7 @@ import Layout from '../../layouts/Layout.astro';
 	.search-container {
 		position: relative;
 		margin-top: 2rem;
-		max-width: 600px;
+		width: 100%;
 	}
 
 	.search-icon {
@@ -78,6 +78,7 @@ import Layout from '../../layouts/Layout.astro';
 		transform: translateY(-50%);
 		color: var(--text-muted);
 		pointer-events: none;
+		z-index: 10;
 	}
 
 	#software-search {
