@@ -1,10 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const icons = [
+	{ name: 'rust', size: 44, top: 8, left: 12, dur: 50, delay: 0 },
+	{ name: 'c', size: 38, top: 15, left: 78, dur: 44, delay: -5 },
+	{ name: 'godotengine', size: 42, top: 35, left: 72, dur: 55, delay: -12 },
+	{ name: 'linux', size: 46, top: 55, left: 8, dur: 48, delay: -8 },
+	{ name: 'docker', size: 40, top: 70, left: 82, dur: 52, delay: -3 },
+	{ name: 'gnubash', size: 36, top: 25, left: 45, dur: 46, delay: -15 },
+	{ name: 'astro', size: 38, top: 80, left: 30, dur: 58, delay: -20 },
+	{ name: 'cloudflare', size: 44, top: 45, left: 90, dur: 42, delay: -7 },
+	{ name: 'githubactions', size: 36, top: 10, left: 55, dur: 53, delay: -10 },
+	{ name: 'nixos', size: 40, top: 88, left: 65, dur: 47, delay: -18 },
+	{ name: 'git', size: 34, top: 62, left: 50, dur: 51, delay: -14 },
+	{ name: 'github', size: 42, top: 5, left: 35, dur: 56, delay: -22 },
+	{ name: 'typescript', size: 40, top: 75, left: 15, dur: 51, delay: -9 },
+	{ name: 'redis', size: 38, top: 85, left: 80, dur: 49, delay: -11 },
+	{ name: 'nodedotjs', size: 44, top: 60, left: 95, dur: 57, delay: -4 },
+	{ name: 'python', size: 34, top: 40, left: 18, dur: 43, delay: -17 },
+	{ name: 'html5', size: 42, top: 30, left: 85, dur: 54, delay: -13 },
+	{ name: 'javascript', size: 36, top: 50, left: 38, dur: 47, delay: -6 },
+	{ name: 'go', size: 46, top: 65, left: 68, dur: 59, delay: -21 },
+	{ name: 'markdown', size: 38, top: 12, left: 92, dur: 41, delay: -16 },
+];
 ---
 
 <Layout title="Yutila">
 	<section class="hero">
-		<h1>Building the future of <br/> 
+		<div class="icon-field" aria-hidden="true">
+			{icons.map((ic, i) => (
+				<img
+					class="float-icon"
+					src={`/icons/${ic.name}.svg`}
+					alt=""
+					width={ic.size}
+					height={ic.size}
+					style={`top:${ic.top}%;left:${ic.left}%;width:${ic.size}px;height:${ic.size}px;animation-duration:${ic.dur}s;animation-delay:${ic.delay}s;`}
+					loading="lazy"
+					decoding="async"
+				/>
+			))}
+		</div>
+		<h1>Building the future of <br/>
 			<span class="letter-colors">
 				<span style="color: var(--yutila-green);">T</span><span style="color: var(--yutila-yellow);">e</span><span style="color: var(--yutila-orange);">c</span><span style="color: var(--yutila-red);">h</span><span style="color: var(--yutila-purple);">n</span><span style="color: var(--yutila-blue);">o</span><span style="color: var(--yutila-green);">l</span><span style="color: var(--yutila-yellow);">o</span><span style="color: var(--yutila-orange);">g</span><span style="color: var(--yutila-red);">y</span>
 			</span>
@@ -21,6 +58,8 @@ import Layout from '../layouts/Layout.astro';
 		align-items: flex-start;
 		min-height: 60vh;
 		max-width: 800px;
+		position: relative;
+		z-index: 1;
 	}
 
 	h1 {
@@ -38,5 +77,33 @@ import Layout from '../layouts/Layout.astro';
 		margin: 0;
 		max-width: 600px;
 	}
-</style>
 
+	.icon-field {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.float-icon {
+		position: absolute;
+		opacity: 0.05;
+		animation: drift 40s ease-in-out infinite alternate;
+	}
+
+	@keyframes drift {
+		0%   { transform: translate(0, 0) rotate(0deg); }
+		25%  { transform: translate(15px, -20px) rotate(8deg); }
+		50%  { transform: translate(-10px, 10px) rotate(-5deg); }
+		75%  { transform: translate(20px, 15px) rotate(12deg); }
+		100% { transform: translate(-5px, -15px) rotate(-3deg); }
+	}
+
+	@media (max-width: 768px) {
+		.float-icon { display: none; }
+	}
+</style>

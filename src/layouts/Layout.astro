@@ -25,7 +25,7 @@ const { title } = Astro.props;
 				<div class="links">
 					<a href="/software">Software</a>
 					<a href="/games">Games</a>
-					<a href="/docs">Docs</a>
+					<a href="/blog">Blog</a>
 				</div>
 			</nav>
 		</header>
@@ -75,6 +75,8 @@ const { title } = Astro.props;
 		border-bottom: 1px solid var(--border-color);
 		padding: 1.5rem 0;
 		position: relative;
+		background-color: var(--bg-color);
+		z-index: 10;
 	}
 
 	header::after {
@@ -135,6 +137,9 @@ const { title } = Astro.props;
 		border-top: 1px solid var(--border-color);
 		padding: 2rem 0;
 		margin-top: auto;
+		background-color: var(--bg-color);
+		position: relative;
+		z-index: 10;
 	}
 
 	.footer-links {

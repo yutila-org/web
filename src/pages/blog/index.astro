@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+	(a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+
+const categoryColors: Record<string, string> = {
+	Devlog: 'var(--yutila-green)',
+	Publication: 'var(--yutila-blue)',
+	Report: 'var(--yutila-orange)',
+	Material: 'var(--yutila-purple)',
+	Resource: 'var(--yutila-yellow)',
+};
+
+---
+
+<Layout title="Blog — Yutila">
+	<div class="page-container">
+		<PageHeader
+			backHref="/"
+			backLabel="Back Home"
+			title="Blog"
+			subtitle="Devlogs, publications, reports, and resources from the team."
+		/>
+
+		{posts.length === 0 && (
+			<div class="empty-state">
+				<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+				<p>No posts yet. Check back soon.</p>
+			</div>
+		)}
+
+		<div class="posts-grid">
+			{posts.map((post) => (
+				<a href={`/blog/${post.id}`} class="post-card glass-card">
+					<div class="card-glow" style={`--glow-color: ${categoryColors[post.data.category] || 'rgba(255,255,255,0.2)'}`}></div>
+					<div class="post-meta">
+						<span class="category-badge" style={`--cat-color: ${categoryColors[post.data.category]}`}>
+							{post.data.category}
+						</span>
+						<time datetime={post.data.publishDate.toISOString()}>
+							{post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+						</time>
+					</div>
+					<h2>{post.data.title}</h2>
+					<div class="post-author">
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+						{post.data.author}
+					</div>
+				</a>
+			))}
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+		gap: 1.5rem;
+	}
+
+	.post-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		text-decoration: none;
+		color: inherit;
+		padding: 2rem;
+		cursor: pointer;
+	}
+
+	.post-card:hover h2 {
+		color: var(--yutila-blue);
+	}
+
+	.post-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 0.85rem;
+	}
+
+	.post-meta time {
+		color: var(--text-muted);
+	}
+
+	.category-badge {
+		background: color-mix(in srgb, var(--cat-color) 15%, transparent);
+		border: 1px solid color-mix(in srgb, var(--cat-color) 30%, transparent);
+		color: var(--cat-color);
+		padding: 0.2rem 0.65rem;
+		border-radius: 9999px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.post-card h2 {
+		font-size: 1.35rem;
+		font-weight: 700;
+		margin: 0;
+		line-height: 1.3;
+		transition: color 0.2s ease;
+	}
+
+	.post-author {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		margin-top: auto;
+	}
+
+	.empty-state {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		padding: 6rem 2rem;
+		color: var(--text-muted);
+		text-align: center;
+	}
+
+	.empty-state svg {
+		opacity: 0.3;
+	}
+
+	.empty-state p {
+		font-size: 1.1rem;
+		margin: 0;
+	}
+
+	@media (max-width: 768px) {
+		.post-card {
+			padding: 1.5rem;
+		}
+	}
+</style>
