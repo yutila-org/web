@@ -696,9 +696,11 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
         </footer>
 
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
+            // Astro module scripts are deferred, so the DOM is already ready.
+            const initCarousel = () => {
                 const carousel = document.getElementById('device-carousel');
-                if (!carousel) return;
+                if (!carousel || carousel.dataset.initialized) return;
+                carousel.dataset.initialized = "true";
                 
                 const imagesStr = carousel.getAttribute('data-images');
                 if (!imagesStr) return;
@@ -727,7 +729,10 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                 } catch (e) {
                     console.error('Failed to parse carousel images', e);
                 }
-            });
+            };
+            initCarousel();
+            // Optional: Support Astro ViewTransitions if added later
+            document.addEventListener('astro:page-load', initCarousel);
         </script>
     </body>
 </html>
