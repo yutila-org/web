@@ -103,7 +103,7 @@ All software development must utilize a CI/CD pipeline that is configured to enf
 
 1. **Automated Builds and Testing:** The pipeline must automatically retrieve the latest source code, compile the application, and execute all mandatory Unit, Integration, SAST, and DAST tests.
 2. **Dependency Vulnerability Scanning:** All third-party libraries and dependencies used in the project must be scanned for known vulnerabilities (e.g., against CVE databases).
-3. **Mandatory Pass/Fail Enforcement:** The pipeline must automatically FAIL and block deployment if tests do not pass or if High/Critical vulnerabilities are detected, *unless a formal Vulnerability Waiver and risk-acceptance justification is documented and approved by the Security Policy Officer.*
+3. **Mandatory Pass/Fail Enforcement:** The pipeline must automatically FAIL and block deployment if tests do not pass or if High/Critical vulnerabilities are detected, *unless a formal Vulnerability Waiver and risk-acceptance justification is documented and approved by the SecOps Director.*
 
 ## **4.3. Security Orchestration, Automation, and Response (SOAR)**
 
@@ -118,7 +118,7 @@ To provide continuous visibility and threat remediation, the organization relies
 
 For all software classified as games or entertainment products, the following security measures are mandatory:
 
-- **Anti-Tamper & Anti-Cheat:** All multiplayer games must implement and maintain industry-standard anti-cheat and anti-tamper technologies. These solutions must be reviewed by the **Security Policy Officer** and subjected to adversarial validation. Validation may be conducted via internal red-teaming, structural review, or a closed-beta Coordinated Vulnerability Disclosure (CVD) process prior to any public release.
+- **Anti-Tamper & Anti-Cheat:** All multiplayer games must implement and maintain industry-standard anti-cheat and anti-tamper technologies. These solutions must be reviewed by the **SecOps Director** and subjected to adversarial validation. Validation may be conducted via internal red-teaming, structural review, or a closed-beta Coordinated Vulnerability Disclosure (CVD) process prior to any public release.
 - **Secure Backend Systems:** All server-side logic, APIs, and services supporting the game must fully adhere to all standards and requirements defined in Section 1 and Section 2 of this policy.
 - **Client-Side Sensitive Data Protection:** Any sensitive data stored on the client side (e.g., authentication tokens, payment information, personal data) must be protected using strong encryption and secure storage mechanisms.
 
