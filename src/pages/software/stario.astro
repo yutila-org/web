@@ -227,19 +227,21 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                 z-index: 10;
             }
 
-            .carousel-track {
-                display: flex;
-                width: 100%;
-                height: 100%;
-                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease-in-out;
-                will-change: transform, filter;
-            }
-
             .carousel-img {
-                flex: 0 0 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                transform: translateX(100%);
+                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease-in-out;
+                will-change: transform, filter;
+            }
+
+            .carousel-img.active {
+                transform: translateX(0);
+                filter: blur(0);
             }
 
             .features-wrapper {
@@ -551,11 +553,14 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                         <div class="device-wireframe" id="device-carousel" data-images={JSON.stringify(images)}>
                             <div class="device-notch"></div>
                             {images.length > 0 ? (
-                                <div class="carousel-track" id="carousel-track">
-                                    {images.map((img: string) => (
-                                        <img class="carousel-img" src={img} alt="Stario Screenshot" loading="lazy" />
-                                    ))}
-                                </div>
+                                images.map((img: string, index: number) => (
+                                    <img 
+                                        class={`carousel-img ${index === 0 ? 'active' : ''}`} 
+                                        src={img} 
+                                        alt="Stario Screenshot" 
+                                        loading={index === 0 ? "eager" : "lazy"} 
+                                    />
+                                ))
                             ) : (
                                 <div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:var(--subtext0);">No images</div>
                             )}
@@ -702,33 +707,39 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                 if (!carousel || carousel.dataset.initialized) return;
                 carousel.dataset.initialized = "true";
                 
-                const imagesStr = carousel.getAttribute('data-images');
-                if (!imagesStr) return;
-                
-                try {
-                    const images = JSON.parse(imagesStr);
-                    if (images.length <= 1) return; // No need to switch if 0 or 1 image
-                    
-                    const trackEl = document.getElementById('carousel-track');
-                    if (!trackEl) return;
+                const images = carousel.querySelectorAll('.carousel-img');
+                if (images.length <= 1) return;
 
-                    let currentIndex = 0;
+                let currentIndex = 0;
+                
+                setInterval(() => {
+                    const currentImg = images[currentIndex];
+                    currentIndex = (currentIndex + 1) % images.length;
+                    const nextImg = images[currentIndex];
+
+                    // Snap the next image to the right side (off-screen) without animation
+                    nextImg.style.transition = 'none';
+                    nextImg.style.transform = 'translateX(100%)';
+                    nextImg.style.filter = 'blur(6px)';
+                    nextImg.classList.remove('active');
                     
-                    setInterval(() => {
-                        currentIndex = (currentIndex + 1) % images.length;
-                        
-                        // Add motion blur and trigger scroll
-                        trackEl.style.filter = 'blur(6px)';
-                        trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
-                        
-                        // Remove blur shortly after starting to mimic slowing down
-                        setTimeout(() => {
-                            trackEl.style.filter = 'blur(0)';
-                        }, 300);
-                    }, 4000); // Switch every 4 seconds
-                } catch (e) {
-                    console.error('Failed to parse carousel images', e);
-                }
+                    // Force a browser reflow so the instant move takes effect immediately
+                    void nextImg.offsetWidth;
+
+                    // Restore the transition for the sliding animation
+                    nextImg.style.transition = '';
+                    
+                    // Slide the current image out to the left and blur it
+                    currentImg.style.transform = 'translateX(-100%)';
+                    currentImg.style.filter = 'blur(6px)';
+                    currentImg.classList.remove('active');
+                    
+                    // Slide the next image into the center and remove the blur
+                    nextImg.style.transform = 'translateX(0)';
+                    nextImg.style.filter = 'blur(0)';
+                    nextImg.classList.add('active');
+                    
+                }, 4000); // Switch every 4 seconds
             };
             initCarousel();
             // Optional: Support Astro ViewTransitions if added later
