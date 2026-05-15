@@ -1,0 +1,732 @@
+---
+// src/pages/software/stario.astro
+const imageFiles = import.meta.glob('/public/images/stario/*.{png,jpg,jpeg,webp,svg,gif}');
+const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stario Launcher</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                /* Catppuccin Mocha */
+                --base: #1e1e2e;
+                --mantle: #181825;
+                --crust: #11111b;
+                --text: #cdd6f4;
+                --subtext1: #bac2de;
+                --subtext0: #a6adc8;
+                --lavender: #b4befe;
+                --overlay0: #6c7086;
+                --surface0: #313244;
+                --surface1: #45475a;
+
+                --font-body: "DM Sans", sans-serif;
+                --font-mono: "JetBrains Mono", monospace;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background-color: var(--base);
+                color: var(--text);
+                font-family: var(--font-body);
+                line-height: 1.6;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* Strict geometric layout, flat lighting, no gradients, no shadows */
+            .container {
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .nav-container,
+            .footer-container {
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            a {
+                color: var(--text);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+
+            a:hover {
+                color: var(--lavender);
+            }
+
+            /* -----------------------------------------
+		   Top: Ultra-thin navigation bar
+		----------------------------------------- */
+            .nav {
+                width: 100%;
+                height: 64px;
+                display: flex;
+                align-items: center;
+                padding: 0 2rem;
+                border-bottom: 1px solid var(--crust);
+                background-color: var(--mantle);
+            }
+
+            .nav-left {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-weight: 700;
+                font-size: 1.25rem;
+                color: var(--text);
+            }
+
+            .logo svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 1.5rem;
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: var(--subtext1);
+            }
+
+            .btn-primary {
+                background-color: var(--text);
+                color: var(--crust);
+                padding: 0.5rem 1.25rem;
+                border-radius: 9999px; /* Pill */
+                font-weight: 700;
+                font-size: 0.9rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .btn-primary:hover {
+                background-color: var(--lavender);
+                color: var(--crust);
+            }
+
+            .back-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--subtext1);
+                font-size: 0.95rem;
+                font-weight: 500;
+                margin: 2rem 2rem 0;
+            }
+
+            .back-link:hover {
+                color: var(--lavender);
+            }
+
+            .full-width-border {
+                width: 100%;
+                border-bottom: 1px solid var(--crust);
+            }
+
+            /* -----------------------------------------
+		   Hero Section
+		----------------------------------------- */
+            .hero {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                padding: 4rem 2rem 6rem;
+            }
+
+            .hero-left {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .hero-left h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+            }
+
+            .hero-left h2 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: var(--lavender);
+                line-height: 1.3;
+            }
+
+            .hero-left p {
+                font-size: 1.1rem;
+                color: var(--subtext0);
+                max-width: 500px;
+            }
+
+            /* Right-aligned device wireframe */
+            .hero-right {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            .device-wireframe {
+                width: 270px;
+                height: 600px;
+                border: 8px solid var(--crust);
+                border-radius: 36px;
+                background-color: var(--mantle);
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .device-notch {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 20px;
+                background-color: var(--crust);
+                border-bottom-left-radius: 12px;
+                border-bottom-right-radius: 12px;
+                z-index: 10;
+            }
+
+            .carousel-track {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease-in-out;
+                will-change: transform, filter;
+            }
+
+            .carousel-img {
+                flex: 0 0 100%;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .features-wrapper {
+                background-color: var(--mantle);
+            }
+
+            /* -----------------------------------------
+		   Middle Section: 3-column grid
+		----------------------------------------- */
+            .features {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .feature-card {
+                padding: 4rem 3rem;
+                border-right: 1px solid var(--crust);
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .feature-card:last-child {
+                border-right: none;
+            }
+
+            .feature-icon {
+                width: 48px;
+                height: 48px;
+                background-color: var(--surface0);
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--lavender);
+                margin-bottom: 1rem;
+            }
+
+            .feature-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+
+            .feature-card p {
+                color: var(--subtext0);
+                font-size: 0.95rem;
+            }
+
+            /* -----------------------------------------
+		   Lower Section: Terminal code snippet
+		----------------------------------------- */
+            .deployment {
+                padding: 6rem 2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .deployment-context {
+                text-align: center;
+                margin-bottom: 2rem;
+                font-size: 1.1rem;
+                color: var(--subtext1);
+            }
+
+            .terminal-ui {
+                width: 100%;
+                max-width: 800px;
+                background-color: var(--crust);
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .terminal-header {
+                background-color: var(--mantle);
+                height: 40px;
+                display: flex;
+                align-items: center;
+                padding: 0 1rem;
+                gap: 0.5rem;
+                border-bottom: 1px solid var(--crust);
+            }
+
+            .terminal-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: var(--overlay0);
+            }
+
+            .terminal-body {
+                padding: 1.5rem;
+                font-family: var(--font-mono);
+                font-size: 0.9rem;
+                color: var(--subtext1);
+                overflow-x: auto;
+            }
+
+            .terminal-body pre {
+                margin: 0;
+                white-space: pre-wrap;
+            }
+
+            .terminal-comment {
+                color: var(--overlay0);
+            }
+
+            .terminal-command {
+                color: var(--text);
+            }
+
+            /* -----------------------------------------
+		   Footer
+		----------------------------------------- */
+            .footer {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 3rem 2rem;
+                background-color: var(--mantle);
+                margin-top: auto;
+            }
+
+            .footer-links {
+                display: flex;
+                gap: 2rem;
+                font-size: 0.9rem;
+                color: var(--subtext1);
+            }
+
+            .footer-attribution {
+                font-size: 0.85rem;
+                color: var(--overlay0);
+                text-align: right;
+                max-width: 400px;
+            }
+
+            /* Responsive */
+            @media (max-width: 900px) {
+                .hero {
+                    grid-template-columns: 1fr;
+                    padding: 4rem 2rem;
+                    gap: 3rem;
+                }
+                .hero-right {
+                    justify-content: center;
+                }
+                .features {
+                    grid-template-columns: 1fr;
+                }
+                .feature-card {
+                    border-right: none;
+                    border-bottom: 1px solid var(--crust);
+                    padding: 3rem 2rem;
+                }
+                .feature-card:last-child {
+                    border-bottom: none;
+                }
+                .footer-container {
+                    flex-direction: column;
+                    gap: 2rem;
+                    text-align: center;
+                }
+                .footer-attribution {
+                    text-align: center;
+                }
+                .nav-left {
+                    gap: 1rem;
+                }
+                .nav-links {
+                    display: none; /* Hide on extremely small screens */
+                }
+            }
+
+            /* -----------------------------------------
+		   Animated Background Waves
+		----------------------------------------- */
+            .waves-container {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 40vh;
+                min-height: 250px;
+                z-index: -1;
+                pointer-events: none;
+                overflow: hidden;
+            }
+
+            .waves {
+                width: 100%;
+                height: 100%;
+            }
+
+            .parallax > use {
+                animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+            }
+            .parallax > use:nth-child(1) {
+                animation-delay: -2s;
+                animation-duration: 7s;
+            }
+            .parallax > use:nth-child(2) {
+                animation-delay: -3s;
+                animation-duration: 10s;
+            }
+            .parallax > use:nth-child(3) {
+                animation-delay: -4s;
+                animation-duration: 13s;
+            }
+            .parallax > use:nth-child(4) {
+                animation-delay: -5s;
+                animation-duration: 20s;
+            }
+
+            @keyframes move-forever {
+                0% {
+                    transform: translate3d(-90px, 0, 0);
+                }
+                100% {
+                    transform: translate3d(85px, 0, 0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Animated Background Waves -->
+        <div class="waves-container">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(180, 190, 254, 0.03)" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(180, 190, 254, 0.05)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(180, 190, 254, 0.02)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(180, 190, 254, 0.04)" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <a href="#" class="logo">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 -2.4869e-14 17 15"
+                        >
+                            <path
+                                d="M 9.5 11.4 C 9.5 9.5 8.3 7.5 5 7.5 L 3.8 7.5 A 1 1 0 0 1 3.7 0 L 10.5 0 C 8.5 0.5 7.5 1.9 7.5 3.6 C 7.5 5.5 8.7 7.5 12 7.5 L 13.2 7.5 A 1 1 0 0 1 13.3 15 L 6.5 15 C 8.5 14.5 9.5 13.1 9.5 11.4 M 0 11.5 A 1 1 0 0 0 7 11.5 A 1 1 0 0 0 0 11.5 M 17 3.5 A 1 1 0 0 0 10 3.5 A 1 1 0 0 0 17 3.5"
+                                fill="currentColor"></path>
+                        </svg>
+                        Stario
+                    </a>
+                    <div class="nav-links">
+                        <a href="https://github.com/yutila-org/stario"
+                            >Repository</a
+                        >
+                    </div>
+                </div>
+                <a
+                    href="https://github.com/yutila-org/stario/releases/latest"
+                    class="btn-primary">Download APK</a
+                >
+            </div>
+        </nav>
+
+        <main>
+            <div class="container">
+                <a href="/software" class="back-link">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><path d="m15 18-6-6 6-6"></path></svg
+                    >
+                    Back to Software
+                </a>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="full-width-border">
+                <header class="hero container">
+                    <div class="hero-left">
+                        <h1>Android's launcher for you.</h1>
+                        <h2>Zero bloat. Zero noise. Pure function.</h2>
+                        <p>
+                            Stario is an Android launcher built for extreme
+                            minimalism and utility. It provides a clean, ad-free
+                            interface featuring local widgets, Material You
+                            integration, and built-in search, completely free of
+                            background telemetry.
+                        </p>
+                    </div>
+                    <div class="hero-right">
+                        <div class="device-wireframe" id="device-carousel" data-images={JSON.stringify(images)}>
+                            <div class="device-notch"></div>
+                            {images.length > 0 ? (
+                                <div class="carousel-track" id="carousel-track">
+                                    {images.map((img: string) => (
+                                        <img class="carousel-img" src={img} alt="Stario Screenshot" loading="lazy" />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:var(--subtext0);">No images</div>
+                            )}
+                        </div>
+                    </div>
+                </header>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="full-width-border features-wrapper">
+                <section class="features container">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Palette Icon -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><circle cx="13.5" cy="6.5" r=".5"></circle><circle
+                                cx="17.5"
+                                cy="10.5"
+                                r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"
+                            ></circle><circle cx="6.5" cy="12.5" r=".5"
+                            ></circle><path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+                            ></path></svg
+                        >
+                    </div>
+                    <h3>Dynamic Integration</h3>
+                    <p>
+                        Integrates natively with Android's Material You dynamic
+                        color APIs for seamless system-level adaptation.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- RSS/Database Icon -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><ellipse cx="12" cy="5" rx="9" ry="3"
+                            ></ellipse><path
+                                d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"
+                            ></path><path
+                                d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"
+                            ></path></svg
+                        >
+                    </div>
+                    <h3>Localized Data</h3>
+                    <p>
+                        Built-in local RSS/Atom parser and weather widget.
+                        Delivers data directly to the user without proprietary
+                        external tracking.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Shield Icon -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path
+                                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                            ></path></svg
+                        >
+                    </div>
+                    <h3>Telemetry-Free</h3>
+                    <p>
+                        No advertisements. No algorithmically driven feeds.
+                        Absolute zero background data collection.
+                    </p>
+                </div>
+                </section>
+            </div>
+
+            <!-- Deployment Block -->
+            <div class="full-width-border">
+                <section class="deployment container">
+                    <div class="deployment-context">
+                        Independent distribution. Bypass mandatory ecosystem
+                        registration.
+                    </div>
+                    <div class="terminal-ui">
+                        <div class="terminal-header">
+                            <div class="terminal-dot"></div>
+                            <div class="terminal-dot"></div>
+                            <div class="terminal-dot"></div>
+                        </div>
+                        <div class="terminal-body">
+                            <pre>
+<span class="terminal-comment"># Download the latest signed release</span>
+<span class="terminal-command">curl -sSLO https://github.com/yutila-org/stario/releases/latest/download/stario.apk</span>
+
+<span class="terminal-comment"># Install via Android Debug Bridge</span>
+<span class="terminal-command">adb install stario.apk</span>
+</pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <a href="https://akrillick.github.io/web/OTA.md"
+                        >OTA Public License</a
+                    >
+                    <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a
+                    >
+                    <a href="https://github.com/yutila-org/stario"
+                        >Source Code</a
+                    >
+                    <a href="#">Code of Conduct</a>
+                </div>
+                <div class="footer-attribution">
+                    Original work and Stario concept developed by Răzvan Albu.
+                    Forked and actively maintained by Yutila.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const carousel = document.getElementById('device-carousel');
+                if (!carousel) return;
+                
+                const imagesStr = carousel.getAttribute('data-images');
+                if (!imagesStr) return;
+                
+                try {
+                    const images = JSON.parse(imagesStr);
+                    if (images.length <= 1) return; // No need to switch if 0 or 1 image
+                    
+                    const trackEl = document.getElementById('carousel-track');
+                    if (!trackEl) return;
+
+                    let currentIndex = 0;
+                    
+                    setInterval(() => {
+                        currentIndex = (currentIndex + 1) % images.length;
+                        
+                        // Add motion blur and trigger scroll
+                        trackEl.style.filter = 'blur(6px)';
+                        trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        
+                        // Remove blur shortly after starting to mimic slowing down
+                        setTimeout(() => {
+                            trackEl.style.filter = 'blur(0)';
+                        }, 300);
+                    }, 4000); // Switch every 4 seconds
+                } catch (e) {
+                    console.error('Failed to parse carousel images', e);
+                }
+            });
+        </script>
+    </body>
+</html>
