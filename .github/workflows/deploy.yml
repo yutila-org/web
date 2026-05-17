@@ -28,9 +28,3 @@ jobs:
 
       - name: Build Static Site
         run: npm run build
-
-      - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy .astro --project-name=web --branch=3/merge --commit-dirty=true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: "d7f1e4a3e5c7eccc8816be9fc1e98cc4"
