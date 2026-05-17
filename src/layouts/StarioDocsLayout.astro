@@ -1,0 +1,328 @@
+---
+// src/layouts/StarioDocsLayout.astro
+import '../styles/stario-docs.css';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description?: string;
+  };
+  headings?: { depth: number; slug: string; text: string }[];
+}
+
+const { frontmatter, headings } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{frontmatter.title} | Stario Docs</title>
+    <meta name="description" content={frontmatter.description || 'Stario Documentation'} />
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="logo">
+        <!-- Official Stario Logo SVG with fill="currentColor" -->
+        <svg class="logo-icon" width="20" height="18" viewBox="0 -2.4869e-14 17 15" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+          <path d="M 9.5 11.4 C 9.5 9.5 8.3 7.5 5 7.5 L 3.8 7.5 A 1 1 0 0 1 3.7 0 L 10.5 0 C 8.5 0.5 7.5 1.9 7.5 3.6 C 7.5 5.5 8.7 7.5 12 7.5 L 13.2 7.5 A 1 1 0 0 1 13.3 15 L 6.5 15 C 8.5 14.5 9.5 13.1 9.5 11.4 M 0 11.5 A 1 1 0 0 0 7 11.5 A 1 1 0 0 0 0 11.5 M 17 3.5 A 1 1 0 0 0 10 3.5 A 1 1 0 0 0 17 3.5" fill="currentColor"/>
+        </svg>
+        Stario <span class="muted">/ Docs</span>
+      </div>
+      <div id="search-trigger" class="search-placeholder">
+        <span class="muted">Search...</span>
+        <kbd>Ctrl+K</kbd>
+      </div>
+      <a href="https://github.com/yutila-org/stario" class="github-link">GitHub</a>
+    </header>
+    
+    <div class="container">
+      <aside class="left-sidebar">
+        <nav>
+          <div class="nav-group">
+            <h3>Overview</h3>
+            <ul>
+              <li>
+                <a href="/docs/stario/overview" class={currentPath.includes('/overview') && !currentPath.includes('/features') && !currentPath.includes('/telemetry') ? 'active' : ''}>
+                  <!-- Introduction / Book Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+                  Introduction
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/overview/features" class={currentPath.includes('/overview/features') ? 'active' : ''}>
+                  <!-- Core Features / Sparkle Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  Core Features
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/overview/telemetry" class={currentPath.includes('/overview/telemetry') ? 'active' : ''}>
+                  <!-- Zero Telemetry / Shield Check Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 11 2 2 4-4"></path></svg>
+                  Zero Telemetry
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h3>Getting Started</h3>
+            <ul>
+              <li>
+                <a href="/docs/stario/getting-started/sideloading" class={currentPath.includes('/getting-started/sideloading') ? 'active' : ''}>
+                  <!-- Sideloading / Download Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  Sideloading
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/getting-started/compiling" class={currentPath.includes('/getting-started/compiling') ? 'active' : ''}>
+                  <!-- Compiling / Code Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  Compiling from Source
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h3>Configuration</h3>
+            <ul>
+              <li>
+                <a href="/docs/stario/config/manifest" class={currentPath.includes('/config/manifest') ? 'active' : ''}>
+                  <!-- Manifest / File Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  Manifest
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/config/theming" class={currentPath.includes('/config/theming') ? 'active' : ''}>
+                  <!-- Theming / Palette Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path><path d="M12 6A2 2 0 1 0 12 10A2 2 0 1 0 12 6Z"></path><path d="M6 12A2 2 0 1 0 6 16A2 2 0 1 0 6 12Z"></path><path d="M18 12A2 2 0 1 0 18 16A2 2 0 1 0 18 12Z"></path><path d="M12 16A2 2 0 1 0 12 20A2 2 0 1 0 12 16Z"></path></svg>
+                  Theming
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h3>Repository Analysis</h3>
+            <ul>
+              <li>
+                <a href="/docs/stario/repo-analysis/architecture" class={currentPath.includes('/repo-analysis/architecture') ? 'active' : ''}>
+                  <!-- Architecture / Grid Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                  Architecture
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/repo-analysis/security" class={currentPath.includes('/repo-analysis/security') ? 'active' : ''}>
+                  <!-- Security Pipeline / Lock Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  Security Pipeline
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/repo-analysis/content" class={currentPath.includes('/repo-analysis/content') ? 'active' : ''}>
+                  <!-- Content Engine / Gears Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  Content Engine
+                </a>
+              </li>
+              <li>
+                <a href="/docs/stario/repo-analysis/workflow" class={currentPath.includes('/repo-analysis/workflow') ? 'active' : ''}>
+                  <!-- Developer Workflow / Check Icon -->
+                  <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  Developer Workflow
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <article>
+          <h1>{frontmatter.title}</h1>
+          <slot />
+        </article>
+      </main>
+
+      <aside class="right-sidebar">
+        {headings && headings.length > 0 && (
+          <nav class="toc">
+            <h3>On this page</h3>
+            <ul>
+              {headings.map((heading) => (
+                <li class={`depth-${heading.depth}`}>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+      </aside>
+    </div>
+
+    <!-- Search Modal (starts hidden explicitly inline) -->
+    <div id="search-overlay" class="search-overlay" style="display: none; opacity: 1; pointer-events: auto;">
+      <div class="search-modal">
+        <div class="search-input-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input id="search-input" type="text" placeholder="Search documentation..." autocomplete="off" spellcheck="false" />
+          <kbd>Esc</kbd>
+        </div>
+        <ul id="search-results" class="search-results"></ul>
+        <div id="search-empty" class="search-empty">No results found.</div>
+      </div>
+    </div>
+
+    <!-- Standard Astro script - bundled into an external JS asset which is allowed by 'script-src self' CSP -->
+    <script>
+      const pages = [
+        { title: 'Introduction', section: 'Overview', href: '/docs/stario/overview' },
+        { title: 'Core Features', section: 'Overview', href: '/docs/stario/overview/features' },
+        { title: 'Zero Telemetry', section: 'Overview', href: '/docs/stario/overview/telemetry' },
+        { title: 'Sideloading', section: 'Getting Started', href: '/docs/stario/getting-started/sideloading' },
+        { title: 'Compiling from Source', section: 'Getting Started', href: '/docs/stario/getting-started/compiling' },
+        { title: 'Manifest', section: 'Configuration', href: '/docs/stario/config/manifest' },
+        { title: 'Theming', section: 'Configuration', href: '/docs/stario/config/theming' },
+        { title: 'Architecture', section: 'Repository Analysis', href: '/docs/stario/repo-analysis/architecture' },
+        { title: 'Security Pipeline', section: 'Repository Analysis', href: '/docs/stario/repo-analysis/security' },
+        { title: 'Content Engine', section: 'Repository Analysis', href: '/docs/stario/repo-analysis/content' },
+        { title: 'Developer Workflow', section: 'Repository Analysis', href: '/docs/stario/repo-analysis/workflow' }
+      ];
+
+      const overlay = document.getElementById('search-overlay');
+      const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+      const resultsList = document.getElementById('search-results');
+      const emptyMsg = document.getElementById('search-empty');
+      const trigger = document.getElementById('search-trigger');
+      let activeIdx = -1;
+      let isOpen = false;
+
+      if (overlay && searchInput && resultsList && emptyMsg && trigger) {
+        const openSearch = () => {
+          isOpen = true;
+          overlay.style.display = 'flex';
+          searchInput.value = '';
+          activeIdx = -1;
+          emptyMsg.style.display = 'none';
+          renderResults(pages);
+          setTimeout(() => { searchInput.focus(); }, 50);
+        };
+
+        const closeSearch = () => {
+          isOpen = false;
+          overlay.style.display = 'none';
+          searchInput.blur();
+        };
+
+        const renderResults = (items: typeof pages) => {
+          resultsList.innerHTML = '';
+          if (items.length === 0) {
+            emptyMsg.style.display = 'block';
+            return;
+          }
+          emptyMsg.style.display = 'none';
+          items.forEach((item, idx) => {
+            const li = document.createElement('li');
+            li.className = 'search-result-item';
+            
+            const a = document.createElement('a');
+            a.href = item.href;
+            
+            const titleSpan = document.createElement('span');
+            titleSpan.className = 'sr-title';
+            titleSpan.textContent = item.title;
+            
+            const sectionSpan = document.createElement('span');
+            sectionSpan.className = 'sr-section';
+            sectionSpan.textContent = item.section;
+            
+            a.appendChild(titleSpan);
+            a.appendChild(sectionSpan);
+            li.appendChild(a);
+            
+            li.addEventListener('mouseenter', () => {
+              activeIdx = idx;
+              highlightResult();
+            });
+            
+            resultsList.appendChild(li);
+          });
+        };
+
+        const highlightResult = () => {
+          const items = resultsList.querySelectorAll('.search-result-item');
+          items.forEach((item, idx) => {
+            if (idx === activeIdx) {
+              item.classList.add('focused');
+            } else {
+              item.classList.remove('focused');
+            }
+          });
+        };
+
+        // Attach programmatic event listeners (100% CSP compliant)
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openSearch();
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            openSearch();
+            return;
+          }
+          if (!isOpen) return;
+          if (e.key === 'Escape') {
+            closeSearch();
+            return;
+          }
+          const items = resultsList.querySelectorAll('.search-result-item');
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            activeIdx = Math.min(activeIdx + 1, items.length - 1);
+            highlightResult();
+            const activeEl = items[activeIdx] as HTMLElement | undefined;
+            if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+          }
+          if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            activeIdx = Math.max(activeIdx - 1, 0);
+            highlightResult();
+            const activeEl = items[activeIdx] as HTMLElement | undefined;
+            if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+          }
+          if (e.key === 'Enter' && activeIdx >= 0 && items[activeIdx]) {
+            const link = items[activeIdx].querySelector('a');
+            if (link) window.location.href = link.href;
+          }
+        });
+
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) closeSearch();
+        });
+
+        searchInput.addEventListener('input', () => {
+          const q = searchInput.value.toLowerCase().trim();
+          const filtered = pages.filter(page => 
+            !q || 
+            page.title.toLowerCase().includes(q) || 
+            page.section.toLowerCase().includes(q)
+          );
+          activeIdx = filtered.length > 0 ? 0 : -1;
+          renderResults(filtered);
+          highlightResult();
+        });
+
+        console.log('Stario Search initialized successfully.');
+      } else {
+        console.error('Search elements not found in DOM.');
+      }
+    </script>
+  </body>
+</html>
