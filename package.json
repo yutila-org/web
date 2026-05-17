@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.5.0",
+    "animejs": "^4.4.1",
     "astro": "^6.3.1",
     "ioredis": "^5.10.1"
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.13",
     "wrangler": "^4.80.0"
   }
 }
