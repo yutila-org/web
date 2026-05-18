@@ -4,12 +4,6 @@ on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
-  workflow_call:
-    inputs:
-      target_url:
-        required: true
-        type: string
-        description: "Target URL for the DAST security audit"
 
 permissions:
   contents: read
@@ -23,6 +17,6 @@ jobs:
       - name: ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: ${{ inputs.target_url || vars.DAST_TARGET_URL }}
+          target: ${{ vars.DAST_TARGET_URL }}
           rules_file_name: ""
           cmd_options: "-a"
