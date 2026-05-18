@@ -1,6 +1,5 @@
 ---
 import BackLink from "./BackLink.astro";
-import YutilaLogo from "./YutilaLogo.astro";
 
 interface Props {
     backHref: string;
@@ -15,11 +14,6 @@ const { backHref, backLabel, title, subtitle, subtitleClass } = Astro.props;
 
 <div class="page-header">
     <BackLink href={backHref} label={backLabel} />
-    <div
-        class="logo-container"
-        style="margin-bottom: 2rem; max-width: 240px; display: block;"
-    >
-        <YutilaLogo class="header-logo" width="200" height="62.8" />
     </div>
     <h1>{title}</h1>
     {
