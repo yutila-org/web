@@ -1,232 +1,398 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageHeader from '../components/PageHeader.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Governance & Documentation">
-	<div class="page-container">
-		<PageHeader
-			backHref="/"
-			backLabel="Back Home"
-			title="Governance"
-			subtitle="Internal policies, operational registries and response playbooks."
-		/>
-		<section class="roles-cta">
-			<div class="roles-cta-content">
-				<h2>Roles</h2>
-				<p>Delve into the operational architecture of Yutila. Our roles specification outlines the comprehensive hierarchy and distribution of responsibilities, illustrating how our divisions synchronize to execute our collective vision.</p>
-			</div>
-			<a href="/governance/roles" class="btn-primary btn-square" aria-label="View Organization Roles">
-				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-			</a>
-		</section>
+    <div class="page-container">
+        <section class="roles-cta">
+            <div class="roles-cta-content">
+                <h2>Roles</h2>
+                <p>
+                    Delve into the operational architecture of Yutila. Our roles
+                    specification outlines the comprehensive hierarchy and
+                    distribution of responsibilities, illustrating how our
+                    divisions synchronize to execute our collective vision.
+                </p>
+            </div>
+            <a
+                href="/governance/roles"
+                class="btn-primary btn-square"
+                aria-label="View Organization Roles"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+                        points="12 5 19 12 12 19"></polyline></svg
+                >
+            </a>
+        </section>
 
-		<div class="category-section">
-			<h2 class="category-title">Security & Privacy</h2>
-			<div class="documents-grid">
-				<a href="/governance/security" class="glass-card doc-card">
-					<div class="card-glow" style="--glow-color: var(--yutila-red)"></div>
-					<div class="doc-icon" style="color: var(--yutila-red)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-					</div>
-					<h2>Security Policies</h2>
-					<p>Review our comprehensive security governance, framework standards, and secure development lifecycle rules.</p>
-				</a>
+        <div class="category-section">
+            <h2 class="category-title">Security & Privacy</h2>
+            <div class="documents-grid">
+                <a href="/governance/security" class="glass-card doc-card">
+                    <div
+                        class="card-glow"
+                        style="--glow-color: var(--yutila-red)"
+                    >
+                    </div>
+                    <div class="doc-icon" style="color: var(--yutila-red)">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path
+                                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                            ></path></svg
+                        >
+                    </div>
+                    <h2>Security Policies</h2>
+                    <p>
+                        Review our comprehensive security governance, framework
+                        standards, and secure development lifecycle rules.
+                    </p>
+                </a>
 
-				<a href="/governance/privacy" class="glass-card doc-card">
-					<div class="card-glow" style="--glow-color: var(--yutila-blue, #3b82f6)"></div>
-					<div class="doc-icon" style="color: var(--yutila-blue, #3b82f6)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-					</div>
-					<h2>Privacy Policies</h2>
-					<p>Understand how we process, protect, and minimize data to guarantee your fundamental right to privacy.</p>
-				</a>
-			</div>
-		</div>
+                <a href="/governance/privacy" class="glass-card doc-card">
+                    <div
+                        class="card-glow"
+                        style="--glow-color: var(--yutila-blue, #3b82f6)"
+                    >
+                    </div>
+                    <div
+                        class="doc-icon"
+                        style="color: var(--yutila-blue, #3b82f6)"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><rect
+                                x="3"
+                                y="11"
+                                width="18"
+                                height="11"
+                                rx="2"
+                                ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"
+                            ></path></svg
+                        >
+                    </div>
+                    <h2>Privacy Policies</h2>
+                    <p>
+                        Understand how we process, protect, and minimize data to
+                        guarantee your fundamental right to privacy.
+                    </p>
+                </a>
+            </div>
+        </div>
 
-		<div class="category-section">
-			<h2 class="category-title">Governance & Ethics</h2>
-			<div class="documents-grid">
-				<a href="/governance/ethics" class="glass-card doc-card">
-					<div class="card-glow" style="--glow-color: var(--yutila-green, #10b981)"></div>
-					<div class="doc-icon" style="color: var(--yutila-green, #10b981)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-					</div>
-					<h2>Deontological Code</h2>
-					<p>Read our Code of Ethics guiding our engineering and development procedures per international standards.</p>
-				</a>
-			</div>
-		</div>
+        <div class="category-section">
+            <h2 class="category-title">Governance & Ethics</h2>
+            <div class="documents-grid">
+                <a href="/governance/ethics" class="glass-card doc-card">
+                    <div
+                        class="card-glow"
+                        style="--glow-color: var(--yutila-green, #10b981)"
+                    >
+                    </div>
+                    <div
+                        class="doc-icon"
+                        style="color: var(--yutila-green, #10b981)"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"
+                            ></path><path
+                                d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+                            ></path></svg
+                        >
+                    </div>
+                    <h2>Deontological Code</h2>
+                    <p>
+                        Read our Code of Ethics guiding our engineering and
+                        development procedures per international standards.
+                    </p>
+                </a>
+            </div>
+        </div>
 
-		<div class="category-section">
-			<h2 class="category-title">Dependencies & Access</h2>
-			<div class="documents-grid">
-				<a href="/governance/dependencies" class="glass-card doc-card">
-					<div class="card-glow" style="--glow-color: var(--yutila-orange, #f97316)"></div>
-					<div class="doc-icon" style="color: var(--yutila-orange, #f97316)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-					</div>
-					<h2>Dependency Registry</h2>
-					<p>Authorized database of dependencies and compliance with organizational security policies.</p>
-				</a>
+        <div class="category-section">
+            <h2 class="category-title">Dependencies & Access</h2>
+            <div class="documents-grid">
+                <a href="/governance/dependencies" class="glass-card doc-card">
+                    <div
+                        class="card-glow"
+                        style="--glow-color: var(--yutila-orange, #f97316)"
+                    >
+                    </div>
+                    <div
+                        class="doc-icon"
+                        style="color: var(--yutila-orange, #f97316)"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                            ></path><polyline
+                                points="3.27 6.96 12 12.01 20.73 6.96"
+                            ></polyline><line x1="12" y1="22.08" x2="12" y2="12"
+                            ></line></svg
+                        >
+                    </div>
+                    <h2>Dependency Registry</h2>
+                    <p>
+                        Authorized database of dependencies and compliance with
+                        organizational security policies.
+                    </p>
+                </a>
 
-				<a href="/governance/access-control" class="glass-card doc-card">
-					<div class="card-glow" style="--glow-color: var(--yutila-purple, #9333ea)"></div>
-					<div class="doc-icon" style="color: var(--yutila-purple, #9333ea)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-					</div>
-					<h2>Access Control</h2>
-					<p>Hybrid RBAC/ABAC framework defining individual resource provisioning and structural oversight.</p>
-				</a>
-			</div>
-		</div>
+                <a
+                    href="/governance/access-control"
+                    class="glass-card doc-card"
+                >
+                    <div
+                        class="card-glow"
+                        style="--glow-color: var(--yutila-purple, #9333ea)"
+                    >
+                    </div>
+                    <div
+                        class="doc-icon"
+                        style="color: var(--yutila-purple, #9333ea)"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                            ></path><circle cx="9" cy="7" r="4"></circle><path
+                                d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path
+                                d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg
+                        >
+                    </div>
+                    <h2>Access Control</h2>
+                    <p>
+                        Hybrid RBAC/ABAC framework defining individual resource
+                        provisioning and structural oversight.
+                    </p>
+                </a>
+            </div>
+        </div>
 
-		<div class="category-section">
-			<h2 class="category-title">Incident & Playbook</h2>
-			<div class="documents-grid">
-				<a href="/governance/incident-response-playbook" class="glass-card doc-card">
-					<div class="card-glow" style="--glow-color: var(--yutila-indigo, #6366f1)"></div>
-					<div class="doc-icon" style="color: var(--yutila-indigo, #6366f1)">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M12 6v6l3-3-3-3"></path></svg>
-					</div>
-					<h2>Incident Playbook</h2>
-					<p>Step-by-step procedures for detecting, containing, and recovering from cybersecurity incidents.</p>
-				</a>
-			</div>
-		</div>
-	</div>
+        <div class="category-section">
+            <h2 class="category-title">Incident & Playbook</h2>
+            <div class="documents-grid">
+                <a
+                    href="/governance/incident-response-playbook"
+                    class="glass-card doc-card"
+                >
+                    <div
+                        class="card-glow"
+                        style="--glow-color: var(--yutila-indigo, #6366f1)"
+                    >
+                    </div>
+                    <div
+                        class="doc-icon"
+                        style="color: var(--yutila-indigo, #6366f1)"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+                            ></path><path
+                                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                            ></path><path d="M12 6v6l3-3-3-3"></path></svg
+                        >
+                    </div>
+                    <h2>Incident Playbook</h2>
+                    <p>
+                        Step-by-step procedures for detecting, containing, and
+                        recovering from cybersecurity incidents.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
 </Layout>
 
 <style>
-	.category-section {
-		margin-bottom: 3rem;
-	}
+    .category-section {
+        margin-bottom: 3rem;
+    }
 
-	.category-title {
-		font-size: 1.8rem;
-		font-weight: 700;
-		color: var(--text-color);
-		margin-bottom: 1.5rem;
-		padding-bottom: 0.5rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	}
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-	.documents-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1.5rem;
-	}
+    .documents-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
 
-	.doc-card {
-		display: flex;
-		flex-direction: column;
-		text-decoration: none;
-	}
+    .doc-card {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+    }
 
-	.doc-icon {
-		margin-bottom: 1.5rem;
-		background: rgba(255, 255, 255, 0.03);
-		width: 60px;
-		height: 60px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 12px;
-		border: 1px solid rgba(255, 255, 255, 0.05);
-	}
+    .doc-icon {
+        margin-bottom: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-	.doc-card h2 {
-		margin: 0 0 1rem 0;
-		font-size: 1.4rem;
-		font-weight: 700;
-		color: var(--text-color);
-	}
+    .doc-card h2 {
+        margin: 0 0 1rem 0;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-color);
+    }
 
-	.doc-card p {
-		color: var(--text-muted);
-		font-size: 1rem;
-		line-height: 1.6;
-		margin: 0;
-		flex: 1;
-	}
+    .doc-card p {
+        color: var(--text-muted);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0;
+        flex: 1;
+    }
 
-	.roles-cta {
-		background: linear-gradient(145deg, #1f1f22, #171717);
-		border: 1px solid var(--border-color);
-		border-radius: 16px;
-		padding: 2.5rem;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 2rem;
-		margin-bottom: 3.5rem;
-	}
+    .roles-cta {
+        background: linear-gradient(145deg, #1f1f22, #171717);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 3.5rem;
+    }
 
-	.roles-cta-content {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-		text-align: left;
-		flex: 1;
-	}
+    .roles-cta-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: left;
+        flex: 1;
+    }
 
-	.roles-cta h2 {
-		margin: 0;
-		font-size: 2rem;
-	}
+    .roles-cta h2 {
+        margin: 0;
+        font-size: 2rem;
+    }
 
-	.roles-cta p {
-		color: var(--text-muted);
-		font-size: 1.05rem;
-		max-width: 700px;
-		margin: 0;
-		line-height: 1.6;
-	}
+    .roles-cta p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        max-width: 700px;
+        margin: 0;
+        line-height: 1.6;
+    }
 
-	.btn-primary {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		background: var(--text-color);
-		color: var(--bg-color);
-		font-weight: 600;
-		font-size: 1.05rem;
-		padding: 0.8rem 1.5rem;
-		border-radius: 8px;
-		text-decoration: none;
-		transition: all 0.2s ease;
-		flex-shrink: 0;
-	}
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--text-color);
+        color: var(--bg-color);
+        font-weight: 600;
+        font-size: 1.05rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
 
-	.btn-square {
-		width: 4rem;
-		height: 4rem;
-		padding: 0;
-		justify-content: center;
-		border-radius: 12px;
-	}
+    .btn-square {
+        width: 4rem;
+        height: 4rem;
+        padding: 0;
+        justify-content: center;
+        border-radius: 12px;
+    }
 
-	.btn-primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-	}
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
 
-	.btn-primary svg {
-		transition: transform 0.2s ease;
-	}
+    .btn-primary svg {
+        transition: transform 0.2s ease;
+    }
 
-	.btn-primary:hover svg {
-		transform: translateX(4px);
-	}
+    .btn-primary:hover svg {
+        transform: translateX(4px);
+    }
 
-	@media (max-width: 768px) {
-		.documents-grid {
-			grid-template-columns: 1fr;
-		}
-		.roles-cta {
-			flex-direction: column;
-			align-items: flex-start;
-			padding: 2rem 1.5rem;
-		}
-	}
+    @media (max-width: 768px) {
+        .documents-grid {
+            grid-template-columns: 1fr;
+        }
+        .roles-cta {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 2rem 1.5rem;
+        }
+    }
 </style>
