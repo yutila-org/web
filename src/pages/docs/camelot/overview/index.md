@@ -1,75 +1,71 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Introduction
-description: Overview of the Camelot C23 framework — its design philosophy, security posture, and the Merlin build orchestrator.
+description: A quick look at the Camelot C framework.
 ---
 
-Camelot is a lightweight, zero-latency C framework engineered for strict memory safety, predictability, and secure execution under the C23 standard. It is powered entirely by **Merlin**, a custom build orchestrator written in the D programming language.
+Camelot is a simple C framework that focuses on memory safety and predictable behavior using C23. It comes with its own build tool called **Merlin** (written in D).
 
-The framework provides a complete standard library replacement featuring allocator-agnostic data structures, deterministic memory arenas, a tri-state error model, and compile-time security hardening — all while remaining fully portable across GCC, Clang, and MSVC.
+Instead of using `malloc` directly and dealing with memory leaks, Camelot provides memory arenas. It also includes basic data structures and error handling, and it works across GCC, Clang, and MSVC.
 
-## Design Philosophy
+## Why we built it
 
-### Enterprise Reliability (The Java Paradigm)
+We wanted a C framework that's easy to read, doesn't break unexpectedly, and runs anywhere without needing complex build setups. We prefer keeping things straightforward over adding fancy syntax.
 
-Camelot prioritizes long-term enterprise reliability, cross-platform interoperability, and transaction stability over trendy syntactic sugar. Borrowing the survivability thesis of platforms like the JVM ("Write Once, Run Anywhere"), Camelot's abstractions are engineered to be predictably robust, backward-compatible, and rigorously tested so they can run undisturbed for decades in mission-critical environments.
+### Naming rules
 
-### Naming Convention
+All functions follow a strict `DOMAIN_functionSubfunction` naming style so you always know what a function does just by looking at it:
 
-All functions strictly utilize the `DOMAIN_functionSubfunction` format:
+- **Domain prefix**: Always uppercase (e.g., `ARENA`, `VECTOR`, `STRING`)
+- **Primary function name**: Always lowercase
+- **Subfunction qualifier**: Added in camelCase with no extra underscores
 
-- **Domain prefix**: Fully uppercase (e.g., `ARENA`, `VECTOR`, `STRING`)
-- **Primary function name**: Fully lowercase
-- **Subfunction qualifier**: Appended in camelCase without additional underscores
+We also try to avoid weird abbreviations unless they are very common (like `IO`).
 
-Word truncations or casual abbreviations are prohibited unless using universally standard acronyms (e.g., `IO`).
+### Keeping it portable
 
-### Portability & Compiler Extensions
-
-To guarantee absolute portability across arbitrary C compilers, reliance on non-standard runtime compiler extensions is explicitly prohibited.
-
-- Compiler attributes that operate strictly during compilation (e.g., `__attribute__((warn_unused_result))`) are acceptable.
-- Runtime-altering extensions, specifically GCC's `__attribute__((cleanup))` for RAII emulation, are **forbidden** due to lack of support in non-GNU environments.
+We avoid using non-standard compiler extensions that change how the code runs. 
+- Compile-time checks (like `__attribute__((warn_unused_result))`) are fine.
+- Things that change behavior at runtime (like GCC's `cleanup` attribute) are not allowed, because they don't work everywhere.
 
 ## Project Structure
 
 ```text
 camelot/
-├── include/              # Public API Headers (read-only for clients)
-│   └── camelot/          # Unified namespace
-│       ├── core/         # Fundamental abstractions (Result, Safety)
-│       ├── memory/       # Memory management (Arena, Allocator)
-│       ├── types/        # Primitives and String types
-│       └── camelot.h     # Umbrella header for full framework access
-├── src/                  # Private Implementation (.c files)
+├── include/              # Header files (what you include)
+│   └── camelot/          
+│       ├── core/         
+│       ├── memory/       
+│       ├── types/        
+│       └── camelot.h     # Main header file
+├── src/                  # The actual C code
 │   ├── core/
 │   ├── memory/
 │   ├── io/
 │   ├── ds/
 │   └── types/
-├── tests/                # Unit and Integration Testing suite
-├── merlin.d              # Merlin Build Orchestrator (D language)
-├── Makefile              # Bootstrap entry point for Merlin
-└── README.md             # Project entry point
+├── tests/                # Tests
+├── merlin.d              # Build tool (Merlin)
+├── Makefile              # Easy way to run Merlin
+└── README.md             
 ```
 
-### Architectural Rationale
+### How the code is organized
 
-1. **Public/Private Isolation**: Headers in `include/camelot/` ensure only intended APIs are accessible via `#include <camelot/subsystem.h>`. Private headers remain within `src/`.
-2. **Namespace Mirroring**: The `src/` directory mirrors `include/` exactly, predictably mapping implementation files to their corresponding headers.
-3. **Modular Compilation**: Every module compiles into an independent object file, enabling the linker to prune unused modules in static builds.
-4. **Flat Namespace**: All headers are accessed through the `camelot/` prefix to prevent header collision in large projects.
+1. **Clear separation**: Headers in `include/camelot/` define what you can use. Everything else stays hidden in `src/`.
+2. **Matching folders**: The `src/` folder matches the `include/` folder exactly.
+3. **Flat names**: All headers are under the `camelot/` folder so they don't clash with your own code.
 
-## Unified Header
+## How to use it
 
-Including the entire framework is a single line:
+Just include the main header file:
 
 ```c
 #include <camelot/camelot.h>
 ```
 
-This umbrella header transitively includes all subsystems: primitives, allocators, arenas, result types, and the safety header.
+This will include everything you need to start using the framework.
 
 ## License
 
-Camelot is released under the **Mozilla Public License 2.0 (MPL-2.0)** and is [OpenSSF Best Practices certified](https://www.bestpractices.dev/projects/12919).
+Camelot uses the **Mozilla Public License 2.0 (MPL-2.0)** and is [OpenSSF Best Practices certified](https://www.bestpractices.dev/projects/12919).

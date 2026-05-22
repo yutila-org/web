@@ -1,5 +1,6 @@
 ---
 // src/pages/software/camelot.astro
+import '../../styles/camelot-docs.css';
 ---
 
 <!doctype html>
@@ -8,513 +9,62 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Camelot Framework</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
-            rel="stylesheet"
-        />
-        <style>
-            :root {
-                /* Camelot Theme */
-                --base: #16161a;
-                --mantle: #121215;
-                --crust: #0d0d0f;
-                --text: #ffffff;
-                --subtext1: #c9c9ce;
-                --subtext0: #94949e;
-                --accent: #e03131;
-                --overlay0: #494954;
-                --surface0: #25252b;
-                --surface1: #34343d;
-
-                --font-body: "DM Sans", sans-serif;
-                --font-mono: "JetBrains Mono", monospace;
-            }
-
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                background-color: var(--base);
-                color: var(--text);
-                font-family: var(--font-body);
-                line-height: 1.6;
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                padding: 0;
-                -webkit-font-smoothing: antialiased;
-            }
-
-            .container {
-                width: 100%;
-                max-width: 1200px;
-                margin: 0 auto;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .nav-container,
-            .footer-container {
-                width: 100%;
-                max-width: 1200px;
-                margin: 0 auto;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            a {
-                color: var(--text);
-                text-decoration: none;
-                transition: color 0.2s;
-            }
-
-            a:hover {
-                color: var(--accent);
-            }
-
-            .nav {
-                width: 100%;
-                height: 64px;
-                display: flex;
-                align-items: center;
-                padding: 0 2rem;
-                border-bottom: 1px solid var(--crust);
-                background-color: var(--mantle);
-            }
-
-            .nav-left {
-                display: flex;
-                align-items: center;
-                gap: 2rem;
-            }
-
-            .logo {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                font-weight: 700;
-                font-size: 1.25rem;
-                color: var(--text);
-            }
-
-            .logo svg {
-                width: 24px;
-                height: 34px;
-            }
-
-            .nav-links {
-                display: flex;
-                gap: 1.5rem;
-                font-size: 0.95rem;
-                font-weight: 500;
-                color: var(--subtext1);
-            }
-
-            .btn-primary {
-                background-color: var(--accent);
-                color: #ffffff;
-                padding: 0.5rem 1.25rem;
-                border-radius: 9999px;
-                font-weight: 700;
-                font-size: 0.9rem;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                transition: background-color 0.2s, transform 0.2s;
-            }
-
-            .btn-primary:hover {
-                background-color: #f03e3e;
-                color: #ffffff;
-                transform: translateY(-1px);
-            }
-
-            .back-link {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                color: var(--subtext1);
-                font-size: 0.95rem;
-                font-weight: 500;
-                margin: 2rem 2rem 0;
-            }
-
-            .back-link:hover {
-                color: var(--accent);
-            }
-
-            .full-width-border {
-                width: 100%;
-                border-bottom: 1px solid var(--crust);
-            }
-
-            .hero {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-                padding: 4rem 2rem 6rem;
-            }
-
-            .hero-left {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 1.5rem;
-            }
-
-            .hero-left h1 {
-                font-size: 3.5rem;
-                font-weight: 700;
-                line-height: 1.1;
-                letter-spacing: -0.02em;
-            }
-
-            .hero-left h2 {
-                font-size: 1.5rem;
-                font-weight: 500;
-                color: var(--accent);
-                line-height: 1.3;
-            }
-
-            .hero-left p {
-                font-size: 1.1rem;
-                color: var(--subtext0);
-                max-width: 500px;
-            }
-
-            .hero-right {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .code-window {
-                width: 100%;
-                max-width: 500px;
-                background-color: var(--crust);
-                border-radius: 12px;
-                border: 1px solid var(--surface0);
-                overflow: hidden;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            }
-
-            .code-header {
-                height: 36px;
-                background-color: var(--mantle);
-                display: flex;
-                align-items: center;
-                padding: 0 1rem;
-                gap: 0.4rem;
-                border-bottom: 1px solid var(--surface0);
-            }
-
-            .code-dot {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background-color: var(--overlay0);
-            }
-
-            .code-body {
-                padding: 1.5rem;
-                font-family: var(--font-mono);
-                font-size: 0.9rem;
-                line-height: 1.5;
-                color: var(--text);
-                overflow-x: auto;
-            }
-
-            .code-comment { color: var(--subtext0); }
-            .code-keyword { color: var(--accent); }
-            .code-type { color: #fab387; }
-            .code-string { color: #a6e3a1; }
-            .code-func { color: #89b4fa; }
-
-            .features-wrapper {
-                background-color: var(--mantle);
-            }
-
-            .features {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .feature-card {
-                padding: 4rem 3rem;
-                border-right: 1px solid var(--crust);
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .feature-card:last-child {
-                border-right: none;
-            }
-
-            .feature-icon {
-                width: 48px;
-                height: 48px;
-                background-color: var(--surface0);
-                border-radius: 16px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--accent);
-                margin-bottom: 1rem;
-            }
-
-            .feature-icon svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .feature-card h3 {
-                font-size: 1.25rem;
-                font-weight: 700;
-            }
-
-            .feature-card p {
-                color: var(--subtext0);
-                font-size: 0.95rem;
-            }
-
-            .deployment {
-                padding: 6rem 2rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .deployment-context {
-                text-align: center;
-                margin-bottom: 2rem;
-                font-size: 1.1rem;
-                color: var(--subtext1);
-            }
-
-            .terminal-ui {
-                width: 100%;
-                max-width: 800px;
-                background-color: var(--crust);
-                border-radius: 12px;
-                border: 1px solid var(--surface0);
-                overflow: hidden;
-            }
-
-            .terminal-header {
-                background-color: var(--mantle);
-                height: 40px;
-                display: flex;
-                align-items: center;
-                padding: 0 1rem;
-                gap: 0.5rem;
-                border-bottom: 1px solid var(--surface0);
-            }
-
-            .terminal-dot {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                background-color: var(--overlay0);
-            }
-
-            .terminal-body {
-                padding: 1.5rem;
-                font-family: var(--font-mono);
-                font-size: 0.9rem;
-                color: var(--subtext1);
-                overflow-x: auto;
-            }
-
-            .terminal-body pre {
-                margin: 0;
-                white-space: pre-wrap;
-            }
-
-            .terminal-comment { color: var(--overlay0); }
-            .terminal-command { color: var(--text); }
-            .terminal-output { color: #a6e3a1; }
-
-            .footer {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                padding: 3rem 2rem;
-                background-color: var(--mantle);
-                margin-top: auto;
-            }
-
-            .footer-links {
-                display: flex;
-                gap: 2rem;
-                font-size: 0.9rem;
-                color: var(--subtext1);
-            }
-
-            .footer-attribution {
-                font-size: 0.85rem;
-                color: var(--overlay0);
-                text-align: right;
-                max-width: 400px;
-            }
-
-            @media (max-width: 900px) {
-                .hero {
-                    grid-template-columns: 1fr;
-                    padding: 4rem 2rem;
-                    gap: 3rem;
-                }
-                .hero-right { justify-content: center; }
-                .features { grid-template-columns: 1fr; }
-                .feature-card {
-                    border-right: none;
-                    border-bottom: 1px solid var(--crust);
-                    padding: 3rem 2rem;
-                }
-                .feature-card:last-child { border-bottom: none; }
-                .footer-container {
-                    flex-direction: column;
-                    gap: 2rem;
-                    text-align: center;
-                }
-                .footer-attribution { text-align: center; }
-                .nav-left { gap: 1rem; }
-                .nav-links { display: none; }
-            }
-        </style>
     </head>
     <body>
-        <nav class="nav">
-            <div class="nav-container">
-                <div class="nav-left">
-                    <a href="#" class="logo">
-                        <svg viewBox="0 0 210 297" fill="none">
-                            <g transform="translate(-3.8884891,5.3710162)">
-                                <path style="opacity:1;fill:var(--accent);stroke:none;stroke-width:0" d="m 95.640424,78.255634 c 0,0 -16.863019,-38.11792 -4.986458,-49.864681 4.978354,-4.923954 20.052404,-12.373537 27.702114,-10.010498 5.1397,1.587687 2.84444,12.118304 7.20315,13.888865 4.0265,1.635616 13.09112,-3.931062 17.26603,-1.842825 5.87895,2.940582 7.19453,13.274511 12.08746,17.945705 4.94431,4.720245 22.70992,8.790902 27.38553,12.816748 5.72005,4.925137 -1.92466,9.783212 0.60534,15.681549 15.15987,35.342913 3.49041,70.019203 -4.15538,105.823903 -7.37218,34.52345 0.71681,-18.37755 -7.06446,-42.79033 -1.54123,-4.83543 -12.63776,-12.35428 -14.01509,-17.32797 -2.13053,-7.69357 6.64626,-17.58733 3.51453,-24.399973 -2.4024,-5.22612 -11.81547,-2.95144 -14.51677,-7.46498 -5.27041,-8.806232 -2.70545,-21.695713 -10.5802,-24.367634 -7.68824,-2.608627 -15.79049,16.62156 -15.79049,16.62156 z" />
-                                <path style="opacity:1;fill:var(--text);stroke-width:0.398811" d="m 27.492047,131.72164 c 3.947201,-25.95562 26.715737,-44.168003 56.790317,-54.574112 28.937776,-10.012778 43.352126,5.645621 53.188996,19.945859 34.18626,49.697993 -7.16077,46.464633 -1.66217,68.702443 5.68578,22.99477 43.7609,39.95248 34.62824,62.0538 -15.06223,36.4511 -85.499161,54.19552 -114.965764,27.97962 -8.278098,-7.36487 -1.753025,-18.78655 4.048759,-32.99275 5.689863,-13.93216 23.948407,-26.8826 23.396497,-36.35063 -0.287428,-4.93085 -15.106101,13.42858 -31.984261,-2.17683 -10.297185,-9.52069 -11.74557,-18.74632 -17.998276,-32.02054 -1.338698,-2.84201 54.191939,-23.89417 53.950354,-26.92508 -0.123042,-1.54375 -59.636969,7.96452 -59.392692,6.35822 z" />
-                            </g>
-                        </svg>
-                        Camelot
-                    </a>
-                    <div class="nav-links">
-                        <a href="https://github.com/yutila-org/camelot">Repository</a>
-                        <a href="/docs/camelot">Documentation</a>
-                    </div>
-                </div>
-                <a href="https://github.com/yutila-org/camelot/releases/latest" class="btn-primary">Download Source</a>
-            </div>
-        </nav>
+        <header>
+            <a href="/" style="text-decoration: none; color: inherit;"><strong>Camelot</strong></a>
+            <nav>
+                <a href="/software">Back to Software</a> | 
+                <a href="https://github.com/yutila-org/camelot">GitHub</a> | 
+                <a href="/docs/camelot">Read the Docs</a>
+            </nav>
+            <hr />
+        </header>
 
         <main>
-            <div class="container">
-                <a href="/software" class="back-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-                    Back to Software
-                </a>
-            </div>
+            <h1>Camelot C Framework</h1>
+            
+            <p>
+                Camelot is a C framework for when you just want predictable memory behavior and no surprises.
+                It uses memory arenas instead of random malloc calls, enforces standard C23 rules, and uses its own build engine (Merlin) instead of traditional makefiles or complex build scripts.
+            </p>
 
-            <div class="full-width-border">
-                <header class="hero container">
-                    <div class="hero-left">
-                        <h1>C23 executed with precision.</h1>
-                        <h2>Zero latency. Strict memory safety.</h2>
-                        <p>
-                            Camelot is a C framework engineered for absolute predictability. It utilizes zero-latency memory arenas, strict standard compliance, and is entirely orchestrated by Merlin—a custom build engine designed to replace traditional archaic build systems.
-                        </p>
-                    </div>
-                    <div class="hero-right">
-                        <div class="code-window">
-                            <div class="code-header">
-                                <div class="code-dot"></div>
-                                <div class="code-dot"></div>
-                                <div class="code-dot"></div>
-                            </div>
-                            <div class="code-body"><pre><span class="code-comment">#include</span> <span class="code-string">&lt;camelot.h&gt;</span>
+            <pre><code>#include &lt;camelot.h&gt;
 
-<span class="code-type">int</span> <span class="code-func">main</span>(<span class="code-type">void</span>) &#123;
-    <span class="code-comment">// Initialize deterministic memory pool</span>
-    <span class="code-type">Arena</span> *arena = <span class="code-func">ArenaInit</span>(<span class="code-keyword">NULL</span>, <span class="code-keyword">MEGABYTES</span>(128));
+int main(void) &#123;
+    // Create an arena
+    Arena *arena = ArenaInit(NULL, MEGABYTES(128));
 
-    <span class="code-comment">// O(1) allocation without fragmentation</span>
-    <span class="code-type">void</span> *block = <span class="code-func">ArenaAlloc</span>(arena, 1024);
+    // Allocate without worrying about freeing individual blocks
+    void *block = ArenaAlloc(arena, 1024);
 
-    <span class="code-func">ArenaFree</span>(&arena);
-    <span class="code-keyword">return</span> 0;
-&#125;</pre></div>
-                        </div>
-                    </div>
-                </header>
-            </div>
+    ArenaFree(&arena);
+    return 0;
+&#125;</code></pre>
 
-            <div class="full-width-border features-wrapper">
-                <section class="features container">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        </div>
-                        <h3>Merlin Orchestrator</h3>
-                        <p>Driven by Merlin, a standalone D build engine that dynamically manages GCC compilation, sanitizers, and parallel workflows.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        </div>
-                        <h3>Memory Arenas</h3>
-                        <p>Complete avoidance of unmanaged `malloc`. Features localized deterministic memory pools for high-performance zero-latency data structures.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                        </div>
-                        <h3>Hardened Security</h3>
-                        <p>Compiled automatically with PIE, stack-protectors, and ASAN/UBSAN sanitizers to systematically prevent classical C vulnerabilities.</p>
-                    </div>
-                </section>
-            </div>
+            <h2>Why use it?</h2>
+            
+            <ul>
+                <li><strong>Merlin Build Engine:</strong> A standalone build tool written in D. It handles GCC flags, sanitizers, and compilation without messy build scripts.</li>
+                <li><strong>No Malloc:</strong> We use memory arenas for everything. This means fast, predictable allocations and no memory leaks.</li>
+                <li><strong>Hardened by Default:</strong> Automatically compiles with stack protectors, PIE, and ASAN/UBSAN to catch common C bugs early.</li>
+            </ul>
 
-            <div class="full-width-border">
-                <section class="deployment container">
-                    <div class="deployment-context">Build and execute with zero external dependencies.</div>
-                    <div class="terminal-ui">
-                        <div class="terminal-header">
-                            <div class="terminal-dot"></div>
-                            <div class="terminal-dot"></div>
-                            <div class="terminal-dot"></div>
-                        </div>
-                        <div class="terminal-body">
-                            <pre><span class="terminal-comment"># Clone the repository</span>
-<span class="terminal-command">git clone https://github.com/yutila-org/camelot</span>
+            <h2>Get Started</h2>
+            
+            <p>You can clone and build it directly. No extra dependencies are needed.</p>
 
-<span class="terminal-comment"># Build standard profile (compiles via Merlin)</span>
-<span class="terminal-command">make</span>
+            <pre><code>git clone https://github.com/yutila-org/camelot
+make</code></pre>
 
-<span class="terminal-output">( ๑•̀⩊•́๑ ) &lt; "Bootstrapping standalone Merlin Build Engine..."
-&gt; Compiler: Compiling src/main.c -&gt; obj/debug/main.o...
-&gt; Linker: Linking obj/debug/main.o -&gt; bin/camelot
-( ๑&gt;ᴗ&lt;๑ ) &lt; "Build finished."</span></pre>
-                        </div>
-                    </div>
-                </section>
-            </div>
         </main>
 
-        <footer class="footer">
-            <div class="footer-container">
-                <div class="footer-links">
-                    <a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>
-                    <a href="https://github.com/yutila-org/camelot">Source Code</a>
-                    <a href="https://www.bestpractices.dev/projects/12919">OpenSSF Certified</a>
-                </div>
-                <div class="footer-attribution">
-                    Actively maintained by Yutila Organization. Built for high-performance memory-safe execution.
-                </div>
-            </div>
+        <footer>
+            <hr />
+            <p>
+                Released under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>. 
+                <a href="https://www.bestpractices.dev/projects/12919">OpenSSF Certified</a>.
+            </p>
         </footer>
     </body>
 </html>
