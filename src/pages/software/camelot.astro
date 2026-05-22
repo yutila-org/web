@@ -9,8 +9,42 @@ import '../../styles/camelot-docs.css';
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Camelot</title>
+        <style>
+            .top-stripe {
+                height: 4px;
+                background-color: #d70a53;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            .content-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 2em 0;
+                border: 1px solid #333;
+            }
+            .content-table th, .content-table td {
+                padding: 12px 15px;
+                border: 1px solid #333;
+                text-align: left;
+            }
+            .content-table th {
+                background-color: #1a1a1a;
+                color: #fff;
+                font-weight: bold;
+                width: 25%;
+            }
+            .info-box {
+                background-color: #1a1a1a;
+                border-left: 4px solid #d70a53;
+                padding: 15px;
+                margin: 2em 0;
+            }
+        </style>
     </head>
     <body>
+        <div class="top-stripe"></div>
         <header>
             <div class="header-left">
                 <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
@@ -39,33 +73,31 @@ import '../../styles/camelot-docs.css';
                 It utilizes memory arenas in place of arbitrary malloc calls, implements its own standard data structures, and is orchestrated by a dedicated build engine (Merlin).
             </p>
 
-            <pre><code>#include &lt;camelot.h&gt;
-
-int main(void) &#123;
-    /* Initialize memory pool */
-    Arena *arena = ArenaInit(NULL, MEGABYTES(128));
-
-    /* Allocate from arena; explicit deallocation per-block is unneeded */
-    void *block = ArenaAlloc(arena, 1024);
-
-    ArenaFree(&arena);
-    return 0;
-&#125;</code></pre>
-
             <h2>Core Features</h2>
             
-            <ul>
-                <li><strong>Merlin Build Engine:</strong> A dedicated build orchestrator written in D. It handles GCC flags, sanitizers, and compilation automatically.</li>
-                <li><strong>Arena Allocators:</strong> Dynamic memory is strictly managed through arenas, ensuring O(1) allocations and eliminating traditional memory leaks.</li>
-                <li><strong>Default Security Constraints:</strong> Projects are compiled with stack protectors, PIE, and ASAN/UBSAN to intercept common memory faults during execution.</li>
-            </ul>
+            <table class="content-table">
+                <tbody>
+                    <tr>
+                        <th>Build Engine</th>
+                        <td>A dedicated build orchestrator written in D named Merlin. It handles compiler flags, sanitizers, and compilation automatically, removing the need for external build systems.</td>
+                    </tr>
+                    <tr>
+                        <th>Memory Allocation</th>
+                        <td>Dynamic memory is strictly managed through arenas. This guarantees O(1) allocation times and structurally eliminates traditional memory leaks.</td>
+                    </tr>
+                    <tr>
+                        <th>Security</th>
+                        <td>Projects are compiled with stack protectors, PIE, and ASAN/UBSAN to intercept common memory faults during execution.</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <h2>Installation</h2>
-            
-            <p>The framework can be cloned and built directly without external package dependencies.</p>
-
-            <pre><code>git clone https://github.com/yutila-org/camelot
+            <div class="info-box">
+                <strong>Installation Instructions</strong>
+                <p>The framework can be cloned and built directly without external package dependencies.</p>
+                <pre><code>git clone https://github.com/yutila-org/camelot
 make</code></pre>
+            </div>
 
         </main>
 
