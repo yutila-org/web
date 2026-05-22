@@ -42,12 +42,33 @@ const icons = [
 				/>
 			))}
 		</div>
-		<h1>Building the future of <br/>
+		<h1>
 			<span class="letter-colors">
-				<span style="color: var(--yutila-green);">T</span><span style="color: var(--yutila-yellow);">e</span><span style="color: var(--yutila-orange);">c</span><span style="color: var(--yutila-red);">h</span><span style="color: var(--yutila-purple);">n</span><span style="color: var(--yutila-blue);">o</span><span style="color: var(--yutila-green);">l</span><span style="color: var(--yutila-yellow);">o</span><span style="color: var(--yutila-orange);">g</span><span style="color: var(--yutila-red);">y</span>
+				<span style="color: var(--yutila-green);">Y</span><span style="color: var(--yutila-yellow);">u</span><span style="color: var(--yutila-orange);">t</span><span style="color: var(--yutila-red);">i</span><span style="color: var(--yutila-purple);">l</span><span style="color: var(--yutila-blue);">a</span>
 			</span>
 		</h1>
-		<p>Yutila is an organization focused on software, games and in the future hardware.</p>
+		<p>An independent community of developers crafting open-source software, interactive media, and hardware built on privacy, security, and digital freedom.</p>
+		
+		<div class="conformance-badge">
+			<div class="badge-row">
+				<a href="https://openchainproject.org" target="_blank" rel="noopener noreferrer" class="openchain-link" title="OpenChain ISO/IEC 5230 Conformant">
+					<img src="/icons/openchain-conformance.svg" alt="OpenChain Conformance Badge" width="110" height="110" />
+				</a>
+				<div class="logo-divider"></div>
+				<div class="standards-logos">
+					<a href="https://www.iso.org" target="_blank" rel="noopener noreferrer" title="International Organization for Standardization">
+						<img src="/icons/iso-logo.svg" alt="ISO Logo" width="44" height="44" class="standard-logo" />
+					</a>
+					<a href="https://www.iec.ch" target="_blank" rel="noopener noreferrer" title="International Electrotechnical Commission">
+						<img src="/icons/iec-logo.svg" alt="IEC Logo" width="44" height="44" class="standard-logo" />
+					</a>
+				</div>
+			</div>
+			<div class="badge-info">
+				<span class="badge-title">ISO/IEC 5230 Conformant</span>
+				<span class="badge-desc">Self-certified for open source license compliance</span>
+			</div>
+		</div>
 	</section>
 </Layout>
 
@@ -77,6 +98,87 @@ const icons = [
 		line-height: 1.6;
 		margin: 0;
 		max-width: 600px;
+		text-align: justify;
+	}
+
+	.conformance-badge {
+		margin-top: 3.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		padding: 1.25rem 1.5rem;
+		border-radius: 16px;
+		backdrop-filter: blur(12px);
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+		transition: border-color 0.3s ease, background-color 0.3s ease;
+	}
+
+	.conformance-badge:hover {
+		border-color: rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.03);
+	}
+
+	.badge-row {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+	}
+
+	.openchain-link img {
+		display: block;
+		transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+
+	.openchain-link:hover img {
+		transform: scale(1.05) rotate(2deg);
+	}
+
+	.logo-divider {
+		width: 1px;
+		height: 48px;
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+	}
+
+	.standards-logos {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.standard-logo {
+		display: block;
+		border-radius: 6px;
+		transition: transform 0.2s ease, filter 0.2s ease;
+		filter: grayscale(0.2) opacity(0.85);
+	}
+
+	.standards-logos a:hover .standard-logo {
+		transform: translateY(-2px);
+		filter: grayscale(0) opacity(1);
+	}
+
+	.badge-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.badge-title {
+		font-size: 0.9rem;
+		color: var(--text-normal, #e4e4e7);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.badge-desc {
+		font-size: 0.8rem;
+		color: var(--text-muted);
+		opacity: 0.85;
+		font-weight: 400;
 	}
 
 	.icon-field {
