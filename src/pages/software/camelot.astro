@@ -8,7 +8,7 @@ import '../../styles/camelot-docs.css';
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Camelot Framework</title>
+        <title>Camelot</title>
     </head>
     <body>
         <header>
@@ -24,45 +24,45 @@ import '../../styles/camelot-docs.css';
                 </a>
             </div>
             <nav class="header-nav">
-                <a href="/software">Back to Software</a> | 
+                <a href="/software">Software</a> | 
                 <a href="https://github.com/yutila-org/camelot">GitHub</a> | 
-                <a href="/docs/camelot">Read the Docs</a>
+                <a href="/docs/camelot">Documentation</a>
             </nav>
         </header>
         <hr />
 
         <main>
-            <h1>Camelot C Framework</h1>
+            <h1>Camelot</h1>
             
             <p>
-                Camelot is a C framework for when you just want predictable memory behavior and no surprises.
-                It uses memory arenas instead of random malloc calls, enforces standard C23 rules, and uses its own build engine (Merlin) instead of traditional makefiles or complex build scripts.
+                Camelot is a C framework structured for predictable memory execution under C23.
+                It utilizes memory arenas in place of arbitrary malloc calls, implements its own standard data structures, and is orchestrated by a dedicated build engine (Merlin).
             </p>
 
             <pre><code>#include &lt;camelot.h&gt;
 
 int main(void) &#123;
-    // Create an arena
+    /* Initialize memory pool */
     Arena *arena = ArenaInit(NULL, MEGABYTES(128));
 
-    // Allocate without worrying about freeing individual blocks
+    /* Allocate from arena; explicit deallocation per-block is unneeded */
     void *block = ArenaAlloc(arena, 1024);
 
     ArenaFree(&arena);
     return 0;
 &#125;</code></pre>
 
-            <h2>Why use it?</h2>
+            <h2>Core Features</h2>
             
             <ul>
-                <li><strong>Merlin Build Engine:</strong> A standalone build tool written in D. It handles GCC flags, sanitizers, and compilation without messy build scripts.</li>
-                <li><strong>No Malloc:</strong> We use memory arenas for everything. This means fast, predictable allocations and no memory leaks.</li>
-                <li><strong>Hardened by Default:</strong> Automatically compiles with stack protectors, PIE, and ASAN/UBSAN to catch common C bugs early.</li>
+                <li><strong>Merlin Build Engine:</strong> A dedicated build orchestrator written in D. It handles GCC flags, sanitizers, and compilation automatically.</li>
+                <li><strong>Arena Allocators:</strong> Dynamic memory is strictly managed through arenas, ensuring O(1) allocations and eliminating traditional memory leaks.</li>
+                <li><strong>Default Security Constraints:</strong> Projects are compiled with stack protectors, PIE, and ASAN/UBSAN to intercept common memory faults during execution.</li>
             </ul>
 
-            <h2>Get Started</h2>
+            <h2>Installation</h2>
             
-            <p>You can clone and build it directly. No extra dependencies are needed.</p>
+            <p>The framework can be cloned and built directly without external package dependencies.</p>
 
             <pre><code>git clone https://github.com/yutila-org/camelot
 make</code></pre>
@@ -72,7 +72,7 @@ make</code></pre>
         <footer>
             <hr />
             <p>
-                Released under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>. 
+                Distributed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>. 
                 <a href="https://www.bestpractices.dev/projects/12919">OpenSSF Certified</a>.
             </p>
         </footer>

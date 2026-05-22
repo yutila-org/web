@@ -1,71 +1,71 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Introduction
-description: A quick look at the Camelot C framework.
+description: A quick look at the Camelot framework.
 ---
 
-Camelot is a simple C framework that focuses on memory safety and predictable behavior using C23. It comes with its own build tool called **Merlin** (written in D).
+Camelot is a C framework that focuses on memory safety and predictable behavior under C23. It utilizes its own build tool called **Merlin** (written in D).
 
-Instead of using `malloc` directly and dealing with memory leaks, Camelot provides memory arenas. It also includes basic data structures and error handling, and it works across GCC, Clang, and MSVC.
+Instead of relying on `malloc` directly and risking memory leaks, Camelot provides memory arenas. It includes basic data structures and error handling, remaining fully compatible across GCC, Clang, and MSVC.
 
-## Why we built it
+## Motivation
 
-We wanted a C framework that's easy to read, doesn't break unexpectedly, and runs anywhere without needing complex build setups. We prefer keeping things straightforward over adding fancy syntax.
+The framework was engineered to be straightforward to read, robust against unexpected failures, and portable without requiring complex build environments. Straightforward semantics are prioritized over syntactic sugar.
 
-### Naming rules
+### Naming Convention
 
-All functions follow a strict `DOMAIN_functionSubfunction` naming style so you always know what a function does just by looking at it:
+All functions follow a strict `DOMAIN_functionSubfunction` naming style to ensure intent is immediately recognizable:
 
 - **Domain prefix**: Always uppercase (e.g., `ARENA`, `VECTOR`, `STRING`)
 - **Primary function name**: Always lowercase
 - **Subfunction qualifier**: Added in camelCase with no extra underscores
 
-We also try to avoid weird abbreviations unless they are very common (like `IO`).
+Arbitrary abbreviations are avoided unless they are universally recognized (such as `IO`).
 
-### Keeping it portable
+### Portability Guidelines
 
-We avoid using non-standard compiler extensions that change how the code runs. 
-- Compile-time checks (like `__attribute__((warn_unused_result))`) are fine.
-- Things that change behavior at runtime (like GCC's `cleanup` attribute) are not allowed, because they don't work everywhere.
+Reliance on non-standard compiler extensions that alter runtime execution is explicitly avoided.
+- Compile-time annotations (like `__attribute__((warn_unused_result))`) are permitted.
+- Behavior-altering extensions (like GCC's `cleanup` attribute) are prohibited due to a lack of universal support.
 
 ## Project Structure
 
 ```text
 camelot/
-├── include/              # Header files (what you include)
+├── include/              # Public APIs
 │   └── camelot/          
 │       ├── core/         
 │       ├── memory/       
 │       ├── types/        
-│       └── camelot.h     # Main header file
-├── src/                  # The actual C code
+│       └── camelot.h     # Main header
+├── src/                  # Implementation
 │   ├── core/
 │   ├── memory/
 │   ├── io/
 │   ├── ds/
 │   └── types/
-├── tests/                # Tests
-├── merlin.d              # Build tool (Merlin)
-├── Makefile              # Easy way to run Merlin
+├── tests/                # Test suites
+├── merlin.d              # Merlin build orchestrator
+├── Makefile              # Bootstrap for Merlin
 └── README.md             
 ```
 
-### How the code is organized
+### Architectural Principles
 
-1. **Clear separation**: Headers in `include/camelot/` define what you can use. Everything else stays hidden in `src/`.
-2. **Matching folders**: The `src/` folder matches the `include/` folder exactly.
-3. **Flat names**: All headers are under the `camelot/` folder so they don't clash with your own code.
+1. **Isolation**: Headers in `include/camelot/` define the public interface. Implementations remain isolated in `src/`.
+2. **Mirroring**: The `src/` directory exactly mirrors the `include/` directory structure.
+3. **Flat Namespace**: All headers are nested under the `camelot/` directory to prevent collisions.
 
-## How to use it
+## Usage
 
-Just include the main header file:
+Include the primary header file:
 
 ```c
 #include <camelot/camelot.h>
 ```
 
-This will include everything you need to start using the framework.
+This single inclusion provides access to the entire framework.
 
 ## License
 
-Camelot uses the **Mozilla Public License 2.0 (MPL-2.0)** and is [OpenSSF Best Practices certified](https://www.bestpractices.dev/projects/12919).
+Camelot is released under the **Mozilla Public License 2.0 (MPL-2.0)** and is [OpenSSF Best Practices certified](https://www.bestpractices.dev/projects/12919).
