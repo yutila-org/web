@@ -63,6 +63,19 @@ const currentPath = Astro.url.pathname;
               <li><a href="/docs/camelot/core/io" class={currentPath.includes('/core/io') ? 'active' : ''}>I/O Utilities</a></li>
             </ul>
           </details>
+
+          {headings && headings.length > 0 && (
+            <div style="margin-top: 2rem; border-top: 1px dashed #444; padding-top: 1rem;">
+              <h3 style="font-size: 1em; color: #aaa; margin-bottom: 0.8em; text-transform: uppercase;">On this page</h3>
+              <ul style="list-style-type: none; padding-left: 0;">
+                {headings.map((heading) => (
+                  <li style={`margin-left: ${Math.max(0, heading.depth - 2) * 15}px; font-size: 0.9em; margin-bottom: 0.5em;`}>
+                    <a href={`#${heading.slug}`} style="color: #888; text-decoration: none;">{heading.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </nav>
       </aside>
 
