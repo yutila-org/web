@@ -123,16 +123,85 @@ When launched without arguments, Merlin presents an animated terminal dashboard 
 🔮 Merlin >
 ```
 
-### Available Commands
+## Command Reference
 
-| Command | Aliases | Description |
-|---|---|---|
-| `all` | `build`, `1` | Compile the full framework |
-| `test` | `2` | Build and run the sanitizer test suite |
-| `run` | `3` | Build and launch the executable |
-| `clean` | `4` | Delete all object files and binaries |
-| `help` | `dashboard`, `h` | Redraw the dashboard with updated metrics |
-| `exit` | `quit`, `q`, `5` | Exit the Merlin shell |
+### `all`
+
+**Aliases**: `build`, `1`
+
+**Summary**: Compiles the entire Camelot framework. It discovers all `.c` files in the `src/` directory and compiles them based on the active profile.
+
+- **Side Effects**: Generates object files in `obj/` and outputs the final binary to `bin/camelot`.
+- **Errors**: Halts and displays compiler errors if any source file fails to compile.
+
+<details>
+<summary><b>Example Usage</b></summary>
+
+```bash
+# Interactive mode
+🔮 Merlin > all
+
+# Non-interactive CI mode
+./bin/merlin all
+```
+
+</details>
+
+### `test`
+
+**Aliases**: `2`
+
+**Summary**: Compiles and executes the sanitizer test suite. It builds all framework objects and test files, automatically excluding the main application entry point.
+
+- **Side Effects**: Generates the `bin/test_camelot` executable and runs it.
+- **Errors**: Returns a non-zero exit code if any assertions fail or if Address/Leak/Undefined Behavior Sanitizers detect issues.
+
+<details>
+<summary><b>Example Usage</b></summary>
+
+```bash
+🔮 Merlin > test
+```
+
+</details>
+
+### `run`
+
+**Aliases**: `3`
+
+**Summary**: Builds the executable (if not already up-to-date) and launches it directly from the build engine.
+
+- **Side Effects**: Suspends Merlin temporarily while the child process `bin/camelot` runs.
+- **See Also**: [`all`](#all)
+
+### `clean`
+
+**Aliases**: `4`
+
+**Summary**: Purges all generated artifacts to ensure a pristine workspace.
+
+- **Side Effects**: Recursively deletes the `obj/` and `bin/` directories.
+
+<details>
+<summary><b>Example Usage</b></summary>
+
+```bash
+🔮 Merlin > clean
+```
+
+</details>
+
+### `help`
+
+**Aliases**: `dashboard`, `h`
+
+**Summary**: Redraws the interactive dashboard UI. Useful if the terminal gets cluttered by compiler warnings or child process output.
+
+### `exit`
+
+**Aliases**: `quit`, `q`, `5`
+
+**Summary**: Gracefully terminates the interactive Merlin shell and returns to the system prompt.
 
 ### CI/CD Non-Interactive Mode
 
