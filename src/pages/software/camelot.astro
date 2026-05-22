@@ -28,23 +28,7 @@ import '../../styles/camelot-docs.css';
             .hero-text {
                 flex: 1;
             }
-            .hero-graphic {
-                flex-shrink: 0;
-                padding: 20px;
-                background: #1a1a1a;
-                border: 1px solid #333;
-                border-radius: 4px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .hero-graphic span {
-                font-size: 0.8em;
-                color: #888;
-                margin-top: 10px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
+
             .content-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -115,27 +99,6 @@ import '../../styles/camelot-docs.css';
                     <p>
                         The architecture emphasizes absolute control over the runtime environment, eschewing magic and unpredictable latency spikes.
                     </p>
-                </div>
-                
-                <!-- Hand-crafted architectural SVG to provide "utilitarian spice" without AI generation -->
-                <div class="hero-graphic">
-                    <svg width="200" height="150" viewBox="0 0 200 150" fill="none" stroke="#d70a53" stroke-width="2">
-                        <!-- Arena block container -->
-                        <rect x="20" y="20" width="160" height="110" rx="4" stroke="#444" fill="#121212" />
-                        <!-- Allocated memory chunks -->
-                        <rect x="30" y="40" width="40" height="30" fill="#2a2a2a" stroke="#666" />
-                        <rect x="80" y="40" width="60" height="30" fill="#2a2a2a" stroke="#666" />
-                        <rect x="150" y="40" width="20" height="30" fill="#2a2a2a" stroke="#666" />
-                        
-                        <rect x="30" y="80" width="80" height="30" fill="#2a2a2a" stroke="#666" />
-                        <rect x="120" y="80" width="30" height="30" fill="#2a2a2a" stroke="#666" />
-                        
-                        <!-- Connection lines to signify memory management -->
-                        <path d="M 50 20 L 50 40" stroke="#d70a53" stroke-dasharray="4" />
-                        <path d="M 110 20 L 110 40" stroke="#d70a53" stroke-dasharray="4" />
-                        <path d="M 70 70 L 70 80" stroke="#d70a53" stroke-dasharray="4" />
-                    </svg>
-                    <span>Arena Memory Map</span>
                 </div>
             </div>
 
