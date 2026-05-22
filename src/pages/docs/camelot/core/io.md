@@ -72,6 +72,122 @@ This returns memory to the originating allocator, preventing double-frees and li
 | `STRING_format()` for allocator-aware formatting | Any format function bypassing `Allocator*` |
 | All return values checked via `Result` | Unchecked truncation or overrun |
 
+## API Reference
+
+### `IO_read`
+
+```c
+Result IO_read(Allocator* alloc, String path);
+```
+
+**Summary**: Reads the entire contents of a file into a dynamically allocated buffer. Uses the provided allocator for safe memory tracking.
+
+- **Parameters**:
+  - `alloc` (`Allocator*`): The allocator used to provision the read buffer.
+  - `path` (`String`): The file system path to read from.
+- **Returns**: `Result` containing `OK` with the file data payload, `NIL` if the file is empty, or `ERR` on system failure.
+- **Errors**: Returns `ERR_FILE_ERROR` if the file does not exist or permissions are denied.
+- **See Also**: [`IO_write`](#io_write)
+
+<details>
+<summary><b>Example Usage</b></summary>
+
+```c
+Result res = IO_read(arena, STRING("config.txt"));
+if (res.status == RESULT_OK) {
+    Slice data = res.payload;
+    // Process data...
+}
+```
+
+</details>
+
+### `IO_write`
+
+```c
+Result IO_write(Allocator* alloc, String path, Slice data);
+```
+
+**Summary**: Safely writes a slice of bytes to a file. Overwrites the file if it exists, or creates it if it does not.
+
+- **Parameters**:
+  - `alloc` (`Allocator*`): The allocator used for any internal temporary buffers.
+  - `path` (`String`): The destination file system path.
+  - `data` (`Slice`): The byte payload to write to disk.
+- **Returns**: `Result` containing `OK` on success, or `ERR` on failure.
+- **Errors**: Returns `ERR_FILE_ERROR` on permission denial or I/O failure.
+- **See Also**: [`IO_read`](#io_read)
+
+<details>
+<summary><b>Example Usage</b></summary>
+
+```c
+String content = STRING("Hello, Camelot!");
+Slice data = SLICE_FROM_STRING(content);
+Result res = IO_write(arena, STRING("output.txt"), data);
+```
+
+</details>
+
+### `STRING_format`
+
+```c
+[[nodiscard]] Result STRING_format(Allocator* alloc, const char* fmt, ...);
+```
+
+**Summary**: Allocator-aware string formatting utility. Acts as a memory-safe alternative to `asprintf`, preventing double-frees and unmanaged memory.
+
+- **Parameters**:
+  - `alloc` (`Allocator*`): The allocator to provision the resulting string.
+  - `fmt` (`const char*`): A standard `printf`-style format string.
+  - `...`: Variadic arguments matching the format specifiers.
+- **Returns**: `Result` containing an `OwnedString*` payload on success.
+- **Errors**: Returns `ERR_MEMORY_ERROR` if allocation fails, or `ERR_FORMAT_ERROR` on encoding issues.
+- **See Also**: [`OWNEDSTRING_deinit`](#ownedstring_deinit), [`STRING_formatVariadic`](#string_formatvariadic)
+
+<details>
+<summary><b>Example Usage</b></summary>
+
+```c
+Result res = STRING_format(arena, "Failed to open %s (Code: %d)", path.ptr, err_code);
+if (res.status == RESULT_OK) {
+    OwnedString* str = res.payload;
+    printf("%s\n", str->view.ptr);
+    OWNEDSTRING_deinit(str);
+}
+```
+
+</details>
+
+### `STRING_formatVariadic`
+
+```c
+[[nodiscard]] Result STRING_formatVariadic(Allocator* alloc, const char* fmt, va_list args);
+```
+
+**Summary**: Variadic list variant of `STRING_format`. Useful for building custom logging or formatting wrappers.
+
+- **Parameters**:
+  - `alloc` (`Allocator*`): The allocator to provision the resulting string.
+  - `fmt` (`const char*`): A standard `printf`-style format string.
+  - `args` (`va_list`): An initialized variadic argument list.
+- **Returns**: `Result` containing an `OwnedString*` payload on success.
+- **See Also**: [`STRING_format`](#string_format)
+
+### `OWNEDSTRING_deinit`
+
+```c
+void OWNEDSTRING_deinit(OwnedString* str);
+```
+
+**Summary**: Safely deallocates an `OwnedString`, returning its memory to the originating allocator.
+
+- **Parameters**:
+  - `str` (`OwnedString*`): A pointer to the owned string to destroy. If `NULL`, the function is a no-op.
+- **Side Effects**: The memory underlying `str->view` is freed, and the `str` struct itself is destroyed.
+- **See Also**: [`STRING_format`](#string_format)
+
+
 ## CI/CD Pipeline
 
 The I/O module is validated through the full CI/CD pipeline defined in `.github/workflows/ci.yml`:
