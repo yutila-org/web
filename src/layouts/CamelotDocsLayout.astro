@@ -34,14 +34,15 @@ const currentPath = Astro.url.pathname;
           <strong>Camelot Documentation</strong>
         </a>
       </div>
-      <nav class="header-nav">
-        <div id="search-trigger" class="search-trigger">
-          Search... <kbd>Ctrl+K</kbd>
-        </div>
-        <a href="/software/camelot">Camelot</a> | 
-        <a href="/software">Software</a> | 
-        <a href="https://github.com/yutila-org/camelot">GitHub</a>
-      </nav>
+      <div id="search-trigger" class="search-placeholder">
+        <span class="muted">Search...</span>
+        <kbd>Ctrl+K</kbd>
+      </div>
+      <div class="nav-right" style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/software/camelot" class="github-link">Camelot</a>
+        <a href="/software" class="github-link">Software</a>
+        <a href="https://github.com/yutila-org/camelot" class="github-link">GitHub</a>
+      </div>
     </header>
     <hr />
     
