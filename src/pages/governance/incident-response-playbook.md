@@ -58,7 +58,7 @@ The detection phase involves identifying a security event and assessing its natu
 
 All security incidents must be reported **immediately** to the Security Team via the designated channel.
 
-- **Designated Channel:** TBA
+- **Designated Channel:** secops@yutila.com
 
 - **Initial Report Content:** Include date/time of detection, system affected, a brief description of the suspicious activity, and the severity (Low, Medium, High, Critical).
 
@@ -115,7 +115,7 @@ During a High or Critical incident, communication must be strictly managed to pr
 
 - **Internal Communication:** The SecOps Director is solely responsible for providing status updates to the core team and executive leadership.
 
-- **External Notification:** Public Relations and Legal Counsel will collaborate to determine if, when, and how external stakeholders (affected users, partners, regulatory bodies) must be notified. All external communication must comply with applicable data breach notification laws and align with the organization's transparency standards.
+- **External Notification:** Public Relations (socials@yutila.com) and Legal Counsel will collaborate to determine if, when, and how external stakeholders (affected users, partners, regulatory bodies) must be notified. All external communication must comply with applicable data breach notification laws and align with the organization's transparency standards.
 
 # **5\. Recovery and Post-Incident Activities**
 

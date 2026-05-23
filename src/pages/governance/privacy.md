@@ -36,7 +36,7 @@ As an end-user, you maintain absolute control over your personal data. At any ti
 4. **Restriction of Processing:** Request a temporary halt to data processing under specific legal disputes.
 5. **Data Portability:** Receive your data in a structured, commonly used, and machine-readable format.
 
-To exercise any of these rights, please submit a formal request via the provided contact channels. Our Data Protection Officer (DPO) will respond within 30 days.
+To exercise any of these rights, please submit a formal request via email to ceo@yutila.com. Our Data Protection Officer (DPO) will respond within 30 days.
 
 # **5. Data Retention**
 

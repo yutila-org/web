@@ -68,7 +68,7 @@ In the event of a security anomaly, personnel are required to follow the establi
 
 ## **3.4. Coordinated Vulnerability Disclosure (CVD)**
 
-All external vulnerability reports must be submitted using the built-in GitHub feature for reporting security vulnerabilities (Private Vulnerability Reporting). Alternatively, reports can be submitted directly via email to yutila@atomicmail.io. 
+All external vulnerability reports must be submitted using the built-in GitHub feature for reporting security vulnerabilities (Private Vulnerability Reporting). Alternatively, reports can be submitted directly via email to secops@yutila.com. 
 The SecOps Director will validate the report and establish a secure communication channel with the researcher.
 We adhere to a strict 90-day deadline policy. If a reported vulnerability is not fixed within 90 days of the initial report, the researcher is permitted to publicly disclose it. Once a vulnerability is fixed, it is free to be publicly disclosed immediately.
 Patches must be developed in an embargoed, private environment. Public disclosure and security advisories will only be published simultaneously with the deployment of the remediated release or after the 90-day deadline expires.
