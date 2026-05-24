@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="28">
+  <rect width="180" height="28" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+  <rect x="105" y="0" width="75" height="28" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+  <text x="15" y="18" fill="#aaa" font-family="monospace" font-size="12">OpenSSF</text>
+  <text x="117" y="18" fill="#4c1" font-family="monospace" font-size="12" font-weight="bold">PASSING</text>
+</svg>
