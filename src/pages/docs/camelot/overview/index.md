@@ -1,70 +1,74 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Introduction
-description: A quick look at the Camelot framework.
+description: Overview of the Camelot C23 core toolkit — its design philosophy, component model and the Merlin build orchestrator.
 ---
 
-Camelot is a C framework that focuses on memory safety and predictable behavior under C23. It utilizes its own build tool called **Merlin** (written in D).
+Camelot is a core systems component toolkit engineered for predictable execution under the C23 standard. It is orchestrated by **Merlin**, a custom build engine written in the D programming language.
 
-Instead of relying on `malloc` directly and risking memory leaks, Camelot provides memory arenas. It includes basic data structures and error handling, remaining fully compatible across GCC, Clang, and MSVC.
+The toolkit provides structural alternatives to libc subsystems featuring explicit allocator boundaries, localized memory arenas, a tri-state error model and strict compiler defaults — all while remaining fully portable across GCC, Clang and MSVC.
 
-## Motivation
+## Design Philosophy
 
-The framework was engineered to be straightforward to read, robust against unexpected failures, and portable without requiring complex build environments. Straightforward semantics are prioritized over syntactic sugar.
+### Predictable Systems (The Mechanism Paradigm)
+
+Camelot prioritizes explicit mechanism, cross-platform interoperability and traceable state transitions over implicit syntax. Camelot's abstractions are engineered to be predictably robust, structurally transparent and rigorously tested so they can run undisturbed in constrained environments.
 
 ### Naming Convention
 
-All functions follow a strict `DOMAIN_functionSubfunction` naming style to ensure intent is immediately recognizable:
+All functions strictly utilize the `DOMAIN_functionSubfunction` format:
 
-- **Domain prefix**: Always uppercase (e.g., `ARENA`, `VECTOR`, `STRING`)
-- **Primary function name**: Always lowercase
-- **Subfunction qualifier**: Added in camelCase with no extra underscores
+- **Domain prefix**: Fully uppercase (e.g., `ARENA`, `VECTOR`, `STRING`)
+- **Primary function name**: Fully lowercase
+- **Subfunction qualifier**: Appended in camelCase without additional underscores
 
-Arbitrary abbreviations are avoided unless they are universally recognized (such as `IO`).
+Word truncations or casual abbreviations are prohibited unless using universally standard acronyms (e.g., `IO`).
 
-### Portability Guidelines
+### Portability & Compiler Extensions
 
-Reliance on non-standard compiler extensions that alter runtime execution is explicitly avoided.
-- Compile-time annotations (like `__attribute__((warn_unused_result))`) are permitted.
-- Behavior-altering extensions (like GCC's `cleanup` attribute) are prohibited due to a lack of universal support.
+To guarantee absolute portability across arbitrary C compilers, reliance on non-standard runtime compiler extensions is explicitly prohibited.
+
+- Compiler attributes that operate strictly during compilation (e.g., `__attribute__((warn_unused_result))`) are acceptable.
+- Runtime-altering extensions, specifically GCC's `__attribute__((cleanup))` for RAII emulation, are **forbidden** due to lack of support in non-GNU environments.
 
 ## Project Structure
 
 ```text
 camelot/
-├── include/              # Public APIs
-│   └── camelot/          
-│       ├── core/         
-│       ├── memory/       
-│       ├── types/        
-│       └── camelot.h     # Main header
-├── src/                  # Implementation
+├── include/              # Public API Headers (read-only for clients)
+│   └── camelot/          # Unified namespace
+│       ├── core/         # Fundamental abstractions (Result, Safety)
+│       ├── memory/       # Memory management (Arena, Allocator)
+│       ├── types/        # Primitives and String types
+│       └── camelot.h     # Umbrella header for full framework access
+├── src/                  # Private Implementation (.c files)
 │   ├── core/
 │   ├── memory/
 │   ├── io/
 │   ├── ds/
 │   └── types/
-├── tests/                # Test suites
-├── merlin.d              # Merlin build orchestrator
-├── Makefile              # Bootstrap for Merlin
-└── README.md             
+├── tests/                # Unit and Integration Testing suite
+├── merlin.d              # Merlin Build Orchestrator (D language)
+├── Makefile              # Bootstrap entry point for Merlin
+└── README.md             # Project entry point
 ```
 
-### Architectural Principles
+### Architectural Rationale
 
-1. **Isolation**: Headers in `include/camelot/` define the public interface. Implementations remain isolated in `src/`.
-2. **Mirroring**: The `src/` directory exactly mirrors the `include/` directory structure.
-3. **Flat Namespace**: All headers are nested under the `camelot/` directory to prevent collisions.
+1. **Public/Private Isolation**: Headers in `include/camelot/` ensure only intended APIs are accessible via `#include <camelot/subsystem.h>`. Private headers remain within `src/`.
+2. **Namespace Mirroring**: The `src/` directory mirrors `include/` exactly, predictably mapping implementation files to their corresponding headers.
+3. **Modular Compilation**: Every module compiles into an independent object file, enabling the linker to prune unused modules in static builds.
+4. **Flat Namespace**: All headers are accessed through the `camelot/` prefix to prevent header collision in large projects.
 
-## Usage
+## Unified Header
 
-Include the primary header file:
+Including the entire framework is a single line:
 
 ```c
 #include <camelot/camelot.h>
 ```
 
-This single inclusion provides access to the entire framework.
+This umbrella header transitively includes all subsystems: primitives, allocators, arenas, result types and the safety header.
 
 ## License
 
