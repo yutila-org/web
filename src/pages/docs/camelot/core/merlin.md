@@ -1,10 +1,10 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Merlin Build Engine
-description: The Merlin TUI build orchestrator — architecture, compiler detection, and CI/CD integration.
+description: The Merlin TUI build orchestrator — architecture, compiler detection and CI/CD integration.
 ---
 
-Merlin is the singular, monolithic build engine for the Camelot framework, written in the **D programming language**. It replaces traditional Makefiles and CMake with an intelligent, dynamically animated TUI supervisor.
+Merlin is the singular build engine for the Camelot toolkit, written in the **D programming language**. It replaces traditional Makefiles and CMake with an interactive TUI supervisor.
 
 ## Why D?
 

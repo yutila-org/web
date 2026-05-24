@@ -1,18 +1,18 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Introduction
-description: Overview of the Camelot C23 framework — its design philosophy, security posture, and the Merlin build orchestrator.
+description: Overview of the Camelot C23 core toolkit — its design philosophy, component model and the Merlin build orchestrator.
 ---
 
-Camelot is a lightweight, zero-latency C framework engineered for strict memory safety, predictability, and secure execution under the C23 standard. It is powered entirely by **Merlin**, a custom build orchestrator written in the D programming language.
+Camelot is a core systems component toolkit engineered for predictable execution under the C23 standard. It is orchestrated by **Merlin**, a custom build engine written in the D programming language.
 
-The framework provides a complete standard library replacement featuring allocator-agnostic data structures, deterministic memory arenas, a tri-state error model, and compile-time security hardening — all while remaining fully portable across GCC, Clang, and MSVC.
+The toolkit provides structural alternatives to libc subsystems featuring explicit allocator boundaries, localized memory arenas, a tri-state error model and strict compiler defaults — all while remaining fully portable across GCC, Clang and MSVC.
 
 ## Design Philosophy
 
-### Enterprise Reliability (The Java Paradigm)
+### Predictable Systems (The Mechanism Paradigm)
 
-Camelot prioritizes long-term enterprise reliability, cross-platform interoperability, and transaction stability over trendy syntactic sugar. Borrowing the survivability thesis of platforms like the JVM ("Write Once, Run Anywhere"), Camelot's abstractions are engineered to be predictably robust, backward-compatible, and rigorously tested so they can run undisturbed for decades in mission-critical environments.
+Camelot prioritizes explicit mechanism, cross-platform interoperability and traceable state transitions over implicit syntax. Camelot's abstractions are engineered to be predictably robust, structurally transparent and rigorously tested so they can run undisturbed in constrained environments.
 
 ### Naming Convention
 
@@ -68,7 +68,7 @@ Including the entire framework is a single line:
 #include <camelot/camelot.h>
 ```
 
-This umbrella header transitively includes all subsystems: primitives, allocators, arenas, result types, and the safety header.
+This umbrella header transitively includes all subsystems: primitives, allocators, arenas, result types and the safety header.
 
 ## License
 

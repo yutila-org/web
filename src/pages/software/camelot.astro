@@ -423,9 +423,9 @@
                 <header class="hero container">
                     <div class="hero-left">
                         <h1>C23 executed with precision.</h1>
-                        <h2>Zero latency. Strict memory safety.</h2>
+                        <h2>Deterministic execution. Manual resource control.</h2>
                         <p>
-                            Camelot is a C framework engineered for absolute predictability. It utilizes zero-latency memory arenas, strict standard compliance, and is entirely orchestrated by Merlin—a custom build engine designed to replace traditional archaic build systems.
+                            Camelot is a core component toolkit for C applications. It provides structural alternatives to libc subsystems that expose implicit allocation behavior, utilizing memory arenas and strict compiler flags orchestrated by the Merlin build engine.
                         </p>
                     </div>
                     <div class="hero-right">
@@ -438,10 +438,10 @@
                             <div class="code-body"><pre><span class="code-comment">#include</span> <span class="code-string">&lt;camelot.h&gt;</span>
 
 <span class="code-type">int</span> <span class="code-func">main</span>(<span class="code-type">void</span>) &#123;
-    <span class="code-comment">// Initialize deterministic memory pool</span>
+    <span class="code-comment">// Initialize arena allocator</span>
     <span class="code-type">Arena</span> *arena = <span class="code-func">ArenaInit</span>(<span class="code-keyword">NULL</span>, <span class="code-keyword">MEGABYTES</span>(128));
 
-    <span class="code-comment">// O(1) allocation without fragmentation</span>
+    <span class="code-comment">// Allocate contiguous memory block</span>
     <span class="code-type">void</span> *block = <span class="code-func">ArenaAlloc</span>(arena, 1024);
 
     <span class="code-func">ArenaFree</span>(&arena);
@@ -459,21 +459,21 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                         </div>
                         <h3>Merlin Orchestrator</h3>
-                        <p>Driven by Merlin, a standalone D build engine that dynamically manages GCC compilation, sanitizers, and parallel workflows.</p>
+                        <p>Driven by Merlin, a standalone D build engine that dynamically manages GCC compilation, sanitizers and parallel workflows.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                         </div>
                         <h3>Memory Arenas</h3>
-                        <p>Complete avoidance of unmanaged `malloc`. Features localized deterministic memory pools for high-performance zero-latency data structures.</p>
+                        <p>Requires explicit allocator pointers instead of unmanaged `malloc`. Features localized memory arenas for predictable memory management without implicit allocations.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                         </div>
-                        <h3>Hardened Security</h3>
-                        <p>Compiled automatically with PIE, stack-protectors, and ASAN/UBSAN sanitizers to systematically prevent classical C vulnerabilities.</p>
+                        <h3>Strict Defaults</h3>
+                        <p>Compiled automatically with PIE, stack protection and ASAN/UBSAN sanitizers to systematically constrain undefined behavior.</p>
                     </div>
                 </section>
             </div>
@@ -512,7 +512,7 @@
                     <a href="https://www.bestpractices.dev/projects/12919">OpenSSF Certified</a>
                 </div>
                 <div class="footer-attribution">
-                    Actively maintained by Yutila Organization. Built for high-performance memory-safe execution.
+                    Actively maintained by Yutila Organization. Built for explicit control and predictable execution.
                 </div>
             </div>
         </footer>

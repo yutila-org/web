@@ -1,14 +1,14 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Memory Allocator
-description: Camelot's Arena memory allocator — design, implementation, and usage patterns.
+description: Camelot's Arena memory allocator — design, implementation and usage patterns.
 ---
 
 Camelot's memory subsystem is built around two core abstractions: the **Allocator VTable** (a generic dispatch interface) and the **Arena** (a concrete, high-performance implementation of that interface).
 
 ## The Problem
 
-Tracking and freeing thousands of individual object allocations leads to memory fragmentation, high CPU overhead, and inevitable memory leaks when a single `free()` is forgotten. Additionally, hardcoding `malloc` prevents swapping memory strategies for testing or restricted environments.
+Tracking and freeing thousands of individual object allocations leads to memory fragmentation, high CPU overhead and inevitable memory leaks when a single `free()` is forgotten. Additionally, hardcoding `malloc` prevents swapping memory strategies for testing or restricted environments.
 
 ## Allocator VTable
 
@@ -81,7 +81,7 @@ void ARENA_reset(Arena* self) {
 }
 ```
 
-This single operation invalidates all prior allocations instantaneously, making arenas ideal for per-frame, per-request, or per-transaction memory patterns.
+This single operation invalidates all prior allocations instantaneously, making arenas ideal for per-frame, per-request or per-transaction memory patterns.
 
 ### Memory Layout Visualization
 
@@ -113,11 +113,11 @@ The following data structures are specified in the Software Design Document and 
 |---|---|---|---|
 | `Vector` | Dynamic array | 1.5x bitwise (`cap + (cap >> 1)`) | Memory-recyclable growth |
 | `LIST` | Doubly linked list | Per-node | Pointer-stable O(1) insertion |
-| `Table` | Swiss Table hash map | Power-of-2 | SIMD-friendly metadata probing |
+| `Table` | Hash map (open addressing) | Power-of-2 | SIMD-friendly metadata probing |
 | `Slice` | Fat pointer view | N/A (non-owning) | Zero-copy memory access |
 | `String` | Text slice (`typedef Slice`) | N/A (non-owning) | O(1) length, no null terminator |
 | `OwnedString` | Allocator-paired string | Allocator-aware | Explicit Deinit compliant |
 
 ### Vector Growth: Why 1.5x
 
-The Vector uses a mathematically proven **1.5x capacity growth multiplier** (`cap = cap + (cap >> 1)`). By growing at exactly 1.5x instead of the industry standard 2.0x, the sum of all previously discarded block allocations will eventually exceed the next requested capacity. Once this threshold is crossed, the allocator can coalesce and recycle the older blocks, achieving optimal memory reduction without manual tuning.
+The Vector uses a **1.5x capacity growth multiplier** (`cap = cap + (cap >> 1)`). By growing at exactly 1.5x instead of the industry standard 2.0x, the sum of all previously discarded block allocations will eventually exceed the next requested capacity. Once this threshold is crossed, it permits block recycling by the host allocator.

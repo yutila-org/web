@@ -1,14 +1,14 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: I/O Utilities
-description: Camelot's I/O subsystem — file operations, safe string interop, and platform abstraction.
+description: Camelot's I/O subsystem — file operations, safe string interop and platform abstraction.
 ---
 
 The I/O subsystem provides a platform-agnostic abstraction layer that wraps POSIX and Windows APIs into Camelot's `Result` tri-state error model. All operations route through the `Allocator` VTable to maintain memory lifetime ownership.
 
 ## File Operations
 
-Direct interaction with POSIX or Windows APIs creates platform-specific memory leaks, file descriptor leaks, and inconsistent error codes. Camelot's I/O module wraps these behind a clean, `Result`-returning interface:
+Direct interaction with POSIX or Windows APIs creates platform-specific memory leaks, file descriptor leaks and inconsistent error codes. Camelot's I/O module wraps these behind a clean, `Result`-returning interface:
 
 ```c
 Result IO_read(Allocator* alloc, String path);
@@ -18,7 +18,7 @@ Result IO_write(Allocator* alloc, String path, Slice data);
 Both functions:
 
 - Accept an `Allocator*` for any internal memory needs (e.g., read buffers)
-- Return a `Result` with `OK` (success payload), `NIL` (no data), or `ERR` (system failure with domain-prefixed error code)
+- Return a `Result` with `OK` (success payload), `NIL` (no data) or `ERR` (system failure with domain-prefixed error code)
 - Use the **Explicit Deferral** pattern (`goto defer`) to ensure all resources are freed on every exit path
 
 ### Error Mapping
@@ -33,7 +33,7 @@ This ensures client code never needs to inspect raw `errno` values or POSIX/Wind
 
 ## Safe String Interoperability
 
-When Camelot `String` values (non-owning slices) cross into libc boundaries (e.g., file paths for `fopen`), developers typically resort to `strcpy` or `sprintf`, reintroducing overflow risk. Camelot solves this with allocator-aware string construction:
+When Camelot `String` values (non-owning slices) cross into libc boundaries (e.g., file paths for `fopen`), developers typically resort to `strcpy` or `sprintf` and reintroduce overflow risk. Camelot solves this with allocator-aware string construction:
 
 ### OwnedString
 
@@ -108,7 +108,7 @@ if (res.status == RESULT_OK) {
 Result IO_write(Allocator* alloc, String path, Slice data);
 ```
 
-**Summary**: Safely writes a slice of bytes to a file. Overwrites the file if it exists, or creates it if it does not.
+**Summary**: Safely writes a slice of bytes to a file. Overwrites the file if it exists or creates it if it does not.
 
 - **Parameters**:
   - `alloc` (`Allocator*`): The allocator used for any internal temporary buffers.
@@ -135,14 +135,14 @@ Result res = IO_write(arena, STRING("output.txt"), data);
 [[nodiscard]] Result STRING_format(Allocator* alloc, const char* fmt, ...);
 ```
 
-**Summary**: Allocator-aware string formatting utility. Acts as a memory-safe alternative to `asprintf`, preventing double-frees and unmanaged memory.
+**Summary**: Allocator-aware string formatting utility. Acts as a structural alternative to `asprintf`, preventing double-frees and unmanaged memory.
 
 - **Parameters**:
   - `alloc` (`Allocator*`): The allocator to provision the resulting string.
   - `fmt` (`const char*`): A standard `printf`-style format string.
   - `...`: Variadic arguments matching the format specifiers.
 - **Returns**: `Result` containing an `OwnedString*` payload on success.
-- **Errors**: Returns `ERR_MEMORY_ERROR` if allocation fails, or `ERR_FORMAT_ERROR` on encoding issues.
+- **Errors**: Returns `ERR_MEMORY_ERROR` if allocation fails or `ERR_FORMAT_ERROR` on encoding issues.
 - **See Also**: [`OWNEDSTRING_deinit`](#ownedstring_deinit), [`STRING_formatVariadic`](#string_formatvariadic)
 
 <details>
@@ -184,7 +184,7 @@ void OWNEDSTRING_deinit(OwnedString* str);
 
 - **Parameters**:
   - `str` (`OwnedString*`): A pointer to the owned string to destroy. If `NULL`, the function is a no-op.
-- **Side Effects**: The memory underlying `str->view` is freed, and the `str` struct itself is destroyed.
+- **Side Effects**: The memory underlying `str->view` is freed and the `str` struct itself is destroyed.
 - **See Also**: [`STRING_format`](#string_format)
 
 

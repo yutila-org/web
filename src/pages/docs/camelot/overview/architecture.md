@@ -1,10 +1,10 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Architecture
-description: The full architectural design of Camelot — VTable dispatch, module hierarchy, and data flow.
+description: The full architectural design of Camelot — VTable dispatch, module hierarchy and data flow.
 ---
 
-The architecture of the Camelot ecosystem is split into two distinct tiers: **the Orchestrator** (Merlin, in D) and **the Framework** (Camelot, in C23). Together they form a complete, self-contained development platform.
+The architecture of the Camelot ecosystem is split into two distinct tiers: **the Orchestrator** (Merlin, in D) and **the Toolkit** (Camelot, in C23). Together they form a self-contained development platform.
 
 ## Allocator Agnosticism (VTable)
 
@@ -18,13 +18,13 @@ struct Allocator {
 };
 ```
 
-Hardcoding `malloc` and `free` throughout a codebase creates rigid structures. The VTable solves this by allowing any Camelot type to be instantiated with a heap allocator, a local arena, or a stack buffer — remaining completely agnostic to where the memory actually comes from.
+Hardcoding `malloc` and `free` throughout a codebase creates rigid structures. The VTable solves this by allowing any Camelot type to be instantiated with a heap allocator, a local arena or a stack buffer — remaining completely agnostic to where the memory actually comes from.
 
 This means the same `Vector` or `Table` can operate on heap memory in production and on a fixed arena in tests, without changing a single line of its internal logic.
 
 ## Result Type (Tri-State Error Model)
 
-Standard C lacks mechanisms to enforce return value checking, and frequently conflates expected logic branching (e.g., a missing table key) with systemic failures (e.g., out-of-memory). Camelot solves this with a tri-state tagged union:
+Standard C lacks mechanisms to enforce return value checking and frequently conflates expected logic branching (e.g., a missing table key) with systemic failures (e.g., out-of-memory). Camelot solves this with a tri-state tagged union:
 
 ```c
 typedef enum {
