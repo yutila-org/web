@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: "Security Policies"
-lastEdited: "15/5/2026"
+lastEdited: "29/5/2026"
 ---
 
 # **1. Introduction and Scope**
@@ -126,7 +126,7 @@ For all software classified as games or entertainment products, the following se
 
 To ensure memory safety and prevent language-specific vulnerabilities natively, all development must adhere strictly to established secure coding standards for the respective language:
 
-- **C:** All C-based development, including the Camelot framework, must adhere to the [SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard). Compliance is structurally enforced via the project `Makefile` and CI pipeline; no code shall be merged unless it compiles with `-Wall -Wextra -Wpedantic -Werror`, passes all unit/integration tests with Clang/GCC Sanitizers enabled (`-fsanitize=address,undefined,leak`), and satisfies [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) static analysis using `cert-*` check profiles.
+- **C:** All C-based development, including the Camelot framework, must adhere to the [SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard). Compliance is structurally enforced via the project `Makefile` and CI pipeline; no code shall be merged unless it compiles with `-Wall -Wextra -Wpedantic -Werror`, passes all unit/integration tests with Clang/GCC Sanitizers enabled (`-fsanitize=address,undefined,leak`), and satisfies [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) static analysis using `cert-*` check profiles. To preserve performance, production release builds must exclude heavy dynamic sanitizers, instead enforcing native production mitigations: bounds checking (`-D_FORTIFY_SOURCE=2`), guaranteed pointer checks (`-fno-delete-null-pointer-checks`), and defined overflow parameters (`-fwrapv`).
 
 - **Java:** All JVM-based development must adhere to strict security boundaries. Find Sec Bugs is required for static bytecode analysis. Additionally, Jazzer is strictly mandated for fuzzing high-risk, untrusted data parsers (e.g., XML/RSS feeds).
 

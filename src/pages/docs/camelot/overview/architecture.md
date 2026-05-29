@@ -4,7 +4,7 @@ title: Architecture
 description: The full architectural design of Camelot — VTable dispatch, module hierarchy and data flow.
 ---
 
-The architecture of the Camelot ecosystem is split into two distinct tiers: **the Orchestrator** (Merlin, in D) and **the Toolkit** (Camelot, in C23). Together they form a self-contained development platform.
+The architecture of the Camelot ecosystem is split into two distinct tiers: **the Orchestrator** (Merlin, in D) and **the Framework** (Camelot, in C23). Together they form a self-contained development platform.
 
 ## Allocator Agnosticism (VTable)
 

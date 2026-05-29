@@ -1,12 +1,12 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Introduction
-description: Overview of the Camelot C23 core toolkit — its design philosophy, component model and the Merlin build orchestrator.
+description: Overview of the Camelot C23 framework — its design philosophy, component model and the Merlin build orchestrator.
 ---
 
-Camelot is a core systems component toolkit engineered for predictable execution under the C23 standard. It is orchestrated by **Merlin**, a custom build engine written in the D programming language.
+Camelot is a modern, safe and ergonomic C framework. It is orchestrated by **Merlin**, a custom build engine written in the D programming language.
 
-The toolkit provides structural alternatives to libc subsystems featuring explicit allocator boundaries, localized memory arenas, a tri-state error model and strict compiler defaults — all while remaining fully portable across GCC, Clang and MSVC.
+The framework provides structural alternatives to libc subsystems featuring explicit allocator boundaries, localized memory arenas, a tri-state error model and strict compiler defaults — all while remaining fully portable across GCC, Clang and MSVC.
 
 ## Design Philosophy
 

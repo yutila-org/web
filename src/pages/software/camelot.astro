@@ -1,6 +1,9 @@
 ---
 // src/pages/software/camelot.astro
 import '../../styles/camelot-docs.css';
+
+const docFiles = Object.values(import.meta.glob('../docs/camelot/**/*.md', { eager: true }));
+const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatter?.description);
 ---
 
 <!doctype html>
@@ -67,10 +70,10 @@ import '../../styles/camelot-docs.css';
     </head>
     <body>
         <div class="top-stripe"></div>
-        <header>
-            <div class="header-left">
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 2rem;">
                 <a href="/software/camelot" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
-                    <svg viewBox="0 0 210 297" fill="none" style="width: 16px; height: 22px;">
+                    <svg viewBox="0 0 210 297" fill="none" style="width: 24px; height: 33px;">
                         <g transform="translate(-3.8884891,5.3710162)">
                             <path style="opacity:1;fill:#e03131;stroke:none;stroke-width:0" d="m 95.640424,78.255634 c 0,0 -16.863019,-38.11792 -4.986458,-49.864681 4.978354,-4.923954 20.052404,-12.373537 27.702114,-10.010498 5.1397,1.587687 2.84444,12.118304 7.20315,13.888865 4.0265,1.635616 13.09112,-3.931062 17.26603,-1.842825 5.87895,2.940582 7.19453,13.274511 12.08746,17.945705 4.94431,4.720245 22.70992,8.790902 27.38553,12.816748 5.72005,4.925137 -1.92466,9.783212 0.60534,15.681549 15.15987,35.342913 3.49041,70.019203 -4.15538,105.823903 -7.37218,34.52345 0.71681,-18.37755 -7.06446,-42.79033 -1.54123,-4.83543 -12.63776,-12.35428 -14.01509,-17.32797 -2.13053,-7.69357 6.64626,-17.58733 3.51453,-24.399973 -2.4024,-5.22612 -11.81547,-2.95144 -14.51677,-7.46498 -5.27041,-8.806232 -2.70545,-21.695713 -10.5802,-24.367634 -7.68824,-2.608627 -15.79049,16.62156 -15.79049,16.62156 z" />
                             <path style="opacity:1;fill:#ffffff;stroke-width:0.398811" d="m 27.492047,131.72164 c 3.947201,-25.95562 26.715737,-44.168003 56.790317,-54.574112 28.937776,-10.012778 43.352126,5.645621 53.188996,19.945859 34.18626,49.697993 -7.16077,46.464633 -1.66217,68.702443 5.68578,22.99477 43.7609,39.95248 34.62824,62.0538 -15.06223,36.4511 -85.499161,54.19552 -114.965764,27.97962 -8.278098,-7.36487 -1.753025,-18.78655 4.048759,-32.99275 5.689863,-13.93216 23.948407,-26.8826 23.396497,-36.35063 -0.287428,-4.93085 -15.106101,13.42858 -31.984261,-2.17683 -10.297185,-9.52069 -11.74557,-18.74632 -17.998276,-32.02054 -1.338698,-2.84201 54.191939,-23.89417 53.950354,-26.92508 -0.123042,-1.54375 -59.636969,7.96452 -59.392692,6.35822 z" />
@@ -78,16 +81,24 @@ import '../../styles/camelot-docs.css';
                     </svg>
                     <strong>Camelot</strong>
                 </a>
+                <nav style="display: flex; gap: 1rem;">
+                    <a href="https://github.com/yutila-org/camelot">Repository</a>
+                    <a href="/docs/camelot">Documentation</a>
+                </nav>
             </div>
-            <nav class="header-nav">
-                <a href="/software">Software</a> | 
-                <a href="https://github.com/yutila-org/camelot">GitHub</a> | 
-                <a href="/docs/camelot">Documentation</a>
-            </nav>
+            <div>
+                <a href="https://github.com/yutila-org/camelot/releases/latest" style="padding: 0.5rem 1rem; background: #e03131; color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px;">Download Release</a>
+            </div>
         </header>
         <hr />
 
         <main>
+            <div style="margin-bottom: 2rem;">
+                <a href="/software" style="text-decoration: none; color: #aaa; display: flex; align-items: center; gap: 8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+                    Back to Software
+                </a>
+            </div>
             <h1>Camelot</h1>
             <div style="margin-top: 1rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; background: #1a1a1a; padding: 10px 15px; border: 1px solid #333; width: fit-content;">
                 <a href="https://www.bestpractices.dev/projects/12919" style="display: flex;">
@@ -99,7 +110,7 @@ import '../../styles/camelot-docs.css';
             <div class="hero-section">
                 <div class="hero-text">
                     <p>
-                        Camelot is a core component toolkit for C applications. It provides structural alternatives to libc subsystems that expose implicit allocation behavior, utilizing memory arenas and strict compiler flags orchestrated by the Merlin build engine.
+                        Camelot is a modern, safe and ergonomic C framework. It provides structural alternatives to libc subsystems that expose implicit allocation behavior, utilizing memory arenas and strict compiler flags orchestrated by the Merlin build engine.
                     </p>
                 </div>
             </div>
@@ -132,53 +143,100 @@ make</pre>
                 </div>
             </div>
 
-            <h2>Core Features</h2>
+            <h2>Features</h2>
             
-            <table class="content-table">
+            <table class="content-table" id="features-table">
                 <tbody>
-                    <tr>
-                        <th>
-                            <div class="th-inner">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d70a53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                                Merlin Orchestrator
-                            </div>
-                        </th>
-                        <td>Driven by Merlin, a standalone D build engine that dynamically manages GCC compilation, sanitizers and parallel workflows.</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div class="th-inner">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d70a53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                                Memory Arenas
-                            </div>
-                        </th>
-                        <td>Requires explicit allocator pointers instead of unmanaged `malloc`. Features localized memory arenas for predictable memory management without implicit allocations.</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div class="th-inner">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d70a53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                                Strict Defaults
-                            </div>
-                        </th>
-                        <td>Compiled automatically with PIE, stack protection and ASAN/UBSAN sanitizers to systematically constrain undefined behavior.</td>
-                    </tr>
+                    {features.map((feature, index) => (
+                        <tr class="feature-row" style={index >= 3 ? "display: none;" : ""}>
+                            <th>
+                                <div class="th-inner">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d70a53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" fill="#d70a53"></circle></svg>
+                                    <a href={feature.url} style="color: inherit; text-decoration: none;">{feature.frontmatter.title}</a>
+                                </div>
+                            </th>
+                            <td>{feature.frontmatter.description}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+            
+            {features.length > 3 && (
+                <div id="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 1rem; margin-bottom: 2rem;">
+                    <button id="prev-page" style="padding: 0.5rem 1rem; background: #1a1a1a; color: #fff; border: 1px solid #333; cursor: pointer;">&lt;</button>
+                    <span id="page-info" style="color: #aaa; font-size: 0.9rem;"></span>
+                    <button id="next-page" style="padding: 0.5rem 1rem; background: #1a1a1a; color: #fff; border: 1px solid #333; cursor: pointer;">&gt;</button>
+                </div>
+            )}
 
-            <div class="info-box">
-                <strong>Installation Instructions</strong>
-                <p>The framework can be cloned and built directly without external package dependencies.</p>
-                <pre><code>git clone https://github.com/yutila-org/camelot
-make</code></pre>
-            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const rows = document.querySelectorAll('.feature-row');
+                    if (rows.length === 0) return;
+                    
+                    const prevBtn = document.getElementById('prev-page');
+                    const nextBtn = document.getElementById('next-page');
+                    const pageInfo = document.getElementById('page-info');
+                    
+                    let currentPage = 0;
+                    const itemsPerPage = 3;
+                    const totalPages = Math.ceil(rows.length / itemsPerPage);
+                    
+                    function updatePagination() {
+                        rows.forEach((row, index) => {
+                            if (index >= currentPage * itemsPerPage && index < (currentPage + 1) * itemsPerPage) {
+                                (row as HTMLElement).style.display = 'table-row';
+                            } else {
+                                (row as HTMLElement).style.display = 'none';
+                            }
+                        });
+                        
+                        if (pageInfo) {
+                            pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+                        }
+                        
+                        if (prevBtn) {
+                            (prevBtn as HTMLButtonElement).disabled = currentPage === 0;
+                            (prevBtn as HTMLElement).style.opacity = currentPage === 0 ? '0.5' : '1';
+                        }
+                        if (nextBtn) {
+                            (nextBtn as HTMLButtonElement).disabled = currentPage === totalPages - 1;
+                            (nextBtn as HTMLElement).style.opacity = currentPage === totalPages - 1 ? '0.5' : '1';
+                        }
+                    }
+                    
+                    if (prevBtn) {
+                        prevBtn.addEventListener('click', () => {
+                            if (currentPage > 0) {
+                                currentPage--;
+                                updatePagination();
+                            }
+                        });
+                    }
+                    
+                    if (nextBtn) {
+                        nextBtn.addEventListener('click', () => {
+                            if (currentPage < totalPages - 1) {
+                                currentPage++;
+                                updatePagination();
+                            }
+                        });
+                    }
+                    
+                    if (totalPages > 1) {
+                        updatePagination();
+                    }
+                });
+            </script>
+
+
 
         </main>
 
         <footer>
             <hr />
             <p>
-                Distributed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>.<br/><br/>
+                Distributed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a><br/><br/>
             </p>
         </footer>
     </body>

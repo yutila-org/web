@@ -4,7 +4,7 @@ title: Merlin Build Engine
 description: The Merlin TUI build orchestrator — architecture, compiler detection and CI/CD integration.
 ---
 
-Merlin is the singular build engine for the Camelot toolkit, written in the **D programming language**. It replaces traditional Makefiles and CMake with an interactive TUI supervisor.
+Merlin is the singular build engine for the Camelot framework, written in the **D programming language**. It replaces traditional Makefiles and CMake with an interactive TUI supervisor.
 
 ## Why D?
 
@@ -107,17 +107,17 @@ When launched without arguments, Merlin presents an animated terminal dashboard 
 
 ```text
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃          .                                                              ┃
-┃         / \                                                             ┃
+┃          .                                                             ┃
+┃         / \                                                            ┃
 ┃       /_____\    *   M E R L I N   B U I L D   S Y S T E M   v1.0   *  ┃
 ┃       ( •⩊• )  < "Poof! Let's cast some build spells!"                 ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃  Compiler : gcc (v14.2.1)               Profile : DEBUG (Sanitized)     ┃
-┃  Standard : C23 (-std=c23)                   Target  : camelot          ┃
+┃  Compiler : gcc (v14.2.1)               Profile : DEBUG (Sanitized)    ┃
+┃  Standard : C23 (-std=c23)              Target  : camelot              ┃
 ┃  Sources  : 2      Headers : 6          Tests   : 0                    ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃  make all   Compile framework          make test  Run tests (ASan)      ┃
-┃  make run   Launch executable          make clean Clean workspace       ┃
+┃  make all   Compile framework          make test  Run tests (ASan)     ┃
+┃  make run   Launch executable          make clean Clean workspace      ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 🔮 Merlin >
