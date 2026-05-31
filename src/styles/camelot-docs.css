@@ -65,6 +65,22 @@ ul, ol {
     margin-bottom: 1em;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #1a1a1a;
+}
+
 nav ul {
     list-style-type: none;
     padding-left: 0;
@@ -146,22 +162,27 @@ details ul {
 }
 
 /* Search Box / Trigger */
-.search-trigger {
-    background: #1e1e1e;
+.search-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
     border: 1px solid #333;
     color: #a0a0a0;
-    padding: 4px 10px;
     cursor: pointer;
-    border-radius: 2px;
-    font-size: 0.9em;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
-.search-trigger:hover {
-    background: #252525;
+.search-btn:hover {
     color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #555;
 }
 
 kbd {

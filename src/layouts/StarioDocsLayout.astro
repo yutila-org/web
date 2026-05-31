@@ -31,10 +31,10 @@ const currentPath = Astro.url.pathname;
         </svg>
         Stario <span class="muted">/ Docs</span>
       </div>
-      <div id="search-trigger" class="search-placeholder">
-        <span class="muted">Search...</span>
-        <kbd>Ctrl+K</kbd>
-      </div>
+      <button id="search-trigger" class="search-btn" title="Search (Ctrl+K)" aria-label="Search">
+        <span>Search</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      </button>
       <div class="nav-right" style="display: flex; gap: 1rem; align-items: center;">
         <a href="/software/stario" class="github-link">Stario</a>
         <a href="/software" class="github-link">Software</a>
@@ -173,11 +173,11 @@ const currentPath = Astro.url.pathname;
       <div class="search-modal">
         <div class="search-input-row">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-          <input id="search-input" type="text" placeholder="Search documentation..." autocomplete="off" spellcheck="false" />
+          <input id="search-input" type="text" placeholder="Search documentation" autocomplete="off" spellcheck="false" />
           <kbd>Esc</kbd>
         </div>
         <ul id="search-results" class="search-results"></ul>
-        <div id="search-empty" class="search-empty">No results found.</div>
+        <div id="search-empty" class="search-empty">No results found</div>
       </div>
     </div>
 

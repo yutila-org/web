@@ -92,17 +92,28 @@ body {
   font-weight: 400;
 }
 
-.search-placeholder {
-  background-color: var(--base);
+.search-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
   border: 1px solid var(--surface0);
-  padding: 0.3rem 0.8rem;
   color: var(--text-muted);
-  font-size: 0.85rem;
-  width: 240px;
+  cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-radius: 4px;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.search-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--surface0);
+  border-color: var(--surface1);
 }
 
 kbd {
@@ -308,15 +319,6 @@ article pre code {
 }
 
 /* Search Trigger */
-.search-placeholder {
-  cursor: pointer;
-  user-select: none;
-}
-
-.search-placeholder:hover {
-  border-color: var(--surface1);
-  background-color: var(--surface0);
-}
 
 /* Search Overlay */
 .search-overlay {

@@ -2,7 +2,7 @@ Copyright © 2026 Yutila. All rights reserved regarding brand assets and organiz
 
 # 1. CODEBASE LICENSE
 
-The underlying source code, configuration files and build pipelines contained within this repository are distributed under the [Open To All (OTA) Public License v1.2](https://akrillick.github.io/web/OTA.md).
+The underlying source code, configuration files and build pipelines contained within this repository are distributed under the GNU General Public License v3.0.
 
 # 2. BRAND AND ASSET EXCEPTIONS (STRICTLY RESERVED)
 

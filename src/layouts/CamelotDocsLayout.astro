@@ -34,10 +34,10 @@ const currentPath = Astro.url.pathname;
           <strong>Camelot Documentation</strong>
         </a>
       </div>
-      <div id="search-trigger" class="search-placeholder">
-        <span class="muted">Search...</span>
-        <kbd>Ctrl+K</kbd>
-      </div>
+      <button id="search-trigger" class="search-btn" title="Search (Ctrl+K)" aria-label="Search">
+        <span>Search</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      </button>
       <div class="nav-right" style="display: flex; gap: 1rem; align-items: center;">
         <a href="/software/camelot" class="github-link">Camelot</a>
         <a href="/software" class="github-link">Software</a>
@@ -83,7 +83,7 @@ const currentPath = Astro.url.pathname;
             <a href="https://www.bestpractices.dev/projects/12919" style="display: block; margin-bottom: 8px;">
               <img src="/openssf-badge.svg" alt="OpenSSF Best Practices: Passing" style="height: 28px; vertical-align: middle;" />
             </a>
-            <span style="font-size: 0.75rem; color: #888;">Certifies adherence to secure software development practices.</span>
+            <span style="font-size: 0.75rem; color: #888;">Certifies adherence to secure software development practices</span>
           </div>
         </nav>
       </aside>
@@ -100,11 +100,11 @@ const currentPath = Astro.url.pathname;
     <div id="search-overlay" class="search-overlay" style="display: none;">
       <div class="search-modal">
         <div class="search-input-row">
-          <input id="search-input" type="text" placeholder="Search Camelot documentation..." autocomplete="off" spellcheck="false" />
+          <input id="search-input" type="text" placeholder="Search Camelot documentation" autocomplete="off" spellcheck="false" />
           <kbd>Esc</kbd>
         </div>
         <ul id="search-results" class="search-results"></ul>
-        <div id="search-empty" class="search-empty">No results found.</div>
+        <div id="search-empty" class="search-empty">No results found</div>
       </div>
     </div>
 

@@ -6,7 +6,7 @@ description: The full architectural design of Camelot — VTable dispatch, modul
 
 The architecture of the Camelot ecosystem is split into two distinct tiers: **the Orchestrator** (Merlin, in D) and **the Framework** (Camelot, in C23). Together they form a self-contained development platform.
 
-## Allocator Agnosticism (VTable)
+## Allocator Agnosticism
 
 At the absolute foundation of Camelot's architecture is the `Allocator` VTable — an abstract interface that decouples every data structure from its memory source.
 
@@ -22,7 +22,7 @@ Hardcoding `malloc` and `free` throughout a codebase creates rigid structures. T
 
 This means the same `Vector` or `Table` can operate on heap memory in production and on a fixed arena in tests, without changing a single line of its internal logic.
 
-## Result Type (Tri-State Error Model)
+## Result Type
 
 Standard C lacks mechanisms to enforce return value checking and frequently conflates expected logic branching (e.g., a missing table key) with systemic failures (e.g., out-of-memory). Camelot solves this with a tri-state tagged union:
 
@@ -55,7 +55,7 @@ Error codes are domain-prefixed to prevent collision across subsystems:
 
 The C23 `[[nodiscard]]` attribute (with fallback to `__attribute__((warn_unused_result))` on Clang) ensures callers can never silently ignore a `Result`.
 
-## Explicit Deferral (goto cleanup)
+## Explicit Deferral
 
 Functions with multiple return paths frequently leak memory or file handles. Camelot enforces a strict convention: all fallible functions return through a single cleanup block via `goto`:
 
@@ -96,7 +96,7 @@ void VECTOR_deinit(Vector* arr) {
 }
 ```
 
-## Safety Header (Compile-Time Function Poisoning)
+## Safety Header
 
 The `camelot/core/safety.h` header uses `#pragma GCC poison` to transform any reference to banned legacy C string functions into a hard compilation error:
 

@@ -8,12 +8,19 @@ Merlin is the singular build engine for the Camelot framework, written in the **
 
 ## Why D?
 
-D was chosen as Merlin's implementation language because it provides:
+D was chosen as Merlin's implementation language to orchestrate Camelot from an external scope. Building a C toolchain in C is like asking yourself for feedback—it inherits the same blind spots and limitations. D provides an objective, unconstrained supervision layer.
 
-- **Native process spawning** via `std.process` for invoking GCC
-- **Recursive filesystem traversal** via `std.file.dirEntries`
-- **String manipulation** with zero-cost slicing and regex support
-- **Compilation to a single static binary** — no runtime dependencies
+D offers a modern evolution over C and C++. Thanks to ImportC, D compilers process C natively, enabling flawless interoperability and proving D is a logical upgrade rather than a weird choice. Hence D is built for high-performance edge computing, it easily scales to massive builds without bottlenecks.
+
+Alongside that, D provides:
+
+- **Native Process Control**: Built-in `std.process` for driving GCC.
+- **File Traversal**: Fast, recursive directory scanning.
+- **Zero-Cost Strings**: Native slicing and regex without overhead.
+- **Static Compilation**: Single binary deployment without dependencies.
+- **Memory Safety**: Optional `@safe` annotations for secure code blocks.
+- **Built-in Testing**: Native `unittest` without external frameworks.
+- **CTFE**: Powerful compile-time function execution for dynamic logic.
 
 The Makefile serves only as a bootstrap entry point: it compiles `merlin.d` into `bin/merlin` using `dmd`, then delegates all subsequent build logic to Merlin.
 

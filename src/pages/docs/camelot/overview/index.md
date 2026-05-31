@@ -10,7 +10,7 @@ The framework provides structural alternatives to libc subsystems featuring expl
 
 ## Design Philosophy
 
-### Predictable Systems (The Mechanism Paradigm)
+### Predictable Systems
 
 Camelot prioritizes explicit mechanism, cross-platform interoperability and traceable state transitions over implicit syntax. Camelot's abstractions are engineered to be predictably robust, structurally transparent and rigorously tested so they can run undisturbed in constrained environments.
 

@@ -1,7 +1,10 @@
 ---
-// src/pages/software/stario.astro
-const imageFiles = import.meta.glob('/public/images/stario/*.{png,jpg,jpeg,webp,svg,gif}');
-const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
+const imageFiles = import.meta.glob(
+    "/public/images/stario/*.{png,jpg,jpeg,webp,svg,gif}",
+);
+const images = Object.keys(imageFiles).map((file) =>
+    file.replace("/public", ""),
+);
 ---
 
 <!doctype html>
@@ -237,7 +240,10 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
                 opacity: 0;
                 transform: translateX(100%);
                 filter: blur(6px);
-                transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease-in-out;
+                transition:
+                    opacity 0.6s ease,
+                    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                    filter 0.6s ease-in-out;
                 z-index: 1;
             }
 
@@ -453,7 +459,8 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
             }
 
             .parallax > use {
-                animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+                animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5)
+                    infinite;
             }
             .parallax > use:nth-child(1) {
                 animation-delay: -2s;
@@ -485,15 +492,41 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
     <body>
         <!-- Animated Background Waves -->
         <div class="waves-container">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg
+                class="waves"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28"
+                preserveAspectRatio="none"
+                shape-rendering="auto"
+            >
                 <defs>
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path
+                        id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+                    ></path>
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(180, 190, 254, 0.03)" />
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(180, 190, 254, 0.05)" />
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(180, 190, 254, 0.02)" />
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(180, 190, 254, 0.04)" />
+                    <use
+                        xlink:href="#gentle-wave"
+                        x="48"
+                        y="0"
+                        fill="rgba(180, 190, 254, 0.03)"></use>
+                    <use
+                        xlink:href="#gentle-wave"
+                        x="48"
+                        y="3"
+                        fill="rgba(180, 190, 254, 0.05)"></use>
+                    <use
+                        xlink:href="#gentle-wave"
+                        x="48"
+                        y="5"
+                        fill="rgba(180, 190, 254, 0.02)"></use>
+                    <use
+                        xlink:href="#gentle-wave"
+                        x="48"
+                        y="7"
+                        fill="rgba(180, 190, 254, 0.04)"></use>
                 </g>
             </svg>
         </div>
@@ -550,27 +583,39 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
             <div class="full-width-border">
                 <header class="hero container">
                     <div class="hero-left">
-                        <h1>Android Application Launcher.</h1>
-                        <h2>Minimal footprint. Localized data. Zero telemetry.</h2>
+                        <h1>Android app launcher</h1>
+                        <h2>Free, no telemetry and no ads</h2>
                         <p>
-                            Stario is engineered for structural minimalism. It provides a native interface featuring local widgets and Material You integration while operating under a strict zero-telemetry mandate.
+                            Stario is a minimalist launcher that improves
+                            accessibility while offering native performance and
+                            a strict zero-telemetry mandate
                         </p>
                     </div>
                     <div class="hero-right">
-                        <div class="device-wireframe" id="device-carousel" data-images={JSON.stringify(images)}>
+                        <div
+                            class="device-wireframe"
+                            id="device-carousel"
+                            data-images={JSON.stringify(images)}
+                        >
                             <div class="device-notch"></div>
-                            {images.length > 0 ? (
-                                images.map((img: string, index: number) => (
-                                    <img 
-                                        class={`carousel-img ${index === 0 ? 'active' : ''}`} 
-                                        src={img} 
-                                        alt="Stario Screenshot" 
-                                        loading={index === 0 ? "eager" : "lazy"} 
-                                    />
-                                ))
-                            ) : (
-                                <div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:var(--subtext0);">No images</div>
-                            )}
+                            {
+                                images.length > 0 ? (
+                                    images.map((img: string, index: number) => (
+                                        <img
+                                            class={`carousel-img ${index === 0 ? "active" : ""}`}
+                                            src={img}
+                                            alt="Stario Screenshot"
+                                            loading={
+                                                index === 0 ? "eager" : "lazy"
+                                            }
+                                        />
+                                    ))
+                                ) : (
+                                    <div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:var(--subtext0);">
+                                        No images
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 </header>
@@ -579,82 +624,78 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
             <!-- Features Grid -->
             <div class="full-width-border features-wrapper">
                 <section class="features container">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <!-- Palette Icon -->
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><circle cx="13.5" cy="6.5" r=".5"></circle><circle
-                                cx="17.5"
-                                cy="10.5"
-                                r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"
-                            ></circle><circle cx="6.5" cy="12.5" r=".5"
-                            ></circle><path
-                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
-                            ></path></svg
-                        >
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <!-- Palette Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><circle cx="13.5" cy="6.5" r=".5"
+                                ></circle><circle cx="17.5" cy="10.5" r=".5"
+                                ></circle><circle cx="8.5" cy="7.5" r=".5"
+                                ></circle><circle cx="6.5" cy="12.5" r=".5"
+                                ></circle><path
+                                    d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+                                ></path></svg
+                            >
+                        </div>
+                        <h3>Minimalism</h3>
+                        <p>
+                            Ease of use for any demographic to use their phone much better
+                            thus improving accessibility
+                        </p>
                     </div>
-                    <h3>Dynamic Integration</h3>
-                    <p>
-                        Integrates natively with Android Material You dynamic
-                        color APIs for seamless system level adaptation.
-                    </p>
-                </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <!-- RSS/Database Icon -->
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><ellipse cx="12" cy="5" rx="9" ry="3"
-                            ></ellipse><path
-                                d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"
-                            ></path><path
-                                d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"
-                            ></path></svg
-                        >
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <!-- RSS/Database Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><ellipse cx="12" cy="5" rx="9" ry="3"
+                                ></ellipse><path
+                                    d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"
+                                ></path><path
+                                    d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"
+                                ></path></svg
+                            >
+                        </div>
+                        <h3>No Data Collection</h3>
+                        <p>
+                            No telemetry. Your news feed is yours and not given
+                            to you by third parties
+                        </p>
                     </div>
-                    <h3>Localized Data</h3>
-                    <p>
-                        Built-in local RSS/Atom parser and weather widget.
-                        Delivers data directly to the user without proprietary
-                        external tracking.
-                    </p>
-                </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <!-- Shield Icon -->
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path
-                                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-                            ></path></svg
-                        >
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <!-- Shield Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><path
+                                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                                ></path></svg
+                            >
+                        </div>
+                        <h3>Free & Open Source</h3>
+                        <p>No ads and completely open source</p>
                     </div>
-                    <h3>Telemetry-Free</h3>
-                    <p>
-                        Absolute zero background data collection. No advertisements. No algorithmically driven feeds.
-                    </p>
-                </div>
                 </section>
             </div>
 
@@ -689,9 +730,7 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
         <footer class="footer">
             <div class="footer-container">
                 <div class="footer-links">
-                    <a href="https://akrillick.github.io/web/OTA.md"
-                        >OTA Public License</a
-                    >
+
                     <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a
                     >
                     <a href="https://github.com/yutila-org/stario"
@@ -709,33 +748,33 @@ const images = Object.keys(imageFiles).map(file => file.replace('/public', ''));
         <script is:inline>
             // Astro module scripts are deferred, so the DOM is already ready.
             const initCarousel = () => {
-                const carousel = document.getElementById('device-carousel');
+                const carousel = document.getElementById("device-carousel");
                 if (!carousel || carousel.dataset.initialized) return;
                 carousel.dataset.initialized = "true";
-                
-                const images = carousel.querySelectorAll('.carousel-img');
+
+                const images = carousel.querySelectorAll(".carousel-img");
                 if (images.length <= 1) return;
 
                 let currentIndex = 0;
-                
+
                 setInterval(() => {
                     const currentImg = images[currentIndex];
                     currentIndex = (currentIndex + 1) % images.length;
                     const nextImg = images[currentIndex];
 
                     // Clear previous states
-                    images.forEach(img => {
-                        img.classList.remove('active', 'leaving');
+                    images.forEach((img) => {
+                        img.classList.remove("active", "leaving");
                     });
 
                     // Trigger CSS transitions
-                    currentImg.classList.add('leaving');
-                    nextImg.classList.add('active');
+                    currentImg.classList.add("leaving");
+                    nextImg.classList.add("active");
                 }, 4000); // Switch every 4 seconds
             };
             initCarousel();
             // Optional: Support Astro ViewTransitions if added later
-            document.addEventListener('astro:page-load', initCarousel);
+            document.addEventListener("astro:page-load", initCarousel);
         </script>
     </body>
 </html>
