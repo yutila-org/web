@@ -1,0 +1,377 @@
+---
+import GamePageLayout from '../../layouts/GamePageLayout.astro';
+import GameMetadata from '../../components/GameMetadata.astro';
+---
+
+<GamePageLayout 
+  title="Tankdroids" 
+  primaryColor="#5EBD3E"
+  secondaryColor="#F78200"
+>
+	<div class="game-container">
+		
+		<!-- Game Local Navigation -->
+		<nav class="game-local-nav">
+			<a href="/games/tankdroids" class="active">Overview</a>
+			<a href="/games/tankdroids/news">Updates</a>
+			<a href="/games/tankdroids/wiki">Wiki</a>
+			<a href="/games/tankdroids/community">Community</a>
+		</nav>
+
+		<!-- Media / Video Embed Section -->
+		<section class="media-section">
+			<div class="video-container">
+				<!-- Placeholder for YouTube or similar embed -->
+				<div class="video-placeholder">
+					<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="play-icon"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+					<p>Gameplay Trailer (Embed coming soon)</p>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Main Game Content -->
+		<section class="game-content-layout">
+			
+			<!-- Left Column: About & Description -->
+			<div class="about-column">
+				<h2 class="section-title">About This Game</h2>
+				
+				<div class="description-block">
+					<h3>Experience the Evolution of Defense</h3>
+					<p>Experience a unique 2D top-down tower defense game where the enemies aren't just mindless drones. They strategize, upgrade, adapt and plan their own "tower offense". As you fortify your positions, the enemy swarm analyzes your weaknesses and adjusts its tactics in real-time.</p>
+				</div>
+
+				<div class="description-block">
+					<h3>Deep Upgrade System</h3>
+					<p>Navigate a complex upgrade tree for your tanks. Choose powerful upgrades that may lock you into specialized paths, forcing you to think strategically about every deployment. Will you build heavy artillery, fast-firing suppression, or tactical support units?</p>
+				</div>
+
+				<div class="description-block">
+					<h3>Multiplayer Mayhem</h3>
+					<p>Bring friends to the battlefield. Coordinate your defenses, synergize your upgrade paths and survive the onslaught together in seamless multiplayer action.</p>
+				</div>
+
+				<div class="description-block">
+					<h3>Future Possibilities</h3>
+					<p>While the focus is strictly on tactical defense right now, rumors suggest a future mode where you can take control of the enemy swarm itself... But for now, defend the line at all costs!</p>
+				</div>
+			</div>
+
+			<!-- Right Column: Metadata & Acquire -->
+			<div class="sidebar-column">
+				
+				<div class="logo-container">
+					<img src="/icons/tankdroids.svg" alt="Tankdroids Logo" class="game-logo" />
+				</div>
+				
+				<p class="game-tagline">Strategize. Upgrade. Adapt. Survive.</p>
+				
+				<GameMetadata 
+					releaseDate="Coming Soon"
+					developer="Yutila"
+					publisher="Yutila"
+					genres={['2D Top-Down', 'Tower Offense', 'Tower Defense']}
+					platforms={['Windows', 'Linux']}
+					players={['Singleplayer', 'Online Co-Op']}
+				/>
+				
+				<div class="acquire-container">
+					<button class="acquire-btn coming-soon-btn">
+						<span class="btn-text">Coming Soon</span>
+						<span class="btn-glow"></span>
+					</button>
+					<p class="wishlist-text">Wishlist available soon on:</p>
+					
+					<div class="platform-icons">
+						<!-- Steam Icon -->
+						<a href="#" class="platform-link" aria-label="Steam">
+							<img src="/icons/steam.svg" alt="Steam" width="32" height="32" />
+						</a>
+						<!-- Itch.io Icon -->
+						<a href="#" class="platform-link" aria-label="Itch.io">
+							<img src="/icons/itchio.svg" alt="Itch.io" width="32" height="32" />
+						</a>
+					</div>
+				</div>
+			</div>
+			
+		</section>
+
+	</div>
+</GamePageLayout>
+
+<style>
+	.game-container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	/* Local Navigation */
+	.game-local-nav {
+		display: flex;
+		gap: 2rem;
+		border-bottom: 1px solid rgba(255,255,255,0.1);
+		padding-bottom: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.game-local-nav a {
+		color: #A1A1AA;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 1.05rem;
+		transition: color 0.2s ease;
+		position: relative;
+	}
+
+	.game-local-nav a:hover, .game-local-nav a.active {
+		color: #FAFAFA;
+	}
+
+	.game-local-nav a.active::after {
+		content: '';
+		position: absolute;
+		bottom: -1rem;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		background: var(--theme-primary);
+		border-radius: 3px 3px 0 0;
+	}
+
+	/* Media Section / Video Embed */
+	.media-section {
+		width: 100%;
+		border-radius: 12px;
+		overflow: hidden;
+		background: rgba(0,0,0,0.5);
+		border: 1px solid rgba(255,255,255,0.05);
+	}
+
+	.video-container {
+		position: relative;
+		padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+		height: 0;
+	}
+
+	.video-placeholder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(135deg, rgba(39,39,42,0.8), rgba(23,23,23,0.9));
+		color: #A1A1AA;
+		gap: 1rem;
+		transition: color 0.3s ease;
+		cursor: pointer;
+	}
+
+	.video-placeholder:hover {
+		color: #FAFAFA;
+	}
+
+	.play-icon {
+		width: 64px;
+		height: 64px;
+		color: var(--theme-secondary);
+		transition: transform 0.3s ease;
+	}
+
+	.video-placeholder:hover .play-icon {
+		transform: scale(1.1);
+	}
+
+	/* Game Content Layout (Steam-like) */
+	.game-content-layout {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 3rem;
+		margin-top: 1rem;
+	}
+
+	/* Left Column: Description */
+	.about-column {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+
+	.section-title {
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin: 0;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		border-bottom: 2px solid rgba(255,255,255,0.1);
+		padding-bottom: 0.5rem;
+		color: var(--theme-primary);
+	}
+
+	.description-block h3 {
+		font-size: 1.2rem;
+		color: #FAFAFA;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.description-block p {
+		color: #A1A1AA;
+		line-height: 1.7;
+		margin: 0;
+		font-size: 1.05rem;
+	}
+
+	/* Right Column: Sidebar Metadata */
+	.sidebar-column {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		background: rgba(39, 39, 42, 0.3);
+		border-radius: 12px;
+		padding: 2rem;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		height: fit-content;
+	}
+
+	.logo-container {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1rem;
+	}
+
+	.game-logo {
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.8));
+	}
+
+	.game-tagline {
+		color: #A1A1AA;
+		font-style: italic;
+		text-align: center;
+		margin: 0;
+		font-size: 0.95rem;
+	}
+
+
+
+	/* Acquire Section */
+	.acquire-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		margin-top: 1rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid rgba(255,255,255,0.1);
+	}
+
+	.acquire-btn {
+		width: 100%;
+		position: relative;
+		padding: 1rem;
+		font-size: 1.2rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #FAFAFA;
+		background: rgba(23, 23, 23, 0.8);
+		border: 2px solid var(--theme-secondary);
+		border-radius: 8px;
+		cursor: not-allowed; /* Coming soon */
+		overflow: hidden;
+		transition: all 0.3s ease;
+		box-shadow: 0 0 15px rgba(247, 130, 0, 0.1);
+	}
+
+	.acquire-btn::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+		transition: all 0.5s ease;
+		z-index: 1;
+	}
+
+	.acquire-btn:hover::before {
+		left: 100%;
+	}
+
+	.acquire-btn:hover {
+		box-shadow: 0 0 20px rgba(247, 130, 0, 0.3);
+		border-color: #FAFAFA;
+	}
+
+	.btn-text {
+		position: relative;
+		z-index: 2;
+	}
+
+	.btn-glow {
+		position: absolute;
+		inset: 0;
+		background: var(--theme-secondary);
+		filter: blur(20px);
+		opacity: 0.3;
+		z-index: 0;
+		animation: pulse-glow 2s infinite alternate;
+	}
+
+	.wishlist-text {
+		font-size: 0.85rem;
+		color: #A1A1AA;
+		margin: 0;
+	}
+
+	.platform-icons {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.platform-link img {
+		filter: brightness(0) invert(1) opacity(0.65);
+		transition: filter 0.2s ease, transform 0.2s ease;
+	}
+
+	.platform-link:hover img {
+		filter: brightness(0) invert(1) opacity(1);
+		transform: translateY(-2px);
+	}
+
+	/* Animations */
+	@keyframes pulse-glow {
+		0% { opacity: 0.1; }
+		100% { opacity: 0.4; }
+	}
+
+	@media (max-width: 900px) {
+		.game-content-layout {
+			grid-template-columns: 1fr;
+		}
+		
+		.sidebar-column {
+			order: -1;
+		}
+	}
+	
+	@media (max-width: 600px) {
+		.game-local-nav {
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+	}
+</style>

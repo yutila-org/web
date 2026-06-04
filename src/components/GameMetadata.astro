@@ -1,0 +1,158 @@
+---
+interface Props {
+	releaseDate: string;
+	developer: string;
+	publisher: string;
+	genres: string[];
+	platforms: string[];
+	players: string[];
+}
+
+const { releaseDate, developer, publisher, genres, platforms, players } = Astro.props;
+
+// SVGs for common tags
+const icons = {
+	'Windows': '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>',
+	'Linux': '<img src="/icons/linux.svg" alt="Linux" width="14" height="14" style="vertical-align: middle; filter: brightness(0) invert(1);" />',
+	'Singleplayer': '<svg width="14" height="14" viewBox="0 0 448 512" fill="currentColor"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>',
+	'Online Co-Op': '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.34.16-2h4.68c.09.66.16 1.32.16 2s-.07 1.34-.16 2zm1.16 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>'
+} as Record<string, string>;
+---
+
+<div class="game-metadata">
+	<!-- Release Date on Top -->
+	<div class="meta-row hollow-dark">
+		<span class="meta-label">Release Date:</span>
+		<div class="meta-tags">
+			<span class="release-text">{releaseDate}</span>
+		</div>
+	</div>
+
+	<!-- Developer -->
+	<div class="meta-row">
+		<span class="meta-label">Developer:</span>
+		<div class="meta-tags">
+			<span class="meta-tag">{developer}</span>
+		</div>
+	</div>
+
+	<!-- Publisher -->
+	<div class="meta-row">
+		<span class="meta-label">Publisher:</span>
+		<div class="meta-tags">
+			<span class="meta-tag">{publisher}</span>
+		</div>
+	</div>
+
+	<!-- Genres -->
+	<div class="meta-row">
+		<span class="meta-label">Genre:</span>
+		<div class="meta-tags">
+			{genres.map(genre => (
+				<span class="meta-tag">{genre}</span>
+			))}
+		</div>
+	</div>
+
+	<!-- Platforms -->
+	<div class="meta-row">
+		<span class="meta-label">Platforms:</span>
+		<div class="meta-tags">
+			{platforms.map(platform => (
+				<span class="meta-tag icon-tag">
+					{icons[platform] && <span class="tag-icon-wrapper" set:html={icons[platform]} />}
+					{platform}
+				</span>
+			))}
+		</div>
+	</div>
+
+	<!-- Players -->
+	<div class="meta-row">
+		<span class="meta-label">Players:</span>
+		<div class="meta-tags">
+			{players.map(player => (
+				<span class="meta-tag icon-tag">
+					{icons[player] && <span class="tag-icon-wrapper" set:html={icons[player]} />}
+					{player}
+				</span>
+			))}
+		</div>
+	</div>
+</div>
+
+<style>
+	.game-metadata {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		font-size: 0.9rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(255,255,255,0.1);
+	}
+
+	.meta-row {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		background: rgba(0, 0, 0, 0.2);
+		padding: 1rem;
+		border-radius: 10px;
+		border: 1px solid rgba(255, 255, 255, 0.02);
+	}
+
+	.hollow-dark {
+		background: rgba(0, 0, 0, 0.4); /* Darker background */
+		border: 1px solid rgba(0, 0, 0, 0.8); /* Dark border */
+		box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6); /* Depth effect */
+	}
+
+	.meta-label {
+		color: #FAFAFA;
+		font-weight: 600;
+		font-size: 0.9rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	.meta-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: flex-start;
+	}
+
+	.meta-tag {
+		background: rgba(255, 255, 255, 0.08);
+		color: #FAFAFA;
+		padding: 0.3rem 0.6rem;
+		border-radius: 6px;
+		font-size: 0.85rem;
+		white-space: nowrap;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+	
+	.meta-tag:hover {
+		background: rgba(255, 255, 255, 0.15);
+		transform: translateY(-1px);
+	}
+
+	.icon-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	.tag-icon-wrapper {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.release-text {
+		color: var(--theme-primary, #5EBD3E); /* Optional: make it stand out a bit */
+		font-size: 1rem;
+		font-weight: 600;
+		text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+	}
+</style>

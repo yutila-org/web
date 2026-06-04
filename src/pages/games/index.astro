@@ -1,0 +1,174 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Games - Yutila">
+	<div class="page-container">
+		<div class="page-header">
+			<a href="/" class="back-link">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+				Back to Home
+			</a>
+			<h1>Games</h1>
+			<p class="page-subtitle">Explore the interactive experiences developed by Yutila.</p>
+		</div>
+
+		<div class="search-container">
+			<svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+			<input type="text" id="games-search" placeholder="Search games" aria-label="Search games">
+		</div>
+
+		<div class="games-grid">
+			<a href="/games/tankdroids" class="glass-card game-card" style="--glow-color: rgba(247, 130, 0, 0.5);">
+				<div class="card-glow"></div>
+				<div class="game-icon">
+					<img src="/icons/tankdroids.svg" alt="Tankdroids" width="48" height="48" />
+				</div>
+				<div class="game-content">
+					<h2>Tankdroids</h2>
+					<p>2D top-down tower-attack strategy</p>
+				</div>
+				<div class="game-arrow">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+				</div>
+			</a>
+		</div>
+	</div>
+</Layout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const searchInput = document.getElementById('games-search') as HTMLInputElement;
+		const cards = document.querySelectorAll('.game-card');
+
+		if (searchInput) {
+			searchInput.addEventListener('input', (e) => {
+				const target = e.target as HTMLInputElement;
+				const term = target.value.toLowerCase();
+				cards.forEach((card: Element) => {
+					const titleEl = card.querySelector('h2');
+					const descEl = card.querySelector('p');
+					const title = titleEl ? titleEl.textContent?.toLowerCase() || '' : '';
+					const desc = descEl ? descEl.textContent?.toLowerCase() || '' : '';
+					
+					if (title.includes(term) || desc.includes(term)) {
+						(card as HTMLElement).style.display = 'flex';
+					} else {
+						(card as HTMLElement).style.display = 'none';
+					}
+				});
+			});
+		}
+	});
+</script>
+
+<style>
+	.search-container {
+		position: relative;
+		margin-top: 2rem;
+		width: 100%;
+	}
+
+	.search-icon {
+		position: absolute;
+		left: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+		color: var(--text-muted);
+		pointer-events: none;
+		z-index: 10;
+	}
+
+	#games-search {
+		width: 100%;
+		background: rgba(39, 39, 42, 0.4);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 12px;
+		padding: 1rem 1rem 1rem 3rem;
+		color: var(--text-color);
+		font-family: inherit;
+		font-size: 1rem;
+		transition: border-color 0.3s ease, box-shadow 0.3s ease;
+		outline: none;
+	}
+
+	#games-search:focus {
+		border-color: rgba(255, 255, 255, 0.2);
+		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+	}
+
+	#games-search::placeholder {
+		color: var(--text-muted);
+	}
+
+	.games-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.game-card {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		text-decoration: none;
+		color: inherit;
+		padding: 2rem;
+	}
+
+	.game-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 64px;
+		height: 64px;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 16px;
+		color: var(--text-color);
+		flex-shrink: 0;
+	}
+
+	.game-content {
+		flex: 1;
+	}
+
+	.game-content h2 {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+
+	.game-content p {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	.game-arrow {
+		color: var(--text-muted);
+		transition: transform 0.3s ease, color 0.3s ease;
+	}
+
+	.game-card:hover .game-arrow {
+		transform: translateX(4px);
+		color: var(--text-color);
+	}
+
+	@media (max-width: 600px) {
+		.games-grid {
+			grid-template-columns: 1fr;
+		}
+		.game-card {
+			flex-direction: column;
+			text-align: center;
+			align-items: center;
+		}
+		.game-arrow {
+			display: none;
+		}
+	}
+</style>
