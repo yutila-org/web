@@ -4,7 +4,7 @@
   <p><img src="https://api.iconify.design/lucide:globe.svg?color=%233b82f6" width="18" align="center" /> Core web infrastructure and front-end application for the Yutila organization <img src="https://api.iconify.design/lucide:globe.svg?color=%233b82f6" width="18" align="center" /></p>
   <br />
   <a href="https://github.com/yutila-org/web/actions/workflows/stage1-pr.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/stage1-pr.yml?style=for-the-badge&label=Stage%201%3A%20Secret%20Scan" alt="Stage 1: Secret Scan" /></a>
-  <a href="https://github.com/yutila-org/web/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/ci.yml?style=for-the-badge&label=Stage%202%3A%20CI%20Security" alt="Stage 2: CI Security" /></a>
+  <a href="https://github.com/yutila-org/web/actions/workflows/stage2-security.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/stage2-security.yml?style=for-the-badge&label=Stage%202%3A%20CI%20Security" alt="Stage 2: CI Security" /></a>
 </div>
 
 <br />
