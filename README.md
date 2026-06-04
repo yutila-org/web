@@ -50,6 +50,22 @@ npm run build
 npm run preview
 ```
 
+## <img src="https://api.iconify.design/lucide:pen-tool.svg?color=%23eab308" width="24" align="center" /> Blog Feature
+
+To add a new blog post, create a Markdown (`.md`) file in the `src/content/posts` directory. 
+
+Each post must include the following YAML frontmatter:
+
+```yaml
+---
+title: "Your Post Title"
+publishDate: "YYYY-MM-DD"
+author: "Acrilic" # Must be either "Acrilic" or "Spider-Kyle"
+category: "Devlog" # Must be: "Devlog", "Publication", "Report", "Material", or "Resource"
+---
+```
+Write your post content below the frontmatter using standard Markdown.
+
 ## <img src="https://api.iconify.design/lucide:network.svg?color=%23a855f7" width="24" align="center" /> Architecture
 
 | Path / File | Description |
