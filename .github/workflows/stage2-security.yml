@@ -55,7 +55,7 @@ jobs:
 
       - name: Normalize Payload
         if: always()
-        run: jq -c '.Results[]? | .Vulnerabilities[]?' trivy-results.json > payload.ndjson || touch payload.ndjson
+        run: jq -c '.Results[]? | .Vulnerabilities[]? | . + {"event": "security_scan", "scan_type": "trivy", "repo": "${{ github.repository }}"}' trivy-results.json > payload.ndjson || touch payload.ndjson
 
       - name: Ingest Telemetry
         if: always()
@@ -82,7 +82,7 @@ jobs:
 
       - name: Normalize Payload
         if: always()
-        run: jq -c '.[]?' gitleaks-results.json > payload.ndjson || touch payload.ndjson
+        run: jq -c '.[]? | . + {"event": "security_scan", "scan_type": "gitleaks", "repo": "${{ github.repository }}"}' gitleaks-results.json > payload.ndjson || touch payload.ndjson
 
       - name: Ingest Telemetry
         if: always()
@@ -106,7 +106,7 @@ jobs:
 
       - name: Normalize Payload
         if: always()
-        run: jq -c '.packages[]?' sbom-results.json > payload.ndjson || touch payload.ndjson
+        run: jq -c '.packages[]? | . + {"event": "security_scan", "scan_type": "syft", "repo": "${{ github.repository }}"}' sbom-results.json > payload.ndjson || touch payload.ndjson
 
       - name: Ingest Telemetry
         if: always()
