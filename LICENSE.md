@@ -22,3 +22,11 @@ You are strictly prohibited from utilizing this codebase to deploy any instance 
 3. Facilitates phishing, credential harvesting or any form of social engineering attack.
 
 Any deployment utilizing this codebase must fundamentally alter the visual presentation and unequivocally remove all Yutila branding to prevent trademark infringement and consumer deception. Any violation of these terms will result in immediate legal enforcement without prior warning. This includes the issuance of DMCA takedown notices directly to offending domain registrars and hosting providers.
+
+# 4. REPOSITORY VISIBILITY AND FUTURE OPEN SOURCE STATUS
+
+Please note that while this repository is currently public, it may transition to a private repository in the future. The current public status is primarily due to infrastructure tier limitations that restrict certain operational features on private repositories under a free organization plan.
+
+While this public availability offers a degree of transparency regarding our website's foundation, migrating to a private repository in the future would be a structural decision intended strictly to enforce tighter security and privacy constraints over our infrastructure. Regardless of whether this codebase remains public or becomes private, Yutila's core philosophy and ethical standards remain unchanged; a private status does not imply malicious intent or obfuscated practices.
+
+However, if maintaining this repository as an open-source project continues to prove effective and sustainable for our operations, we may elect to keep it public indefinitely.
