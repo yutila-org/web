@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: "Access Control Policy"
-lastEdited: "14/5/2026"
+lastEdited: "4/6/2026"
 ---
 
 ## 1. Scope & Purpose
@@ -50,7 +50,19 @@ Yutila utilizes the following strict permission tiers for repository and infrast
     - Detection of policy violation, security anomaly, or key compromise.
 2. Revocation procedures take precedence over all other administrative tasks.
 
-## 5. Auditing & Review
+## 5. Email & System Accounts
+
+Access control principles extend to organizational emails and system-level accounts (e.g., SSH).
+
+### 5.1. Email Accounts
+- **Role Emails:** Role-based emails (e.g., `security@yutila.com`) primarily serve for common messaging and external communication across all members assigned to that role. Unless specifically designated (such as a social media administration email holding account credentials), role emails do not possess infrastructural privileges.
+- **Individual Emails:** Individual email accounts (e.g., `spiderkyle@yutila.com`) are assigned individual permissions based on the user's functional role. These permissions are provisioned manually. Individual emails are the primary identity anchors for infrastructural access.
+
+### 5.2. System & SSH Access
+- **Individual Basis:** For teams requiring system-level access (such as the Security and Engineering teams), individual accounts are utilized with appropriate group policy permissions enforced at the OS level (e.g., Linux groups).
+- **Shared Access (Root):** A "multiple-users-single-account" model may be utilized strictly for high-level administrative tasks, such as `root` SSH access, managed through secure key distribution and auditing.
+
+## 6. Auditing & Review
 
 To ensure continuous compliance and to mitigate authorization drift, access matrices are subject to mandatory periodic review.
 
