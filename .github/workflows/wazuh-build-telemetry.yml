@@ -1,0 +1,21 @@
+name: Wazuh Build Telemetry
+
+on:
+  deployment_status:
+
+jobs:
+  ingest:
+    if: github.event.deployment.task == 'deploy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Route Build State to Wazuh
+        env:
+          RELAY_TOKEN: ${{ secrets.WAZUH_RELAY_TOKEN }}
+          STATE: ${{ github.event.deployment_status.state }}
+          ENV: ${{ github.event.deployment.environment }}
+          URL: ${{ github.event.deployment_status.target_url }}
+        run: |
+          curl -X POST "https://telemetry.yutila.com" \
+            -H "Authorization: Bearer $RELAY_TOKEN" \
+            -H "Content-Type: application/x-ndjson" \
+            -d '{"event": "cloudflare_native_build", "state": "'"$STATE"'", "environment": "'"$ENV"'", "target_url": "'"$URL"'", "github": {"repo": "${{ github.repository }}", "actor": "${{ github.event.deployment.creator.login }}"}}'
