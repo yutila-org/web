@@ -23,8 +23,12 @@ typedef float    f32;  typedef double   f64;
 > [!NOTE] Outputs
 > Defines strict type sizes during compilation.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Compiler enforced via standard headers. Does not support implicit arbitrary precision. 
+
+<!-- -->
 
 > [!TIP] Rationale
 > Standard C types (`int`, `long`) vary wildly across platforms.
@@ -53,11 +57,17 @@ Slice SLICE_sub(Slice s, size_t offset, size_t len);
 String STRING_new(const char* literal, size_t len);
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Returns a non-owning struct containing the exact memory boundaries.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > These are non-owning views. They do not manage memory and will become dangling pointers if their backing array is deallocated.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To replace null-terminated strings and unsafe pointer arithmetic.
@@ -84,11 +94,17 @@ CAMELOT_NODISCARD Result STRING_formatVariadic(Allocator* alloc, const char* fmt
 void OWNEDSTRING_deinit(OwnedString* str);
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > `STRING_format` allocates memory and returns a `Result` containing the `OwnedString`.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Requires manual cleanup via `OWNEDSTRING_deinit`. Failing to do so causes a memory leak.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To pair allocated strings directly with their source to prevent double-free errors and allocator mismatch.
@@ -107,11 +123,17 @@ Splits a string by a delimiter into a dynamically allocated array of zero-copy s
 CAMELOT_NODISCARD Result STRING_split(Allocator* alloc, String s, char delim);
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Returns a `Result` containing a `Vector*` of `String` slices. 
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > The `String` slices inside the vector are zero-copy and point to the original string memory. The user must free the vector's internal buffer via `VECTOR_deinit`, and then free the `Vector` pointer itself using the provided allocator.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To avoid allocating duplicate memory for string tokens during parsing operations.

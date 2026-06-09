@@ -17,8 +17,12 @@ All core functions require passing an `Allocator*` parameter to manage their int
 > [!NOTE] Outputs
 > Guaranteed tracking of all memory allocation without relying on system globals.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > This is a library-enforced convention. Bypassing it by calling `malloc` directly completely breaks the architecture and nullifies memory tracking.
+
+<!-- -->
 
 > [!TIP] Rationale
 > Global heap contention, memory fragmentation and the inability to swap allocation strategies for testing required a polymorphic solution.
@@ -55,11 +59,17 @@ defer:
 }
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Guarantees execution of cleanup logic regardless of the exit path.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Convention-only. Requires strict developer discipline to never use raw `return` statements midway through a function.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To centralize resource deallocation and prevent memory and file handle leaks across complex branching logic.
@@ -85,11 +95,17 @@ void VECTOR_deinit(Vector* arr) {
 }
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Safely returns the memory directly to the struct's defined allocator.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Convention-only. If a developer forgets to call `_deinit`, the memory will leak.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To map object destruction precisely to its creation mechanism.

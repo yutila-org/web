@@ -24,8 +24,12 @@ VECTOR_iteratorInit(&iter, &arr);
 > [!NOTE] Outputs
 > `VECTOR_init` returns a `Vector` struct containing the pointer to the data and its length. `VECTOR_push` appends the data to the buffer, triggering an allocation if capacity is exceeded.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > The `VECTOR_deinit` function must be explicitly called to return memory to the originating `Allocator*`. Failing to do so will permanently leak the array's backing buffer.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To provide an array capable of memory-recyclable growth without relying on a global heap. 
@@ -52,11 +56,17 @@ void TABLE_delete(Table* table, String key);
 void TABLE_deinit(Table* table);
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Operations return a `Result` type containing the requested `void*` value (`OK`), indicating the key was not found (`NIL`), or signaling an error like out-of-memory (`ERR`).
 
+<!-- -->
+
 > [!WARNING] Caveats
 > Tables utilize a 128-bit randomized `hash_key` array seeded during initialization to protect against HashDoS via SipHash-2-4. Requires explicit deallocation via `TABLE_deinit`.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To provide O(1) key-value lookups without the cache-miss penalty of linked-list chaining.
@@ -82,11 +92,17 @@ LIST_Iterator iter;
 LIST_iteratorInit(&iter, &list);
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Produces a structured list connecting `LIST_Node` elements containing `next` pointers and `void*` data payloads.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Data is allocated per-node, which can heavily fragment an allocator if an Arena is not used. DO NOT use `List` with a standard heap allocator for large datasets.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To support fast O(1) insertions and removals at arbitrary locations without reallocating contiguous arrays.

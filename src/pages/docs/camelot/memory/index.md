@@ -23,8 +23,12 @@ struct Allocator {
 > [!NOTE] Outputs
 > The `allocate` function outputs an aligned pointer to a memory block. The `deallocate` function returns the block to the allocator.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Custom allocators must strictly respect the provided byte alignment parameters or risk alignment faults on ARM architectures.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To eliminate hardcoded `malloc` and `free` calls which prevent memory tracking and testing.
@@ -51,11 +55,17 @@ void* ARENA_allocate(Allocator* self, size_t size, size_t align);
 void ARENA_reset(Arena* self);
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > Returns a memory pointer advanced by the requested size and alignment. If capacity is exceeded, it returns `nullptr`.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Memory cannot be freed individually. The entire arena must be reset at once via `ARENA_reset` which zeros the offset integer.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To reduce the CPU overhead of tracking individual allocations via free-lists.

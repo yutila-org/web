@@ -38,8 +38,12 @@ typedef struct CAMELOT_NODISCARD {
 > [!NOTE] Outputs
 > Returns an evaluated state (`OK`, `NIL`, `ERR`) alongside an optional payload containing either the successful pointer or the specific domain-prefixed error code.
 
+<!-- -->
+
 > [!WARNING] Caveats
 > The `CAMELOT_NODISCARD` macro expands to `[[nodiscard]]` in C23 or `__attribute__((warn_unused_result))`. It generates a compiler warning if the return value is ignored, preventing unhandled system failures.
+
+<!-- -->
 
 > [!TIP] Rationale
 > C lacks native exception handling and safe return value enforcement.
@@ -63,11 +67,17 @@ struct Iterator {
 };
 ```
 
+<!-- -->
+
 > [!NOTE] Outputs
 > The `next` function pointer outputs the next available pointer in the collection, or `nullptr` when the collection is exhausted.
 
+<!-- -->
+
 > [!CAUTION] Caveats
 > Data structures provide specific iterator implementations (e.g., `VECTOR_Iterator`) that safely cast their underlying structures into this signature.
+
+<!-- -->
 
 > [!TIP] Rationale
 > To allow algorithms to operate over diverse collections without hardcoding specific loop structures.
