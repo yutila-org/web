@@ -1,75 +1,80 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Introduction
-description: Overview of the Camelot C23 framework — its design philosophy, component model and the Merlin build orchestrator.
+description: Overview of the Camelot C23 utility library — its design philosophy, component model and the Merlin build orchestrator.
 ---
 
-Camelot is a modern, safe and ergonomic C framework. It is orchestrated by **Merlin**, a custom build engine written in the D programming language.
+Camelot is a C23 utility library. It is orchestrated by **Merlin**, a build engine written in the D programming language.
 
-The framework provides structural alternatives to libc subsystems featuring explicit allocator boundaries, localized memory arenas, a tri-state error model and strict compiler defaults — all while remaining fully portable across GCC, Clang and MSVC.
+Camelot provides structural alternatives to libc subsystems. It requires explicit allocator boundaries, localized memory arenas, a tri-state error model and specific compiler flags. It is portable across GCC, Clang and MSVC. It is not a foundational framework, web server or application runtime.
 
 ## Design Philosophy
 
 ### Predictable Systems
 
-Camelot prioritizes explicit mechanism, cross-platform interoperability and traceable state transitions over implicit syntax. Camelot's abstractions are engineered to be predictably robust, structurally transparent and rigorously tested so they can run undisturbed in constrained environments.
+Camelot prioritizes explicit mechanisms, cross-platform interoperability and traceable state transitions.
 
-### Naming Convention
+- **Why it was designed that way**: To reduce undefined behavior and memory leaks common in C applications.
+- **Problems it solves**: Implicit state mutation, uncontrolled heap allocations and unhandled error states.
+- **Pros**: Traceable execution, isolated memory regions and compiler-verified error checking.
+- **Cons**: Requires explicit allocator passing, verbose error handling and strict adherence to conventions.
 
-All functions strictly utilize the `DOMAIN_functionSubfunction` format:
+### Guarantee Modeling
 
-- **Domain prefix**: Fully uppercase (e.g., `ARENA`, `VECTOR`, `STRING`)
-- **Primary function name**: Fully lowercase
-- **Subfunction qualifier**: Appended in camelCase without additional underscores
+Camelot enforces constraints across four layers:
+1. **Compiler-enforced**: Error handling via `[[nodiscard]]` and poisoned legacy functions via `#pragma GCC poison`.
+2. **Library-enforced**: Memory isolation via the `Allocator` VTable.
+3. **Test-enforced**: Memory leak and bounds checking via ASan, UBSan and LSan.
+4. **Convention-only**: Explicit Deferral (`goto defer`) and domain-prefixed naming conventions.
 
-Word truncations or casual abbreviations are prohibited unless using universally standard acronyms (e.g., `IO`).
+### Naming Convention (Convention-only)
 
-### Portability & Compiler Extensions
+Functions utilize the `DOMAIN_functionSubfunction` format.
 
-To guarantee absolute portability across arbitrary C compilers, reliance on non-standard runtime compiler extensions is explicitly prohibited.
+- **Domain prefix**: Uppercase (e.g., `ARENA`, `VECTOR`, `STRING`).
+- **Primary function name**: Lowercase.
+- **Subfunction qualifier**: CamelCase.
 
-- Compiler attributes that operate strictly during compilation (e.g., `__attribute__((warn_unused_result))`) are acceptable.
-- Runtime-altering extensions, specifically GCC's `__attribute__((cleanup))` for RAII emulation, are **forbidden** due to lack of support in non-GNU environments.
+### Portability and Compiler Extensions (Compiler-enforced)
+
+Reliance on non-standard runtime compiler extensions is prohibited.
+- Attributes operating during compilation (e.g., `[[nodiscard]]`) are required.
+- Runtime-altering extensions (e.g., GCC's `__attribute__((cleanup))`) are prohibited.
 
 ## Project Structure
 
 ```text
 camelot/
-├── include/              # Public API Headers (read-only for clients)
+├── include/              # Public API Headers
 │   └── camelot/          # Unified namespace
-│       ├── core/         # Fundamental abstractions (Result, Safety)
-│       ├── memory/       # Memory management (Arena, Allocator)
+│       ├── core/         # Core utilities (Result, Safety)
+│       ├── memory/       # Memory structures (Arena, Allocator)
 │       ├── types/        # Primitives and String types
-│       └── camelot.h     # Umbrella header for full framework access
-├── src/                  # Private Implementation (.c files)
-│   ├── core/
-│   ├── memory/
-│   ├── io/
-│   ├── ds/
-│   └── types/
-├── tests/                # Unit and Integration Testing suite
-├── merlin.d              # Merlin Build Orchestrator (D language)
-├── Makefile              # Bootstrap entry point for Merlin
+│       └── camelot.h     # Umbrella header
+├── src/                  # Implementation (.c files)
+├── tests/                # Unit and Integration Tests
+├── merlin/               # Merlin Build Orchestrator
+├── Makefile              # Bootstrap entry point
 └── README.md             # Project entry point
 ```
 
 ### Architectural Rationale
 
-1. **Public/Private Isolation**: Headers in `include/camelot/` ensure only intended APIs are accessible via `#include <camelot/subsystem.h>`. Private headers remain within `src/`.
-2. **Namespace Mirroring**: The `src/` directory mirrors `include/` exactly, predictably mapping implementation files to their corresponding headers.
-3. **Modular Compilation**: Every module compiles into an independent object file, enabling the linker to prune unused modules in static builds.
-4. **Flat Namespace**: All headers are accessed through the `camelot/` prefix to prevent header collision in large projects.
+- **Why it was designed that way**: To separate interface from implementation and enable dead-code elimination.
+- **Problems it solves**: Header collisions, unintended API usage and large binary sizes.
+- **Pros**: Strict API boundaries, modular compilation and flat namespaces.
+- **Cons**: Requires explicit include paths and directory mirroring.
 
-## Unified Header
+## Exact Usage Details
 
-Including the entire framework is a single line:
+To use the library, include the umbrella header:
 
 ```c
 #include <camelot/camelot.h>
 ```
 
-This umbrella header transitively includes all subsystems: primitives, allocators, arenas, result types and the safety header.
+This includes all primitives, allocators, arenas, result types and safety restrictions.
 
 ## License
 
-Camelot is released under the **Mozilla Public License 2.0 (MPL-2.0)** and is [OpenSSF Best Practices certified](https://www.bestpractices.dev/projects/12919).
+Camelot is released under the Mozilla Public License 2.0 (MPL-2.0) and is OpenSSF Best Practices certified.

@@ -1,14 +1,21 @@
 ---
 layout: ../../../../layouts/CamelotDocsLayout.astro
 title: Architecture
-description: The full architectural design of Camelot — VTable dispatch, module hierarchy and data flow.
+description: Architectural design of Camelot — VTable dispatch, error types and data flow.
 ---
 
-The architecture of the Camelot ecosystem is split into two distinct tiers: **the Orchestrator** (Merlin, in D) and **the Framework** (Camelot, in C23). Together they form a self-contained development platform.
+Camelot is a utility library built in C23, orchestrated by Merlin.
 
-## Allocator Agnosticism
+## Allocator Agnosticism (Library-enforced)
 
-At the absolute foundation of Camelot's architecture is the `Allocator` VTable — an abstract interface that decouples every data structure from its memory source.
+Camelot utilizes an `Allocator` VTable to decouple data structures from memory sources.
+
+- **Why it was designed that way**: To eliminate hardcoded `malloc` and `free` calls.
+- **Problems it solves**: Global heap contention, memory fragmentation and inability to swap allocation strategies for testing.
+- **Pros**: Enables custom allocation (arenas, stack buffers), exact memory tracking and isolated teardown.
+- **Cons**: Requires passing an `Allocator*` to every function and incurs a function pointer dereference overhead.
+
+### Exact Usage Details
 
 ```c
 typedef struct Allocator Allocator;
@@ -18,46 +25,51 @@ struct Allocator {
 };
 ```
 
-Hardcoding `malloc` and `free` throughout a codebase creates rigid structures. The VTable solves this by allowing any Camelot type to be instantiated with a heap allocator, a local arena or a stack buffer — remaining completely agnostic to where the memory actually comes from.
+## Result Type (Compiler-enforced)
 
-This means the same `Vector` or `Table` can operate on heap memory in production and on a fixed arena in tests, without changing a single line of its internal logic.
+Camelot requires a tri-state tagged union for fallible operations.
 
-## Result Type
+- **Why it was designed that way**: C lacks native error handling and return value enforcement.
+- **Problems it solves**: Conflation of expected logic branching with system failures and silently ignored errors.
+- **Pros**: Forces explicit error handling at call sites and standardizes error representation.
+- **Cons**: Increases verbosity and requires manual unpacking of state payloads.
 
-Standard C lacks mechanisms to enforce return value checking and frequently conflates expected logic branching (e.g., a missing table key) with systemic failures (e.g., out-of-memory). Camelot solves this with a tri-state tagged union:
+### Exact Usage Details
 
 ```c
 typedef enum {
-    OK,   // Operation succeeded
-    NIL,  // Intentional absence (e.g., key not found)
-    ERR   // System failure (e.g., out of memory)
+    OK,
+    NIL,
+    ERR
 } State;
 
 typedef struct [[nodiscard]] {
     State state;
     union {
-        void* val;       // Success payload
-        u32 err_code;    // Domain-prefixed error code
+        void* val;
+        u32 err_code;
     } payload;
 } Result;
 ```
 
-Error codes are domain-prefixed to prevent collision across subsystems:
-
+Error codes are domain-prefixed (Convention-only):
 ```c
 #define DOMAIN_CAMELOT 0x00010000
-#define DOMAIN_APP     0x00020000
-
 #define ERR_OUT_OF_MEMORY (DOMAIN_CAMELOT | 0x0001)
-#define ERR_FILE_ERROR    (DOMAIN_CAMELOT | 0x0002)
-#define ERR_OUT_OF_BOUNDS (DOMAIN_CAMELOT | 0x0003)
 ```
 
-The C23 `[[nodiscard]]` attribute (with fallback to `__attribute__((warn_unused_result))` on Clang) ensures callers can never silently ignore a `Result`.
+The `[[nodiscard]]` attribute generates a compiler warning if the return value is ignored.
 
-## Explicit Deferral
+## Explicit Deferral (Convention-only)
 
-Functions with multiple return paths frequently leak memory or file handles. Camelot enforces a strict convention: all fallible functions return through a single cleanup block via `goto`:
+Functions with multiple return paths must return through a single cleanup block via `goto`.
+
+- **Why it was designed that way**: To centralize resource deallocation.
+- **Problems it solves**: Memory and file handle leaks across complex branching logic.
+- **Pros**: Reduces duplicated cleanup code and ensures deterministic release.
+- **Cons**: Relies on developer discipline and uses `goto`.
+
+### Exact Usage Details
 
 ```c
 Result IO_file(Allocator* alloc, String path) {
@@ -80,11 +92,16 @@ defer:
 }
 ```
 
-This ensures deterministic resource release regardless of where the error occurred.
+## Explicit Deinit (Convention-only)
 
-## Explicit Deinit
+Owning types require a standardized destruction function delegating to the origin `Allocator`.
 
-Every owning type is paired with a mandatory, standardized destruction function. It safely delegates the free operation back to the specific `Allocator` interface that created it:
+- **Why it was designed that way**: To map object destruction precisely to its creation mechanism.
+- **Problems it solves**: Dangling pointers and mismatched allocator freeing.
+- **Pros**: Uniform teardown semantics.
+- **Cons**: Requires explicit function calls per object.
+
+### Exact Usage Details
 
 ```c
 void VECTOR_deinit(Vector* arr) {
@@ -96,25 +113,35 @@ void VECTOR_deinit(Vector* arr) {
 }
 ```
 
-## Safety Header
+## Safety Header (Compiler-enforced)
 
-The `camelot/core/safety.h` header uses `#pragma GCC poison` to transform any reference to banned legacy C string functions into a hard compilation error:
+The `camelot/safety.h` header uses `#pragma GCC poison`.
+
+- **Why it was designed that way**: Legacy C string functions are highly susceptible to buffer overflows.
+- **Problems it solves**: Accidental usage of `strcpy`, `strcat`, `strncpy` and `strncat`.
+- **Pros**: Halts compilation if banned functions are referenced.
+- **Cons**: Fails on legacy codebases attempting to integrate Camelot without `ALLOW_UNSAFE`.
+
+### Exact Usage Details
 
 ```c
 #ifndef ALLOW_UNSAFE
   #if defined(__GNUC__) || defined(__clang__)
     #pragma GCC poison strcpy strcat strncpy strncat
-  #elif defined(_MSC_VER)
-    // MSVC: Enforcement delegated to /W4 + static analysis.
   #endif
 #endif
 ```
 
-Legacy string functions (`strcpy`, `strcat`, `strncpy`, `strncat`) are the root cause of the majority of buffer overflow CVEs. Including this header ensures they cannot be referenced in any translation unit. The `ALLOW_UNSAFE` guard permits explicit developer opt-out when strictly necessary.
+## Primitives (Compiler-enforced)
 
-## Primitives
+Fixed-width types guarantee architectural consistency.
 
-Standard C primitive sizes vary across architectures. Camelot's `primitives.h` provides deterministic, fixed-width types:
+- **Why it was designed that way**: Standard C types vary across platforms.
+- **Problems it solves**: Integer overflow bugs across 32-bit and 64-bit platforms.
+- **Pros**: Exact sizing for cross-platform structs and binary protocols.
+- **Cons**: Requires non-standard type names compared to `stdint.h`.
+
+### Exact Usage Details
 
 ```c
 typedef uint8_t  u8;   typedef int8_t   i8;
@@ -124,25 +151,3 @@ typedef uint64_t u64;  typedef int64_t  i64;
 typedef float    f32;
 typedef double   f64;
 ```
-
-A C23 `nullptr` polyfill is also provided for pre-C23 compilers:
-
-```c
-#if !defined(__cplusplus) && (!defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L)
-#define nullptr ((void*)0)
-#endif
-```
-
-## Module Dependency Graph
-
-All modules flow through the Allocator VTable. The dependency chain is strictly acyclic:
-
-```
-primitives.h ──► allocator.h ──► arena.h
-                      │
-                      ├──► result.h
-                      ├──► safety.h
-                      └──► camelot.h (umbrella)
-```
-
-Every public header is accessed through the `camelot/` namespace prefix (e.g., `#include <camelot/memory/arena.h>`) and compiled with the `-Iinclude` flag.

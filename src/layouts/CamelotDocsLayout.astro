@@ -54,15 +54,27 @@ const currentPath = Astro.url.pathname;
             <ul>
               <li><a href="/docs/camelot/overview" class={currentPath.endsWith('/overview') || currentPath.endsWith('/overview/') ? 'active' : ''}>Introduction</a></li>
               <li><a href="/docs/camelot/overview/architecture" class={currentPath.includes('/overview/architecture') ? 'active' : ''}>Architecture</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Memory</summary>
+            <ul>
               <li><a href="/docs/camelot/overview/memory" class={currentPath.includes('/overview/memory') ? 'active' : ''}>Memory Allocator</a></li>
             </ul>
           </details>
 
           <details open>
-            <summary>Core Subsystems</summary>
+            <summary>I/O</summary>
+            <ul>
+              <li><a href="/docs/camelot/core/io" class={currentPath.includes('/core/io') ? 'active' : ''}>I/O Utilities</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Build System</summary>
             <ul>
               <li><a href="/docs/camelot/core/merlin" class={currentPath.includes('/core/merlin') ? 'active' : ''}>Merlin Build Engine</a></li>
-              <li><a href="/docs/camelot/core/io" class={currentPath.includes('/core/io') ? 'active' : ''}>I/O Utilities</a></li>
             </ul>
           </details>
 

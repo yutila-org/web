@@ -4,15 +4,18 @@ title: Memory Allocator
 description: Camelot's Arena memory allocator — design, implementation and usage patterns.
 ---
 
-Camelot's memory subsystem is built around two core abstractions: the **Allocator VTable** (a generic dispatch interface) and the **Arena** (a concrete, high-performance implementation of that interface).
-
-## The Problem
-
-Tracking and freeing thousands of individual object allocations leads to memory fragmentation, high CPU overhead and inevitable memory leaks when a single `free()` is forgotten. Additionally, hardcoding `malloc` prevents swapping memory strategies for testing or restricted environments.
+Camelot manages memory through the `Allocator` VTable (Library-enforced) and the `Arena` implementation.
 
 ## Allocator VTable
 
-The `Allocator` struct defines a generic interface for memory operations via function pointers:
+The `Allocator` struct defines a generic interface for memory operations.
+
+- **Why it was designed that way**: To allow polymorphic memory allocation without C++ virtual dispatch.
+- **Problems it solves**: Hardcoded `malloc` calls that prevent testing or restricted environment usage.
+- **Pros**: Enables heap, arena, stack or mock allocators interchangeably.
+- **Cons**: Requires pointer indirection for every allocation.
+
+### Exact Usage Details
 
 ```c
 typedef struct Allocator Allocator;
@@ -22,31 +25,18 @@ struct Allocator {
 };
 ```
 
-Every Camelot data structure accepts an `Allocator*` parameter, making it completely agnostic to the underlying memory source. This enables:
-
-- **Heap allocator** for general-purpose use
-- **Arena allocator** for scoped, high-performance allocation
-- **Stack/fixed-buffer allocator** for embedded or constrained environments
-- **Mock allocator** for testing allocation failure paths
-
 ## Arena Allocator
 
-The Arena is a contiguous block of pre-allocated memory that manages the lifetime of all objects allocated within a specific scope. It eliminates individual deallocations entirely.
+The Arena is a contiguous memory block managing object lifetimes within a scope.
 
-### Structure
+- **Why it was designed that way**: To reduce the overhead of tracking individual allocations.
+- **Problems it solves**: Memory fragmentation, CPU overhead from free-lists and memory leaks.
+- **Pros**: O(1) monotonic allocation, zero fragmentation and O(1) bulk deallocation.
+- **Cons**: Memory cannot be freed individually. The entire arena must be reset at once.
 
-```c
-typedef struct {
-    Allocator base;    // VTable base (inherits allocate/free)
-    u8* buffer;        // Pre-allocated contiguous memory block
-    size_t capacity;   // Total size of the buffer
-    size_t offset;     // Current bump pointer position
-} Arena;
-```
+### Allocation Mechanism (Library-enforced)
 
-### Allocation: Monotonic Pointer Bumping
-
-The `ARENA_allocate` function performs O(1) allocation by bumping a pointer forward with alignment:
+`ARENA_allocate` bumps a pointer forward with alignment. Bounds checking ensures it returns `nullptr` if capacity is exceeded.
 
 ```c
 void* ARENA_allocate(Allocator* self, size_t size, size_t align) {
@@ -64,16 +54,9 @@ void* ARENA_allocate(Allocator* self, size_t size, size_t align) {
 }
 ```
 
-**Key properties:**
+### Bulk Deallocation
 
-1. **Alignment handling**: The pointer is rounded up to the requested alignment boundary using a bitwise mask (`(ptr + (align - 1)) & ~(align - 1)`).
-2. **Bounds checking**: If the aligned offset plus the requested size exceeds capacity, `nullptr` is returned.
-3. **Zero fragmentation**: Allocations are packed contiguously with no metadata overhead between objects.
-4. **Deterministic performance**: Every allocation completes in constant time — no free lists, no coalescing, no system calls.
-
-### Reset: Instant Bulk Deallocation
-
-Instead of freeing individual objects, the entire arena is reset by zeroing the offset:
+Arenas are reset by zeroing the offset integer.
 
 ```c
 void ARENA_reset(Arena* self) {
@@ -81,43 +64,30 @@ void ARENA_reset(Arena* self) {
 }
 ```
 
-This single operation invalidates all prior allocations instantaneously, making arenas ideal for per-frame, per-request or per-transaction memory patterns.
+## Data Structures
 
-### Memory Layout Visualization
+Camelot includes memory-aware data structures implementing the `Allocator` VTable.
 
-```text
-Arena buffer (capacity = 1024 bytes):
-┌──────────┬──────────┬──────────┬─────────────────────────┐
-│ Object A │ padding  │ Object B │       unused space      │
-│  32 bytes│  align   │  64 bytes│                         │
-└──────────┴──────────┴──────────┴─────────────────────────┘
-^                                ^                         ^
-buffer                        offset                   capacity
-```
+### Vector
+- **Why it was designed that way**: To provide a dynamic array with memory-recyclable growth.
+- **Problems it solves**: Static array limits and suboptimal 2.0x capacity reallocation overhead.
+- **Pros**: Uses 1.5x bitwise capacity growth (`cap + (cap >> 1)`). Discarded allocations sum to exceed future requests, permitting block recycling by the host allocator.
+- **Cons**: Slower growth than 2.0x requires more frequent reallocations.
 
-After `ARENA_reset()`:
+### Table
+- **Why it was designed that way**: To provide a hash map using open addressing.
+- **Problems it solves**: Linked-list chaining cache misses.
+- **Pros**: SIMD-friendly metadata probing and power-of-2 sizing.
+- **Cons**: High memory usage for sparse data sets.
 
-```text
-┌─────────────────────────────────────────────────────────┐
-│                    entire buffer reusable                │
-└─────────────────────────────────────────────────────────┘
-^                                                         ^
-buffer + offset (0)                                   capacity
-```
+### String and Slice
+- **Why it was designed that way**: To replace null-terminated strings.
+- **Problems it solves**: O(N) `strlen` operations and out-of-bounds reads.
+- **Pros**: O(1) length checks and zero-copy memory views.
+- **Cons**: Incompatible with legacy APIs expecting a null terminator without allocation.
 
-## Planned Data Structures
-
-The following data structures are specified in the Software Design Document and will all operate through the Allocator VTable:
-
-| Structure | Type | Growth Strategy | Key Property |
-|---|---|---|---|
-| `Vector` | Dynamic array | 1.5x bitwise (`cap + (cap >> 1)`) | Memory-recyclable growth |
-| `LIST` | Doubly linked list | Per-node | Pointer-stable O(1) insertion |
-| `Table` | Hash map (open addressing) | Power-of-2 | SIMD-friendly metadata probing |
-| `Slice` | Fat pointer view | N/A (non-owning) | Zero-copy memory access |
-| `String` | Text slice (`typedef Slice`) | N/A (non-owning) | O(1) length, no null terminator |
-| `OwnedString` | Allocator-paired string | Allocator-aware | Explicit Deinit compliant |
-
-### Vector Growth: Why 1.5x
-
-The Vector uses a **1.5x capacity growth multiplier** (`cap = cap + (cap >> 1)`). By growing at exactly 1.5x instead of the industry standard 2.0x, the sum of all previously discarded block allocations will eventually exceed the next requested capacity. Once this threshold is crossed, it permits block recycling by the host allocator.
+### OwnedString
+- **Why it was designed that way**: To pair allocated strings with their source.
+- **Problems it solves**: Double-free errors and allocator mismatch.
+- **Pros**: Conforms to Explicit Deinit rules.
+- **Cons**: Struct wrapper overhead.
