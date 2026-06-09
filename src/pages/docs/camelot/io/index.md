@@ -8,60 +8,88 @@ The I/O subsystem wraps POSIX and Windows APIs into the `Result` tri-state model
 
 ## File I/O
 
-File operations route through allocator-aware interfaces.
-
-- **Rationale**: OS APIs return disparate error types and leak file descriptors on panic.
-- **Solves**: Unchecked errors, platform-specific code and untracked buffer allocations.
-- **Pros**: Consistent error reporting and deterministic memory lifetimes.
-- **Cons**: Overhead from mapping OS errors and mandatory buffer allocations.
+### What it does
+File operations execute system calls to read, write, or append data to the filesystem, routing all buffer allocations through the provided allocator.
 
 ### Usage
-
 ```c
-Result IO_read(Allocator* alloc, String path);
-Result IO_write(Allocator* alloc, String path, Slice data);
+CAMELOT_NODISCARD Result IO_read(Allocator* alloc, String path);
+CAMELOT_NODISCARD Result IO_write(Allocator* alloc, String path, Slice data);
+CAMELOT_NODISCARD Result IO_append(Allocator* alloc, String path, Slice data);
 ```
 
-- **`IO_read`**: Reads file contents into a dynamically allocated buffer. Returns `OK` with the payload, `NIL` if empty or `ERR` on system failure. (Library-enforced).
-- **`IO_write`**: Writes a slice of bytes to a file. Overwrites or creates the file. Returns `OK` or `ERR`.
+### Outputs
+- `IO_read`: Reads file contents into a dynamically allocated buffer. Returns `OK` with the payload pointer, `NIL` if the file is empty, or `ERR` on system failure.
+- `IO_write`: Writes a slice of bytes to a file, overwriting existing content or creating the file. Returns `OK` or `ERR`.
+- `IO_append`: Appends a slice of bytes to the end of an existing file. Returns `OK` or `ERR`.
 
-OS-level errors map to `ERR_FILE_ERROR` (Convention-only).
+### Caveats
+OS-level failures map to `ERR_FILE_ERROR`. Any buffers returned by `IO_read` must be freed manually using the originating allocator.
+
+### Rationale
+OS APIs return disparate error types and leak file descriptors on panic.
+
+### Pros
+- Consistent error reporting across platforms.
+- Deterministic memory lifetimes for read buffers.
+
+### Cons
+- Overhead from mapping OS errors.
+- Mandatory buffer allocations instead of direct memory mapping.
 
 ## String Interop
 
-libc string boundaries expose overflow risks. Camelot replaces raw formatting with allocator-aware mechanisms.
-
-- **Rationale**: `asprintf` and `vasprintf` bypass custom allocators and generate double-free hazards.
-- **Solves**: Buffer overflows from `strcpy` and unmanaged pointers from `asprintf`.
-- **Pros**: Enforces tracking of string memory via the originating allocator.
-- **Cons**: Requires structured teardown via `OWNEDSTRING_deinit`.
+### What it does
+Camelot replaces raw libc string formatting (`asprintf`) with allocator-aware mechanisms to prevent buffer overflows.
 
 ### Usage
-
 ```c
-typedef struct {
-    Allocator* alloc;
-    String view;
-} OwnedString;
-
-[[nodiscard]] Result STRING_format(Allocator* alloc, const char* fmt, ...);
-[[nodiscard]] Result STRING_formatVariadic(Allocator* alloc, const char* fmt, va_list args);
-void OWNEDSTRING_deinit(OwnedString* str);
+#ifndef ALLOW_UNSAFE
+  #if defined(__GNUC__) || defined(__clang__)
+    #pragma GCC poison strcpy strcat strncpy strncat
+    #pragma GCC poison gets sprintf vsprintf
+    #pragma GCC poison atoi atol atoll atof
+    #pragma GCC poison scanf fscanf sscanf
+    #pragma GCC poison malloc free calloc realloc
+  #endif
+#endif
 ```
 
-- **`STRING_format`**: Requires an `Allocator*`. Returns `Result` with an `OwnedString*` payload.
-- **`OWNEDSTRING_deinit`**: Returns memory to the `Allocator*` specified in the struct.
+### Outputs
+Halts compilation immediately if banned functions are referenced.
 
-### Interop Constraints (Compiler & Convention)
+### Caveats
+Fails on legacy codebases attempting to integrate Camelot without defining `ALLOW_UNSAFE`.
 
-1. `strcpy`, `strcat`, `strncpy` and `strncat` are poisoned.
-2. Raw `asprintf()` and `vasprintf()` bypass allocators and violate architecture constraints.
-3. Use `snprintf()` for libc boundaries. Use `memccpy()` for bounded copies.
+### Rationale
+`asprintf` bypasses custom allocators and generates double-free hazards. `strcpy` creates severe buffer overflow vulnerabilities.
+
+### Pros
+- Structurally enforces the tracking of string memory via the originating allocator.
+
+### Cons
+- Requires rewriting existing C code to use `snprintf` or Camelot's `STRING_format`.
 
 ## CI/CD
 
-The I/O module requires Test-enforced validation:
-- ASan, UBSan and LSan required during build.
-- Vulnerability scanning via Trivy.
-- SPDX SBOM generation.
-- Automated releases triggered on `v*` tags.
+### What it does
+The I/O module requires strict validation in continuous integration pipelines.
+
+### Usage
+Run the Merlin test suite on all commits.
+
+### Outputs
+Pass or fail based on automated checks.
+
+### Caveats
+ASan, UBSan and LSan must return a zero exit code.
+
+### Rationale
+To catch memory leaks in filesystem edge cases.
+
+### Pros
+- Automated memory leak detection.
+- SPDX SBOM generation and vulnerability scanning via Trivy.
+
+### Cons
+- Slower build pipelines.

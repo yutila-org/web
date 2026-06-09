@@ -4,64 +4,68 @@ title: Memory Allocator
 description: Camelot's Arena memory allocator — design, implementation and usage patterns.
 ---
 
-Camelot manages memory through the `Allocator` VTable (Library-enforced) and the `Arena` implementation.
+Camelot manages memory through the `Allocator` VTable and the `Arena` implementation.
 
-## Allocator VTable
+## Allocator
 
-The `Allocator` struct defines a generic interface for memory operations.
-
-- **Rationale**: To allow polymorphic memory allocation without C++ virtual dispatch.
-- **Solves**: Hardcoded `malloc` calls that prevent testing or restricted environment usage.
-- **Pros**: Enables heap, arena, stack or mock allocators interchangeably.
-- **Cons**: Requires pointer indirection for every allocation.
+### What it does
+The `Allocator` struct defines a generic interface for memory operations, decoupling data structures from absolute memory sources.
 
 ### Usage
-
 ```c
 typedef struct Allocator Allocator;
 struct Allocator {
     void* (*allocate)(Allocator* self, size_t size, size_t align);
-    void  (*free)(Allocator* self, void* ptr, size_t size);
+    void  (*deallocate)(Allocator* self, void* ptr, size_t size);
 };
 ```
 
-## Arena Allocator
+### Outputs
+The `allocate` function outputs an aligned pointer to a memory block. The `deallocate` function returns the block to the allocator.
 
-The Arena is a contiguous memory block managing object lifetimes within a scope.
+### Caveats
+Custom allocators must strictly respect the provided byte alignment parameters.
 
-- **Rationale**: To reduce the overhead of tracking individual allocations.
-- **Solves**: Memory fragmentation, CPU overhead from free-lists and memory leaks.
-- **Pros**: O(1) monotonic allocation, zero fragmentation and O(1) bulk deallocation.
-- **Cons**: Memory cannot be freed individually. The entire arena must be reset at once.
+### Rationale
+To eliminate hardcoded `malloc` and `free` calls which prevent memory tracking and testing.
 
-### Allocation (Library)
+### Pros
+- Enables heap, arena, stack or mock allocators interchangeably.
 
-`ARENA_allocate` bumps a pointer forward with alignment. Bounds checking ensures it returns `nullptr` if capacity is exceeded.
+### Cons
+- Requires pointer indirection for every allocation.
 
+## Arena
+
+### What it does
+The Arena is a contiguous memory block managing object lifetimes within a strictly defined scope by bumping a pointer forward.
+
+### Usage
 ```c
-void* ARENA_allocate(Allocator* self, size_t size, size_t align) {
-    Arena* arena = (Arena*)self;
-    size_t current_ptr = (size_t)(arena->buffer + arena->offset);
-    size_t offset = (current_ptr + (align - 1)) & ~(align - 1);
-    offset -= (size_t)arena->buffer;
+typedef struct {
+    Allocator base;
+    u8* buffer;
+    size_t capacity;
+    size_t offset;
+} Arena;
 
-    if (offset + size <= arena->capacity) {
-        void* ptr = &arena->buffer[offset];
-        arena->offset = offset + size;
-        return ptr;
-    }
-    return nullptr;
-}
+void* ARENA_allocate(Allocator* self, size_t size, size_t align);
+void ARENA_reset(Arena* self);
 ```
 
-### Bulk Free
+### Outputs
+Returns a memory pointer advanced by the requested size and alignment. If capacity is exceeded, it returns `nullptr`.
 
-Arenas are reset by zeroing the offset integer.
+### Caveats
+Memory cannot be freed individually. The entire arena must be reset at once via `ARENA_reset` which zeros the offset integer.
 
-```c
-void ARENA_reset(Arena* self) {
-    self->offset = 0;
-}
-```
+### Rationale
+To reduce the CPU overhead of tracking individual allocations via free-lists.
 
+### Pros
+- O(1) monotonic allocation.
+- Zero fragmentation.
+- O(1) bulk deallocation.
 
+### Cons
+- Unsuitable for long-lived applications with highly variable object lifetimes unless multiple layered arenas are employed.

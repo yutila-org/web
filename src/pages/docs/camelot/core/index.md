@@ -6,18 +6,20 @@ description: Camelot core primitives including the Result type and Iterator patt
 
 The Core subsystem provides foundational utilities required for error handling and standard traversal across Camelot data structures.
 
-## Result (Compiler)
+## Result
 
+### What it does
 Camelot utilizes a tri-state tagged union (`Result`) for all fallible operations.
 
-- **Rationale**: C lacks native exception handling and safe return value enforcement.
-- **Solves**: Conflation of expected logic branching with system failures and silently ignored errors.
-- **Pros**: Forces explicit error handling at call sites via compiler attributes.
-- **Cons**: Increases verbosity and requires manual unpacking of state payloads.
-
 ### Usage
-
 ```c
+#define DOMAIN_CAMELOT 0x00010000
+#define DOMAIN_APP     0x00020000
+
+#define ERR_OUT_OF_MEMORY (DOMAIN_CAMELOT | 0x0001)
+#define ERR_FILE_ERROR    (DOMAIN_CAMELOT | 0x0002)
+#define ERR_OUT_OF_BOUNDS (DOMAIN_CAMELOT | 0x0003)
+
 typedef enum {
     OK,
     NIL,
@@ -33,19 +35,29 @@ typedef struct CAMELOT_NODISCARD {
 } Result;
 ```
 
-The `CAMELOT_NODISCARD` macro expands to `[[nodiscard]]` in C23. It generates a compiler warning if the return value is ignored, preventing unhandled system failures.
+### Outputs
+Returns an evaluated state (`OK`, `NIL`, `ERR`) alongside an optional payload containing either the successful pointer or the specific domain-prefixed error code.
 
-## Iterator (Library)
+### Caveats
+The `CAMELOT_NODISCARD` macro expands to `[[nodiscard]]` in C23 or `__attribute__((warn_unused_result))`. It generates a compiler warning if the return value is ignored, preventing unhandled system failures.
 
-The `Iterator` struct defines a polymorphic interface for sequential traversal.
+### Rationale
+C lacks native exception handling and safe return value enforcement.
 
-- **Rationale**: To allow algorithms to operate over diverse collections without hardcoding specific loop structures.
-- **Solves**: Duplicated iteration logic and tight coupling between algorithms and collection types.
-- **Pros**: Standardized data traversal across vectors, lists and tables.
-- **Cons**: Incurs a function pointer dereference overhead per iteration.
+### Pros
+- Forces explicit error handling at call sites via compiler attributes.
+- Eliminates conflation of expected logic branching with system failures.
+
+### Cons
+- Increases verbosity.
+- Requires manual unpacking of state payloads.
+
+## Iterator
+
+### What it does
+The `Iterator` struct defines a polymorphic interface for sequential traversal over any collection.
 
 ### Usage
-
 ```c
 typedef struct Iterator Iterator;
 
@@ -54,4 +66,17 @@ struct Iterator {
 };
 ```
 
-Data structures provide specific iterator implementations (e.g., `VECTOR_Iterator`) that cast their `next` function to this signature.
+### Outputs
+The `next` function pointer outputs the next available pointer in the collection, or `nullptr` when the collection is exhausted.
+
+### Caveats
+Data structures provide specific iterator implementations (e.g., `VECTOR_Iterator`) that safely cast their underlying structures into this signature.
+
+### Rationale
+To allow algorithms to operate over diverse collections without hardcoding specific loop structures.
+
+### Pros
+- Standardized data traversal across vectors, lists and tables.
+
+### Cons
+- Incurs a function pointer dereference overhead per iteration.
