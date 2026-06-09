@@ -21,21 +21,19 @@ VECTOR_Iterator iter;
 VECTOR_iteratorInit(&iter, &arr);
 ```
 
-### Outputs
-`VECTOR_init` returns a `Vector` struct containing the pointer to the data and its length. `VECTOR_push` appends the data to the buffer, triggering an allocation if capacity is exceeded.
+> [!NOTE] Outputs
+> `VECTOR_init` returns a `Vector` struct containing the pointer to the data and its length. `VECTOR_push` appends the data to the buffer, triggering an allocation if capacity is exceeded.
 
-### Caveats
-The `VECTOR_deinit` function must be explicitly called to return memory to the originating `Allocator*`.
+> [!CAUTION] Caveats
+> The `VECTOR_deinit` function must be explicitly called to return memory to the originating `Allocator*`. Failing to do so will permanently leak the array's backing buffer.
 
-### Rationale
-To provide an array capable of memory-recyclable growth without relying on a global heap. 
+> [!TIP] Rationale
+> To provide an array capable of memory-recyclable growth without relying on a global heap. 
 
-### Pros
-- Discarded allocations sum to exceed future requests due to 1.5x growth (`cap + (cap >> 1)`), permitting block recycling by the host allocator.
-- Fast contiguous memory access.
-
-### Cons
-- Slower growth than 2.0x requires more frequent reallocations.
+| Pros | Cons |
+|------|------|
+| Discarded allocations sum to exceed future requests due to 1.5x growth (`cap + (cap >> 1)`), permitting block recycling by the host allocator. | Slower growth than 2.0x requires more frequent reallocations. |
+| Fast contiguous memory access. | |
 
 ## Table
 
@@ -54,23 +52,20 @@ void TABLE_delete(Table* table, String key);
 void TABLE_deinit(Table* table);
 ```
 
-### Outputs
-Operations return a `Result` type containing the requested `void*` value (`OK`), indicating the key was not found (`NIL`), or signaling an error like out-of-memory (`ERR`).
+> [!NOTE] Outputs
+> Operations return a `Result` type containing the requested `void*` value (`OK`), indicating the key was not found (`NIL`), or signaling an error like out-of-memory (`ERR`).
 
-### Caveats
-Tables utilize a 128-bit randomized `hash_key` array seeded during initialization to protect against HashDoS via SipHash-2-4. Requires explicit deallocation via `TABLE_deinit`.
+> [!WARNING] Caveats
+> Tables utilize a 128-bit randomized `hash_key` array seeded during initialization to protect against HashDoS via SipHash-2-4. Requires explicit deallocation via `TABLE_deinit`.
 
-### Rationale
-To provide O(1) key-value lookups without the cache-miss penalty of linked-list chaining.
+> [!TIP] Rationale
+> To provide O(1) key-value lookups without the cache-miss penalty of linked-list chaining.
 
-### Pros
-- SIMD-friendly metadata probing using `CTRL_EMPTY` and `CTRL_DELETED`.
-- HashDoS protection built-in.
-- Power-of-2 sizing for fast modulo operations.
-
-### Cons
-- High memory usage for sparse data sets.
-- Pointers to values may invalidate during table resizing.
+| Pros | Cons |
+|------|------|
+| SIMD-friendly metadata probing using `CTRL_EMPTY` and `CTRL_DELETED`. | High memory usage for sparse data sets. |
+| HashDoS protection built-in. | Pointers to values may invalidate during table resizing. |
+| Power-of-2 sizing for fast modulo operations. | |
 
 ## List
 
@@ -87,19 +82,16 @@ LIST_Iterator iter;
 LIST_iteratorInit(&iter, &list);
 ```
 
-### Outputs
-Produces a structured list connecting `LIST_Node` elements containing `next` pointers and `void*` data payloads.
+> [!NOTE] Outputs
+> Produces a structured list connecting `LIST_Node` elements containing `next` pointers and `void*` data payloads.
 
-### Caveats
-Data is allocated per-node, which can heavily fragment an allocator if an Arena is not used.
+> [!CAUTION] Caveats
+> Data is allocated per-node, which can heavily fragment an allocator if an Arena is not used. DO NOT use `List` with a standard heap allocator for large datasets.
 
-### Rationale
-To support fast O(1) insertions and removals at arbitrary locations without reallocating contiguous arrays.
+> [!TIP] Rationale
+> To support fast O(1) insertions and removals at arbitrary locations without reallocating contiguous arrays.
 
-### Pros
-- Stable pointers to elements.
-- O(1) insertions at the head or tail.
-
-### Cons
-- High cache-miss rate due to non-contiguous node allocations.
-- Significant memory overhead per element for node pointers.
+| Pros | Cons |
+|------|------|
+| Stable pointers to elements. | High cache-miss rate due to non-contiguous node allocations. |
+| O(1) insertions at the head or tail. | Significant memory overhead per element for node pointers. |

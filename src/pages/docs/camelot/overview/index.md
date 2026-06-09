@@ -16,20 +16,18 @@ Camelot prioritizes explicit mechanisms, cross-platform interoperability and tra
 ### Usage
 By integrating the library and strictly following the `Allocator`, `Result` and `defer` patterns, developers achieve predictability.
 
-### Outputs
-Traceable execution, isolated memory regions and compiler-verified error checking.
+> [!NOTE] Outputs
+> Traceable execution, isolated memory regions and compiler-verified error checking.
 
-### Caveats
-Requires strict adherence to conventions.
+> [!WARNING] Caveats
+> Requires strict adherence to conventions.
 
-### Rationale
-To reduce undefined behavior and memory leaks common in C applications caused by implicit state mutation, uncontrolled heap allocations and unhandled error states.
+> [!TIP] Rationale
+> To reduce undefined behavior and memory leaks common in C applications caused by implicit state mutation, uncontrolled heap allocations and unhandled error states.
 
-### Pros
-- Completely eliminates whole classes of undefined behavior.
-
-### Cons
-- Verbose error handling.
+| Pros | Cons |
+|------|------|
+| Completely eliminates whole classes of undefined behavior. | Verbose error handling. |
 
 ## Guarantees
 
@@ -42,20 +40,18 @@ Camelot enforces constraints across four specific layers to ensure safety.
 3. **Test-enforced**: Memory leak and bounds checking via ASan, UBSan and LSan in CI/CD.
 4. **Convention-only**: Explicit Deferral (`goto defer`) and domain-prefixed naming conventions.
 
-### Outputs
-A verifiable security model indicating exactly how a constraint is applied.
+> [!NOTE] Outputs
+> A verifiable security model indicating exactly how a constraint is applied.
 
-### Caveats
-Convention-only guarantees are not verified by tooling and rely on the developer.
+> [!CAUTION] Caveats
+> Convention-only guarantees are not verified by tooling and rely entirely on the developer. 
 
-### Rationale
-Not all safety constraints can be enforced by the C compiler. Distinguishing between them provides clarity on risk vectors.
+> [!TIP] Rationale
+> Not all safety constraints can be enforced by the C compiler. Distinguishing between them provides clarity on risk vectors.
 
-### Pros
-- Clear delineation of responsibility between tooling and developer.
-
-### Cons
-- Fragmented enforcement mechanisms.
+| Pros | Cons |
+|------|------|
+| Clear delineation of responsibility between tooling and developer. | Fragmented enforcement mechanisms. |
 
 ## Naming
 
@@ -67,20 +63,18 @@ Functions utilize the `DOMAIN_functionSubfunction` format.
 - **Primary function name**: Lowercase.
 - **Subfunction qualifier**: CamelCase.
 
-### Outputs
-Provides a pseudo-namespace mapping to prevent symbol collision.
+> [!NOTE] Outputs
+> Provides a pseudo-namespace mapping to prevent symbol collision.
 
-### Caveats
-This is a convention-only guarantee.
+> [!WARNING] Caveats
+> This is a convention-only guarantee.
 
-### Rationale
-C lacks native namespaces.
+> [!TIP] Rationale
+> C lacks native namespaces.
 
-### Pros
-- Immediate identification of the subsystem an API belongs to.
-
-### Cons
-- Results in long function names.
+| Pros | Cons |
+|------|------|
+| Immediate identification of the subsystem an API belongs to. | Results in long function names. |
 
 ## Portability
 
@@ -91,20 +85,18 @@ Reliance on non-standard runtime compiler extensions is prohibited.
 - Attributes operating during compilation (e.g., `[[nodiscard]]`) are required.
 - Runtime-altering extensions (e.g., GCC's `__attribute__((cleanup))`) are prohibited.
 
-### Outputs
-Cross-platform codebase compatible with GCC, Clang and MSVC.
+> [!NOTE] Outputs
+> Cross-platform codebase compatible with GCC, Clang and MSVC.
 
-### Caveats
-MSVC lacks `#pragma poison` equivalents. Enforcement is delegated to static analysis on Windows.
+> [!CAUTION] Caveats
+> MSVC lacks `#pragma poison` equivalents. Enforcement is delegated to static analysis on Windows.
 
-### Rationale
-To ensure the library compiles on any modern operating system without vendor lock-in.
+> [!TIP] Rationale
+> To ensure the library compiles on any modern operating system without vendor lock-in.
 
-### Pros
-- High portability.
-
-### Cons
-- Cannot utilize ergonomic extensions like automatic scope-based cleanup.
+| Pros | Cons |
+|------|------|
+| High portability. | Cannot utilize ergonomic extensions like automatic scope-based cleanup. |
 
 ## Structure
 
@@ -133,18 +125,16 @@ To use the library, include the umbrella header:
 #include <camelot/camelot.h>
 ```
 
-### Outputs
-Includes all primitives, allocators, arenas, result types and safety restrictions into the translation unit.
+> [!NOTE] Outputs
+> Includes all primitives, allocators, arenas, result types and safety restrictions into the translation unit.
 
-### Caveats
-Requires explicit include paths (`-Iinclude`).
+> [!WARNING] Caveats
+> Requires explicit include paths (`-Iinclude`).
 
-### Rationale
-To separate interface from implementation and enable dead-code elimination while preventing header collisions.
+> [!TIP] Rationale
+> To separate interface from implementation and enable dead-code elimination while preventing header collisions.
 
-### Pros
-- Strict API boundaries.
-- Modular compilation.
-
-### Cons
-- Requires directory mirroring between `include/` and `src/`.
+| Pros | Cons |
+|------|------|
+| Strict API boundaries. | Requires directory mirroring between `include/` and `src/`. |
+| Modular compilation. | |

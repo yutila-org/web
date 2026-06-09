@@ -14,22 +14,19 @@ Camelot utilizes an `Allocator` VTable to decouple data structures from memory s
 ### Usage
 All core functions require passing an `Allocator*` parameter to manage their internal memory.
 
-### Outputs
-Guaranteed tracking of all memory allocation without relying on system globals.
+> [!NOTE] Outputs
+> Guaranteed tracking of all memory allocation without relying on system globals.
 
-### Caveats
-This is a library-enforced convention. Bypassing it by calling `malloc` directly breaks the architecture.
+> [!CAUTION] Caveats
+> This is a library-enforced convention. Bypassing it by calling `malloc` directly completely breaks the architecture and nullifies memory tracking.
 
-### Rationale
-Global heap contention, memory fragmentation and the inability to swap allocation strategies for testing required a polymorphic solution.
+> [!TIP] Rationale
+> Global heap contention, memory fragmentation and the inability to swap allocation strategies for testing required a polymorphic solution.
 
-### Pros
-- Enables custom allocation environments (arenas, stack buffers).
-- Provides exact memory tracking and isolated teardown.
-
-### Cons
-- Requires passing an `Allocator*` to every function.
-- Incurs a function pointer dereference overhead.
+| Pros | Cons |
+|------|------|
+| Enables custom allocation environments (arenas, stack buffers). | Requires passing an `Allocator*` to every function. |
+| Provides exact memory tracking and isolated teardown. | Incurs a function pointer dereference overhead. |
 
 ## Deferral
 
@@ -58,21 +55,19 @@ defer:
 }
 ```
 
-### Outputs
-Guarantees execution of cleanup logic regardless of the exit path.
+> [!NOTE] Outputs
+> Guarantees execution of cleanup logic regardless of the exit path.
 
-### Caveats
-Convention-only. Requires strict developer discipline to never use raw `return` statements midway through a function.
+> [!CAUTION] Caveats
+> Convention-only. Requires strict developer discipline to never use raw `return` statements midway through a function.
 
-### Rationale
-To centralize resource deallocation and prevent memory and file handle leaks across complex branching logic.
+> [!TIP] Rationale
+> To centralize resource deallocation and prevent memory and file handle leaks across complex branching logic.
 
-### Pros
-- Reduces duplicated cleanup code.
-- Ensures deterministic release.
-
-### Cons
-- Relies on the controversial `goto` statement.
+| Pros | Cons |
+|------|------|
+| Reduces duplicated cleanup code. | Relies on the controversial `goto` statement. |
+| Ensures deterministic release. | |
 
 ## Deinit
 
@@ -90,17 +85,15 @@ void VECTOR_deinit(Vector* arr) {
 }
 ```
 
-### Outputs
-Safely returns the memory directly to the struct's defined allocator.
+> [!NOTE] Outputs
+> Safely returns the memory directly to the struct's defined allocator.
 
-### Caveats
-Convention-only. If a developer forgets to call `_deinit`, the memory will leak.
+> [!CAUTION] Caveats
+> Convention-only. If a developer forgets to call `_deinit`, the memory will leak.
 
-### Rationale
-To map object destruction precisely to its creation mechanism.
+> [!TIP] Rationale
+> To map object destruction precisely to its creation mechanism.
 
-### Pros
-- Uniform teardown semantics across all data structures.
-
-### Cons
-- Requires explicit function calls per object.
+| Pros | Cons |
+|------|------|
+| Uniform teardown semantics across all data structures. | Requires explicit function calls per object. |

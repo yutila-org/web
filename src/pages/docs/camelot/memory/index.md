@@ -20,20 +20,18 @@ struct Allocator {
 };
 ```
 
-### Outputs
-The `allocate` function outputs an aligned pointer to a memory block. The `deallocate` function returns the block to the allocator.
+> [!NOTE] Outputs
+> The `allocate` function outputs an aligned pointer to a memory block. The `deallocate` function returns the block to the allocator.
 
-### Caveats
-Custom allocators must strictly respect the provided byte alignment parameters.
+> [!CAUTION] Caveats
+> Custom allocators must strictly respect the provided byte alignment parameters or risk alignment faults on ARM architectures.
 
-### Rationale
-To eliminate hardcoded `malloc` and `free` calls which prevent memory tracking and testing.
+> [!TIP] Rationale
+> To eliminate hardcoded `malloc` and `free` calls which prevent memory tracking and testing.
 
-### Pros
-- Enables heap, arena, stack or mock allocators interchangeably.
-
-### Cons
-- Requires pointer indirection for every allocation.
+| Pros | Cons |
+|------|------|
+| Enables heap, arena, stack or mock allocators interchangeably. | Requires pointer indirection for every allocation. |
 
 ## Arena
 
@@ -53,19 +51,17 @@ void* ARENA_allocate(Allocator* self, size_t size, size_t align);
 void ARENA_reset(Arena* self);
 ```
 
-### Outputs
-Returns a memory pointer advanced by the requested size and alignment. If capacity is exceeded, it returns `nullptr`.
+> [!NOTE] Outputs
+> Returns a memory pointer advanced by the requested size and alignment. If capacity is exceeded, it returns `nullptr`.
 
-### Caveats
-Memory cannot be freed individually. The entire arena must be reset at once via `ARENA_reset` which zeros the offset integer.
+> [!CAUTION] Caveats
+> Memory cannot be freed individually. The entire arena must be reset at once via `ARENA_reset` which zeros the offset integer.
 
-### Rationale
-To reduce the CPU overhead of tracking individual allocations via free-lists.
+> [!TIP] Rationale
+> To reduce the CPU overhead of tracking individual allocations via free-lists.
 
-### Pros
-- O(1) monotonic allocation.
-- Zero fragmentation.
-- O(1) bulk deallocation.
-
-### Cons
-- Unsuitable for long-lived applications with highly variable object lifetimes unless multiple layered arenas are employed.
+| Pros | Cons |
+|------|------|
+| O(1) monotonic allocation. | Unsuitable for long-lived applications with highly variable object lifetimes unless multiple layered arenas are employed. |
+| Zero fragmentation. | |
+| O(1) bulk deallocation. | |
