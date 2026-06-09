@@ -1,8 +1,8 @@
 ---
-// src/pages/software/camelot.astro
-import '../../styles/camelot-docs.css';
+// src/pages/software/merlin.astro
+import '../../styles/merlin-docs.css';
 
-const docFiles = Object.values(import.meta.glob('../docs/camelot/**/*.md', { eager: true }));
+const docFiles = Object.values(import.meta.glob('../docs/merlin/**/*.md', { eager: true }));
 const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatter?.description);
 ---
 
@@ -11,11 +11,11 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Camelot</title>
+        <title>Merlin</title>
         <style>
             .top-stripe {
                 height: 4px;
-                background-color: #d70a53;
+                background-color: #a855f7;
                 width: 100%;
                 position: absolute;
                 top: 0;
@@ -57,7 +57,7 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
             }
             .info-box {
                 background-color: #1a1a1a;
-                border-left: 4px solid #d70a53;
+                border-left: 4px solid #a855f7;
                 padding: 15px;
                 margin: 2em 0;
             }
@@ -72,22 +72,17 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
         <div class="top-stripe"></div>
         <header style="display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 2rem;">
-                <a href="/software/camelot" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
-                    <svg viewBox="0 0 210 297" fill="none" style="width: 24px; height: 33px;">
-                        <g transform="translate(-3.8884891,5.3710162)">
-                            <path style="opacity:1;fill:#e03131;stroke:none;stroke-width:0" d="m 95.640424,78.255634 c 0,0 -16.863019,-38.11792 -4.986458,-49.864681 4.978354,-4.923954 20.052404,-12.373537 27.702114,-10.010498 5.1397,1.587687 2.84444,12.118304 7.20315,13.888865 4.0265,1.635616 13.09112,-3.931062 17.26603,-1.842825 5.87895,2.940582 7.19453,13.274511 12.08746,17.945705 4.94431,4.720245 22.70992,8.790902 27.38553,12.816748 5.72005,4.925137 -1.92466,9.783212 0.60534,15.681549 15.15987,35.342913 3.49041,70.019203 -4.15538,105.823903 -7.37218,34.52345 0.71681,-18.37755 -7.06446,-42.79033 -1.54123,-4.83543 -12.63776,-12.35428 -14.01509,-17.32797 -2.13053,-7.69357 6.64626,-17.58733 3.51453,-24.399973 -2.4024,-5.22612 -11.81547,-2.95144 -14.51677,-7.46498 -5.27041,-8.806232 -2.70545,-21.695713 -10.5802,-24.367634 -7.68824,-2.608627 -15.79049,16.62156 -15.79049,16.62156 z" />
-                            <path style="opacity:1;fill:#ffffff;stroke-width:0.398811" d="m 27.492047,131.72164 c 3.947201,-25.95562 26.715737,-44.168003 56.790317,-54.574112 28.937776,-10.012778 43.352126,5.645621 53.188996,19.945859 34.18626,49.697993 -7.16077,46.464633 -1.66217,68.702443 5.68578,22.99477 43.7609,39.95248 34.62824,62.0538 -15.06223,36.4511 -85.499161,54.19552 -114.965764,27.97962 -8.278098,-7.36487 -1.753025,-18.78655 4.048759,-32.99275 5.689863,-13.93216 23.948407,-26.8826 23.396497,-36.35063 -0.287428,-4.93085 -15.106101,13.42858 -31.984261,-2.17683 -10.297185,-9.52069 -11.74557,-18.74632 -17.998276,-32.02054 -1.338698,-2.84201 54.191939,-23.89417 53.950354,-26.92508 -0.123042,-1.54375 -59.636969,7.96452 -59.392692,6.35822 z" />
-                        </g>
-                    </svg>
-                    <strong>Camelot</strong>
+                <a href="/software/merlin" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
+                    <img src="/icons/merlin.svg" alt="Merlin" style="width: 24px; height: 33px; object-fit: contain;" />
+                    <strong>Merlin</strong>
                 </a>
                 <nav style="display: flex; gap: 1rem;">
-                    <a href="https://github.com/yutila-org/camelot">Repository</a>
-                    <a href="/docs/camelot">Documentation</a>
+                    <a href="https://github.com/yutila-org/merlin">Repository</a>
+                    <a href="/docs/merlin/overview">Documentation</a>
                 </nav>
             </div>
             <div>
-                <a href="https://github.com/yutila-org/camelot/releases/latest" style="padding: 0.5rem 1rem; background: #e03131; color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px;">Download Release</a>
+                <a href="https://github.com/yutila-org/merlin/releases/latest" style="padding: 0.5rem 1rem; background: #c084fc; color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px;">Download Release</a>
             </div>
         </header>
         <hr />
@@ -99,7 +94,7 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
                     Back to Software
                 </a>
             </div>
-            <h1>Camelot</h1>
+            <h1>Merlin</h1>
             <div style="margin-top: 1rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; background: #1a1a1a; padding: 10px 15px; border: 1px solid #333; width: fit-content;">
                 <a href="https://www.bestpractices.dev/projects/12919" style="display: flex;">
                     <img src="/openssf-badge.svg" alt="OpenSSF Best Practices: Passing" style="height: 28px;" />
@@ -110,7 +105,7 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
             <div class="hero-section">
                 <div class="hero-text">
                     <p>
-                        Camelot is a modern, safe and ergonomic C framework. It provides structural alternatives to libc subsystems that expose implicit allocation behavior, utilizing memory arenas and strict compiler flags orchestrated by the Merlin build engine.
+                        Merlin is a powerful build engine designed to orchestrate the compilation of C and C++ projects. It provides strict compiler flags and seamless integration with frameworks like Camelot for modern, safe, and ergonomic development.
                     </p>
                 </div>
             </div>
@@ -118,18 +113,18 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
             <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem;">
                 <div style="background: #1a1a1a; padding: 2rem; border: 1px solid #333; flex: 2; min-width: 350px;">
                     <h3 style="display: flex; align-items: center; gap: 10px; margin-top: 0;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e03131" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Getting Camelot
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Getting Merlin
                     </h3>
                     <p style="font-size: 0.95rem; color: #aaa;">
-                        Execute the installation script to bootstrap the Merlin build engine and automatically bind Camelot to your system environment.
+                        Execute the installation script to bootstrap the Merlin build engine and automatically bind it to your system environment.
                     </p>
                     <div style="margin-bottom: 1rem;">
                         <span style="font-size: 0.85rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px;"><img src="/icons/linux.svg" alt="Linux" width="14" height="14" style="vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.7;" />macOS / Linux</span>
-                        <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin-top: 0.5rem; margin-bottom: 1rem;">curl -sSL https://github.com/yutila-org/camelot/releases/latest/download/install.sh | bash</pre>
+                        <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin-top: 0.5rem; margin-bottom: 1rem;">curl -sSL https://github.com/yutila-org/merlin/releases/latest/download/install.sh | bash</pre>
                         
                         <span style="font-size: 0.85rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>Windows</span>
-                        <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin-top: 0.5rem;">irm https://github.com/yutila-org/camelot/releases/latest/download/install.ps1 | iex</pre>
+                        <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin-top: 0.5rem;">irm https://github.com/yutila-org/merlin/releases/latest/download/install.ps1 | iex</pre>
                     </div>
                     <p style="font-size: 0.95rem; color: #aaa; margin-top: 1rem;">
                         Once installed, restart your terminal and scaffold a new project:
@@ -139,13 +134,13 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
 
                 <div style="background: #1a1a1a; padding: 2rem; border: 1px solid #333; flex: 1; min-width: 250px;">
                     <h3 style="display: flex; align-items: center; gap: 10px; margin-top: 0;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e03131" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                         Documentation
                     </h3>
                     <p style="font-size: 0.95rem; color: #aaa;">
-                        Comprehensive manuals covering the memory allocator, I/O utilities, and the Merlin build engine.
+                        Comprehensive manuals covering the build configuration, flags, and the Merlin build engine.
                     </p>
-                    <a href="/docs/camelot/overview" style="display: inline-block; padding: 0.5rem 1rem; background: #e03131; color: #fff; text-decoration: none; font-weight: bold; margin-top: 1rem;">
+                    <a href="/docs/merlin/overview" style="display: inline-block; padding: 0.5rem 1rem; background: #c084fc; color: #fff; text-decoration: none; font-weight: bold; margin-top: 1rem;">
                         Read the Manual
                     </a>
                 </div>
@@ -159,7 +154,7 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
                         <tr class="feature-row" style={index >= 3 ? "display: none;" : ""}>
                             <th>
                                 <div class="th-inner">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d70a53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" fill="#d70a53"></circle></svg>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" fill="#a855f7"></circle></svg>
                                     <a href={feature.url} style="color: inherit; text-decoration: none;">{feature.frontmatter.title}</a>
                                 </div>
                             </th>
