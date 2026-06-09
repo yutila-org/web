@@ -8,6 +8,9 @@ Camelot is a utility library built in C23, orchestrated by Merlin.
 
 ## Allocator
 
+> [!TIP] Rationale
+> Global heap contention, memory fragmentation and the inability to swap allocation strategies for testing required a polymorphic solution.
+
 ### What it does
 Camelot utilizes an `Allocator` VTable to decouple data structures from memory sources.
 
@@ -17,22 +20,18 @@ All core functions require passing an `Allocator*` parameter to manage their int
 > [!NOTE] Outputs
 > Guaranteed tracking of all memory allocation without relying on system globals.
 
-<!-- -->
-
-> [!CAUTION] Caveats
-> This is a library-enforced convention. Bypassing it by calling `malloc` directly completely breaks the architecture and nullifies memory tracking.
-
-<!-- -->
-
-> [!TIP] Rationale
-> Global heap contention, memory fragmentation and the inability to swap allocation strategies for testing required a polymorphic solution.
-
 | Pros | Cons |
 |------|------|
 | Enables custom allocation environments (arenas, stack buffers). | Requires passing an `Allocator*` to every function. |
 | Provides exact memory tracking and isolated teardown. | Incurs a function pointer dereference overhead. |
 
+> [!CAUTION] Caveats
+> This is a library-enforced convention. Bypassing it by calling `malloc` directly completely breaks the architecture and nullifies memory tracking.
+
 ## Deferral
+
+> [!TIP] Rationale
+> To centralize resource deallocation and prevent memory and file handle leaks across complex branching logic.
 
 ### What it does
 Functions with multiple return paths must return through a single cleanup block via `goto`.
@@ -59,27 +58,21 @@ defer:
 }
 ```
 
-<!-- -->
-
 > [!NOTE] Outputs
 > Guarantees execution of cleanup logic regardless of the exit path.
-
-<!-- -->
-
-> [!CAUTION] Caveats
-> Convention-only. Requires strict developer discipline to never use raw `return` statements midway through a function.
-
-<!-- -->
-
-> [!TIP] Rationale
-> To centralize resource deallocation and prevent memory and file handle leaks across complex branching logic.
 
 | Pros | Cons |
 |------|------|
 | Reduces duplicated cleanup code. | Relies on the controversial `goto` statement. |
 | Ensures deterministic release. | |
 
+> [!CAUTION] Caveats
+> Convention-only. Requires strict developer discipline to never use raw `return` statements midway through a function.
+
 ## Deinit
+
+> [!TIP] Rationale
+> To map object destruction precisely to its creation mechanism.
 
 ### What it does
 Owning types require a standardized destruction function delegating to the origin `Allocator`.
@@ -95,21 +88,12 @@ void VECTOR_deinit(Vector* arr) {
 }
 ```
 
-<!-- -->
-
 > [!NOTE] Outputs
 > Safely returns the memory directly to the struct's defined allocator.
-
-<!-- -->
-
-> [!CAUTION] Caveats
-> Convention-only. If a developer forgets to call `_deinit`, the memory will leak.
-
-<!-- -->
-
-> [!TIP] Rationale
-> To map object destruction precisely to its creation mechanism.
 
 | Pros | Cons |
 |------|------|
 | Uniform teardown semantics across all data structures. | Requires explicit function calls per object. |
+
+> [!CAUTION] Caveats
+> Convention-only. If a developer forgets to call `_deinit`, the memory will leak.
