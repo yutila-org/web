@@ -3,23 +3,17 @@
   <br />
   <p><img src="https://api.iconify.design/lucide:globe.svg?color=%233b82f6" width="18" align="center" /> Core web infrastructure and front-end application for the Yutila organization <img src="https://api.iconify.design/lucide:globe.svg?color=%233b82f6" width="18" align="center" /></p>
   <br />
-  <a href="https://github.com/yutila-org/web/actions/workflows/stage1-pr.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/stage1-pr.yml?style=for-the-badge&label=Stage%201%3A%20Secret%20Scan" alt="Stage 1: Secret Scan" /></a>
-  <a href="https://github.com/yutila-org/web/actions/workflows/stage2-security.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/stage2-security.yml?style=for-the-badge&label=Stage%202%3A%20CI%20Security" alt="Stage 2: CI Security" /></a>
+  <a href="https://github.com/yutila-org/web/actions/workflows/stage1-pr.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/stage1-pr.yml?style=for-the-badge&label=Secret Scan" alt="Secret Scan" /></a>
+  <a href="https://github.com/yutila-org/web/actions/workflows/stage2-security.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/web/stage2-security.yml?style=for-the-badge&label=CI Security" alt="Stage 2: CI Security" /></a>
 </div>
 
 <br />
 
 <div align="center">
   <h2><img src="https://api.iconify.design/lucide:code.svg?color=%23f97316" width="28" align="center" /> Tech Stack</h2>
-  <img src="https://img.shields.io/badge/Astro-FF5D01?style=for-the-badge&logo=astro&logoColor=white" alt="Astro" />
-  <img src="https://img.shields.io/badge/Svelte-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="Svelte" />
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
-
-  <h2><img src="https://api.iconify.design/lucide:cloud.svg?color=%230ea5e9" width="28" align="center" /> Infrastructure</h2>
-  <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Cloudflare" />
-  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
-  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions" />
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=astro,svelte,ts,nodejs,pnpm,cloudflare,redis,githubactions" alt="Tech Stack" />
+  </a>
 </div>
 
 <br />
@@ -30,10 +24,10 @@ Ensure Node.js `>=22.12.0` is installed.
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Start local development server at http://localhost:4321
-npm run dev
+pnpm run dev
 ```
 
 ## <img src="https://api.iconify.design/lucide:rocket.svg?color=%23ef4444" width="24" align="center" /> Build & Deployment
@@ -42,10 +36,10 @@ The application is deployed via Cloudflare Pages and Wrangler.
 
 ```bash
 # Generate production build
-npm run build
+pnpm run build
 
 # Preview production build locally
-npm run preview
+pnpm run preview
 ```
 
 ## <img src="https://api.iconify.design/lucide:pen-tool.svg?color=%23eab308" width="24" align="center" /> Blog Feature
