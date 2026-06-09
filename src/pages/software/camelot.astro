@@ -122,11 +122,12 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
                         Getting Camelot
                     </h3>
                     <p style="font-size: 0.95rem; color: #aaa;">
-                        Clone the repository directly. The framework requires no external package dependencies.
+                        Clone the repository to bootstrap the Merlin build engine, then scaffold a new project.
                     </p>
                     <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem;">git clone https://github.com/yutila-org/camelot
 cd camelot
-make</pre>
+make
+./bin/merlin new my_project</pre>
                 </div>
 
                 <div style="background: #1a1a1a; padding: 2rem; border: 1px solid #333;">
