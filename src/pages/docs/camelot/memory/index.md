@@ -10,12 +10,12 @@ Camelot manages memory through the `Allocator` VTable (Library-enforced) and the
 
 The `Allocator` struct defines a generic interface for memory operations.
 
-- **Why it was designed that way**: To allow polymorphic memory allocation without C++ virtual dispatch.
-- **Problems it solves**: Hardcoded `malloc` calls that prevent testing or restricted environment usage.
+- **Rationale**: To allow polymorphic memory allocation without C++ virtual dispatch.
+- **Solves**: Hardcoded `malloc` calls that prevent testing or restricted environment usage.
 - **Pros**: Enables heap, arena, stack or mock allocators interchangeably.
 - **Cons**: Requires pointer indirection for every allocation.
 
-### Exact Usage Details
+### Usage
 
 ```c
 typedef struct Allocator Allocator;
@@ -29,12 +29,12 @@ struct Allocator {
 
 The Arena is a contiguous memory block managing object lifetimes within a scope.
 
-- **Why it was designed that way**: To reduce the overhead of tracking individual allocations.
-- **Problems it solves**: Memory fragmentation, CPU overhead from free-lists and memory leaks.
+- **Rationale**: To reduce the overhead of tracking individual allocations.
+- **Solves**: Memory fragmentation, CPU overhead from free-lists and memory leaks.
 - **Pros**: O(1) monotonic allocation, zero fragmentation and O(1) bulk deallocation.
 - **Cons**: Memory cannot be freed individually. The entire arena must be reset at once.
 
-### Allocation Mechanism (Library-enforced)
+### Allocation (Library)
 
 `ARENA_allocate` bumps a pointer forward with alignment. Bounds checking ensures it returns `nullptr` if capacity is exceeded.
 
@@ -54,7 +54,7 @@ void* ARENA_allocate(Allocator* self, size_t size, size_t align) {
 }
 ```
 
-### Bulk Deallocation
+### Bulk Free
 
 Arenas are reset by zeroing the offset integer.
 
@@ -64,30 +64,4 @@ void ARENA_reset(Arena* self) {
 }
 ```
 
-## Data Structures
 
-Camelot includes memory-aware data structures implementing the `Allocator` VTable.
-
-### Vector
-- **Why it was designed that way**: To provide a dynamic array with memory-recyclable growth.
-- **Problems it solves**: Static array limits and suboptimal 2.0x capacity reallocation overhead.
-- **Pros**: Uses 1.5x bitwise capacity growth (`cap + (cap >> 1)`). Discarded allocations sum to exceed future requests, permitting block recycling by the host allocator.
-- **Cons**: Slower growth than 2.0x requires more frequent reallocations.
-
-### Table
-- **Why it was designed that way**: To provide a hash map using open addressing.
-- **Problems it solves**: Linked-list chaining cache misses.
-- **Pros**: SIMD-friendly metadata probing and power-of-2 sizing.
-- **Cons**: High memory usage for sparse data sets.
-
-### String and Slice
-- **Why it was designed that way**: To replace null-terminated strings.
-- **Problems it solves**: O(N) `strlen` operations and out-of-bounds reads.
-- **Pros**: O(1) length checks and zero-copy memory views.
-- **Cons**: Incompatible with legacy APIs expecting a null terminator without allocation.
-
-### OwnedString
-- **Why it was designed that way**: To pair allocated strings with their source.
-- **Problems it solves**: Double-free errors and allocator mismatch.
-- **Pros**: Conforms to Explicit Deinit rules.
-- **Cons**: Struct wrapper overhead.

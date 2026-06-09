@@ -6,16 +6,16 @@ description: Camelot's memory-aware collections including Vector, List and Table
 
 The Data Structures subsystem provides collections built strictly on the `Allocator` VTable. They do not invoke `malloc` or `free` directly.
 
-## Vector (Library-enforced)
+## Vector (Library)
 
 The `Vector` is a contiguous dynamic array that expands exponentially.
 
-- **Why it was designed that way**: To provide an array capable of memory-recyclable growth without relying on a global heap.
-- **Problems it solves**: Static array limits and suboptimal 2.0x capacity reallocation overhead.
+- **Rationale**: To provide an array capable of memory-recyclable growth without relying on a global heap.
+- **Solves**: Static array limits and suboptimal 2.0x capacity reallocation overhead.
 - **Pros**: Uses 1.5x bitwise capacity growth (`cap + (cap >> 1)`). Discarded allocations sum to exceed future requests, permitting block recycling by the host allocator.
 - **Cons**: Slower growth than 2.0x requires more frequent reallocations.
 
-### Exact Usage Details
+### Usage
 
 ```c
 typedef struct {

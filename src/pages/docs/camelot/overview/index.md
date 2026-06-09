@@ -8,18 +8,18 @@ Camelot is a C23 utility library. It is orchestrated by **Merlin**, a build engi
 
 Camelot provides structural alternatives to libc subsystems. It requires explicit allocator boundaries, localized memory arenas, a tri-state error model and specific compiler flags. It is portable across GCC, Clang and MSVC. It is not a foundational framework, web server or application runtime.
 
-## Design Philosophy
+## Philosophy
 
-### Predictable Systems
+### Predictability
 
 Camelot prioritizes explicit mechanisms, cross-platform interoperability and traceable state transitions.
 
-- **Why it was designed that way**: To reduce undefined behavior and memory leaks common in C applications.
-- **Problems it solves**: Implicit state mutation, uncontrolled heap allocations and unhandled error states.
+- **Rationale**: To reduce undefined behavior and memory leaks common in C applications.
+- **Solves**: Implicit state mutation, uncontrolled heap allocations and unhandled error states.
 - **Pros**: Traceable execution, isolated memory regions and compiler-verified error checking.
 - **Cons**: Requires explicit allocator passing, verbose error handling and strict adherence to conventions.
 
-### Guarantee Modeling
+### Guarantees
 
 Camelot enforces constraints across four layers:
 1. **Compiler-enforced**: Error handling via `[[nodiscard]]` and poisoned legacy functions via `#pragma GCC poison`.
@@ -27,7 +27,7 @@ Camelot enforces constraints across four layers:
 3. **Test-enforced**: Memory leak and bounds checking via ASan, UBSan and LSan.
 4. **Convention-only**: Explicit Deferral (`goto defer`) and domain-prefixed naming conventions.
 
-### Naming Convention (Convention-only)
+### Naming (Convention)
 
 Functions utilize the `DOMAIN_functionSubfunction` format.
 
@@ -35,13 +35,13 @@ Functions utilize the `DOMAIN_functionSubfunction` format.
 - **Primary function name**: Lowercase.
 - **Subfunction qualifier**: CamelCase.
 
-### Portability and Compiler Extensions (Compiler-enforced)
+### Portability (Compiler)
 
 Reliance on non-standard runtime compiler extensions is prohibited.
 - Attributes operating during compilation (e.g., `[[nodiscard]]`) are required.
 - Runtime-altering extensions (e.g., GCC's `__attribute__((cleanup))`) are prohibited.
 
-## Project Structure
+## Structure
 
 ```text
 camelot/
@@ -58,14 +58,14 @@ camelot/
 └── README.md             # Project entry point
 ```
 
-### Architectural Rationale
+### Architecture
 
-- **Why it was designed that way**: To separate interface from implementation and enable dead-code elimination.
-- **Problems it solves**: Header collisions, unintended API usage and large binary sizes.
+- **Rationale**: To separate interface from implementation and enable dead-code elimination.
+- **Solves**: Header collisions, unintended API usage and large binary sizes.
 - **Pros**: Strict API boundaries, modular compilation and flat namespaces.
 - **Cons**: Requires explicit include paths and directory mirroring.
 
-## Exact Usage Details
+## Usage
 
 To use the library, include the umbrella header:
 

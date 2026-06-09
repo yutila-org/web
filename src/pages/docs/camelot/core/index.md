@@ -6,16 +6,16 @@ description: Camelot core primitives including the Result type and Iterator patt
 
 The Core subsystem provides foundational utilities required for error handling and standard traversal across Camelot data structures.
 
-## Result Type (Compiler-enforced)
+## Result (Compiler)
 
 Camelot utilizes a tri-state tagged union (`Result`) for all fallible operations.
 
-- **Why it was designed that way**: C lacks native exception handling and safe return value enforcement.
-- **Problems it solves**: Conflation of expected logic branching with system failures and silently ignored errors.
+- **Rationale**: C lacks native exception handling and safe return value enforcement.
+- **Solves**: Conflation of expected logic branching with system failures and silently ignored errors.
 - **Pros**: Forces explicit error handling at call sites via compiler attributes.
 - **Cons**: Increases verbosity and requires manual unpacking of state payloads.
 
-### Exact Usage Details
+### Usage
 
 ```c
 typedef enum {
@@ -35,16 +35,16 @@ typedef struct CAMELOT_NODISCARD {
 
 The `CAMELOT_NODISCARD` macro expands to `[[nodiscard]]` in C23. It generates a compiler warning if the return value is ignored, preventing unhandled system failures.
 
-## Iterator VTable (Library-enforced)
+## Iterator (Library)
 
 The `Iterator` struct defines a polymorphic interface for sequential traversal.
 
-- **Why it was designed that way**: To allow algorithms to operate over diverse collections without hardcoding specific loop structures.
-- **Problems it solves**: Duplicated iteration logic and tight coupling between algorithms and collection types.
+- **Rationale**: To allow algorithms to operate over diverse collections without hardcoding specific loop structures.
+- **Solves**: Duplicated iteration logic and tight coupling between algorithms and collection types.
 - **Pros**: Standardized data traversal across vectors, lists and tables.
 - **Cons**: Incurs a function pointer dereference overhead per iteration.
 
-### Exact Usage Details
+### Usage
 
 ```c
 typedef struct Iterator Iterator;
