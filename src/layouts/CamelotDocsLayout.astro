@@ -58,23 +58,44 @@ const currentPath = Astro.url.pathname;
           </details>
 
           <details open>
+            <summary>Core</summary>
+            <ul>
+              <li><a href="/docs/camelot/core" class={currentPath.endsWith('/docs/camelot/core') || currentPath.endsWith('/docs/camelot/core/') ? 'active' : ''}>Core Utilities</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Data Structures</summary>
+            <ul>
+              <li><a href="/docs/camelot/ds" class={currentPath.endsWith('/docs/camelot/ds') || currentPath.endsWith('/docs/camelot/ds/') ? 'active' : ''}>Collections</a></li>
+            </ul>
+          </details>
+
+          <details open>
             <summary>Memory</summary>
             <ul>
-              <li><a href="/docs/camelot/overview/memory" class={currentPath.includes('/overview/memory') ? 'active' : ''}>Memory Allocator</a></li>
+              <li><a href="/docs/camelot/memory" class={currentPath.includes('/docs/camelot/memory') ? 'active' : ''}>Memory Allocator</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Types</summary>
+            <ul>
+              <li><a href="/docs/camelot/types" class={currentPath.endsWith('/docs/camelot/types') || currentPath.endsWith('/docs/camelot/types/') ? 'active' : ''}>Types & Primitives</a></li>
             </ul>
           </details>
 
           <details open>
             <summary>I/O</summary>
             <ul>
-              <li><a href="/docs/camelot/core/io" class={currentPath.includes('/core/io') ? 'active' : ''}>I/O Utilities</a></li>
+              <li><a href="/docs/camelot/io" class={currentPath.includes('/docs/camelot/io') ? 'active' : ''}>I/O Utilities</a></li>
             </ul>
           </details>
 
           <details open>
             <summary>Build System</summary>
             <ul>
-              <li><a href="/docs/camelot/core/merlin" class={currentPath.includes('/core/merlin') ? 'active' : ''}>Merlin Build Engine</a></li>
+              <li><a href="/docs/camelot/build/merlin" class={currentPath.includes('/docs/camelot/build/merlin') ? 'active' : ''}>Merlin Build Engine</a></li>
             </ul>
           </details>
 
