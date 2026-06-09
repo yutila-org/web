@@ -122,14 +122,19 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
                         Getting Camelot
                     </h3>
                     <p style="font-size: 0.95rem; color: #aaa;">
-                        Clone the repository to bootstrap the Merlin build engine, install it system-wide, and scaffold a new project.
+                        Execute the installation script to bootstrap the Merlin build engine and automatically bind Camelot to your system environment.
                     </p>
-                    <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem;">git clone https://github.com/yutila-org/camelot
-cd camelot
-make
-sudo cp bin/merlin /usr/local/bin/merlin
-cd ..
-merlin new my_project</pre>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-size: 0.85rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em;">macOS / Linux</span>
+                        <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin-top: 0.5rem; margin-bottom: 1rem;">curl -sSL https://raw.githubusercontent.com/yutila-org/camelot/main/install.sh | bash</pre>
+                        
+                        <span style="font-size: 0.85rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em;">Windows (PowerShell)</span>
+                        <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem; margin-top: 0.5rem;">irm https://raw.githubusercontent.com/yutila-org/camelot/main/install.ps1 | iex</pre>
+                    </div>
+                    <p style="font-size: 0.95rem; color: #aaa; margin-top: 1rem;">
+                        Once installed, restart your terminal and scaffold a new project:
+                    </p>
+                    <pre style="background: #121212; padding: 1rem; border: 1px solid #333; overflow-x: auto; font-size: 0.85rem;">merlin new my_project</pre>
                 </div>
 
                 <div style="background: #1a1a1a; padding: 2rem; border: 1px solid #333;">
