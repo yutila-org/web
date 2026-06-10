@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
               <li><a href="/docs/merlin/overview" class={currentPath.endsWith('/overview') || currentPath.endsWith('/overview/') ? 'active' : ''}>Introduction</a></li>
             </ul>
           </details>
-          <details>
+          <details open>
             <summary>Design Choices</summary>
             <ul>
               <li><a href="/docs/merlin/overview/why-d" class={currentPath.endsWith('/why-d') || currentPath.endsWith('/why-d/') ? 'active' : ''}>Why D?</a></li>
