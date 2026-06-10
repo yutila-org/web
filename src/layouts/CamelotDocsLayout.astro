@@ -142,5 +142,31 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <script is:inline src="/search.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const detailsElements = document.querySelectorAll('.sidebar details');
+        const prefix = window.location.pathname.includes('camelot') ? 'camelot' : 'merlin';
+        
+        detailsElements.forEach((details) => {
+          const summary = details.querySelector('summary');
+          if (!summary) return;
+          
+          const key = `docs-details-${prefix}-${summary.textContent.trim().replace(/\s+/g, '-').toLowerCase()}`;
+          
+          const savedState = localStorage.getItem(key);
+          if (savedState !== null) {
+            if (savedState === 'open') {
+              details.setAttribute('open', '');
+            } else {
+              details.removeAttribute('open');
+            }
+          }
+          
+          details.addEventListener('toggle', () => {
+            localStorage.setItem(key, details.hasAttribute('open') ? 'open' : 'closed');
+          });
+        });
+      });
+    </script>
   </body>
 </html>
