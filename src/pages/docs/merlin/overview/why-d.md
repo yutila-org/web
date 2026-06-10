@@ -6,15 +6,15 @@ description: Architectural decisions for selecting D over C for the Merlin build
 
 # Why D instead of C?
 
-Building a cross-platform orchestrator requires manipulating complex strings, recursively scanning filesystems and natively spawning child processes. Doing this safely in C involves significant boilerplate and high risk of memory vulnerabilities. D was chosen because it delivers the ergonomics of a scripting language while retaining the bare-metal performance of C.
+Building a cross-platform orchestrator requires manipulating strings, recursively scanning filesystems and natively spawning child processes. Doing this in C involves boilerplate and risk of memory vulnerabilities. D was chosen because it provides high-level string operations while compiling to a native executable.
 
-> [!TIP] The Philosophy
-> Merlin aims to replace bloated build pipelines by offering a statically compiled, fast and safe build engine without requiring heavy runtimes like Node.js or Python.
+> [!TIP] Architecture Decision
+> Merlin provides a statically compiled build orchestrator without requiring runtimes like Node.js or Python.
 
 ## Core Advantages
 
 ### Memory-Safe Orchestration
-String manipulation, dynamic arrays and regex support are built directly into D with zero-cost slicing. In C, manual memory management (`malloc` / `free`) for complex path resolution is notoriously error-prone and verbose.
+String manipulation, dynamic arrays and regex support are built directly into D. In C, manual memory management (`malloc` / `free`) for path resolution is error-prone.
 
 | D Implementation | C Equivalent |
 |------------------|--------------|
@@ -23,7 +23,7 @@ String manipulation, dynamic arrays and regex support are built directly into D 
 | Safe array concatenations (`~`) | Verbose `realloc` and capacity tracking |
 
 ### Native Process Spawning
-`std.process` enables secure, seamless execution of GCC/Clang child processes. It completely sidesteps the low-level boilerplate required in pure C.
+`std.process` enables execution of GCC/Clang child processes. It abstracts the POSIX and Windows process APIs required in pure C.
 
 ```d
 // Executing the compiler in D
@@ -36,8 +36,8 @@ if (result.status != 0) {
 > [!WARNING] C Boilerplate
 > Replicating the above in C requires `fork()`, `execvp()`, manual pipe creation (`pipe()`), `waitpid()` and signal handling across different operating systems.
 
-### Effortless Filesystem Traversal
-Build systems need to deeply scan source trees. `std.file.dirEntries` allows Merlin to lazily iterate over source files and tests without interacting with verbose POSIX `dirent` or convoluted Windows-specific APIs.
+### Filesystem Traversal
+Build systems recursively scan source trees. `std.file.dirEntries` iterates over source files and tests without requiring direct interaction with OS-specific APIs like POSIX `dirent`.
 
 ```d
 // Recursively collect all C source files

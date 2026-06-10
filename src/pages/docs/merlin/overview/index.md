@@ -4,13 +4,15 @@ title: Merlin Build Engine
 description: The Merlin TUI build orchestrator — architecture, compiler detection and CI/CD integration.
 ---
 
-Merlin is the build engine for Camelot, written in the D programming language.
+Merlin is the build orchestrator for the Camelot utility library, written in the D programming language.
 
 
 
 ## Security Mechanics
 
-Merlin enforces strict compiler flags (`-Wall -Werror -fPIE -fstack-protector-strong`) and automated sanitizer execution (`-fsanitize=address,undefined,leak`) at the build-orchestration level. This structurally prohibits the compilation or deployment of memory-unsafe patterns. Deviating from these specific build instructions strips the library of its security guarantees.
+Merlin categorizes its safety guarantees through strict enforcement mechanisms:
+- **Compiler-enforced**: Applies `-Wall -Werror -fPIE -fstack-protector-strong` to prohibit unsafe compilation patterns.
+- **Test-enforced**: Requires automated sanitizer execution (`-fsanitize=address,undefined,leak`) to pass CI workflows.
 
 ## Orchestration
 
