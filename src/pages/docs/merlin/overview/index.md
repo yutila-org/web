@@ -6,14 +6,7 @@ description: The Merlin TUI build orchestrator — architecture, compiler detect
 
 Merlin is the build engine for Camelot, written in the D programming language.
 
-## Design Choices
 
-<details>
-<summary>Language Decisions</summary>
-<ul>
-    <li><a href="/docs/merlin/overview/why-d">Why D?</a></li>
-</ul>
-</details>
 
 ## Security Mechanics
 
