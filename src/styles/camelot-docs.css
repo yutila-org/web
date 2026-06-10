@@ -20,12 +20,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-    color: #FF5252;
+    color: #d70a53;
     text-decoration: underline;
 }
 
 a:visited {
-    color: #E53935;
+    color: #a8063f;
 }
 
 pre {
