@@ -57,4 +57,4 @@ Like C, D compiles directly to machine code. Merlin ships as a single, standalon
 | Make / CMake | Requires external binaries | Fast, but heavily fragmented |
 
 > [!CAUTION] The Trade-Off
-> Bootstrapping Merlin from scratch requires the D compiler (`dmd` or `ldc2`). However, once compiled, the resulting `merlin` binary requires absolutely zero external dependencies.
+> Bootstrapping Merlin from scratch requires the D compiler (`ldc2` or `dmd`). However, once compiled, the resulting `merlin` binary requires absolutely zero external dependencies.

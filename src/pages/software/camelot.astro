@@ -100,17 +100,12 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
                 </a>
             </div>
             <h1>Camelot</h1>
-            <div style="margin-top: 1rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; background: #1a1a1a; padding: 10px 15px; border: 1px solid #333; width: fit-content;">
-                <a href="https://www.bestpractices.dev/projects/12919" style="display: flex;">
-                    <img src="/openssf-badge.svg" alt="OpenSSF Best Practices: Passing" style="height: 28px;" />
-                </a>
-                <span style="font-size: 0.85rem; color: #aaa;">OpenSSF certification verifies adherence to secure software development and supply chain practices.</span>
-            </div>
+
             
             <div class="hero-section">
                 <div class="hero-text">
                     <p>
-                        Camelot is a modern, safe and ergonomic C framework. It provides structural alternatives to libc subsystems that expose implicit allocation behavior, utilizing memory arenas and strict compiler flags orchestrated by the Merlin build engine.
+                        Camelot is a C framework. It provides alternatives to libc subsystems that expose implicit allocation behavior, utilizing memory arenas and compiler flags orchestrated by the Merlin build engine.
                     </p>
                 </div>
             </div>
@@ -154,12 +149,20 @@ const features = docFiles.filter((f: any) => f.frontmatter?.title && f.frontmatt
                         Documentation
                     </h3>
                     <p style="font-size: 0.95rem; color: #aaa;">
-                        Comprehensive manuals covering the memory allocator, I/O utilities, and the Merlin build engine.
+                        Manuals covering the memory allocator, I/O utilities and the Merlin build engine.
                     </p>
                     <a href="/docs/camelot/overview" style="display: inline-block; padding: 0.5rem 1rem; background: #e03131; color: #fff; text-decoration: none; font-weight: bold; margin-top: 1rem;">
                         Read the Manual
                     </a>
                 </div>
+            </div>
+
+            <h2>Certifications</h2>
+            <div style="margin-top: 1rem; margin-bottom: 3rem; display: flex; align-items: center; gap: 15px; background: #1a1a1a; padding: 10px 15px; border: 1px solid #333; width: fit-content;">
+                <a href="https://www.bestpractices.dev/projects/12919" style="display: flex;">
+                    <img src="/openssf-badge.svg" alt="OpenSSF Best Practices: Passing" style="height: 28px;" />
+                </a>
+                <span style="font-size: 0.85rem; color: #aaa;">OpenSSF certification verifies adherence to secure software development and supply chain practices.</span>
             </div>
 
             <h2>Features</h2>

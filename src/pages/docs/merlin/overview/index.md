@@ -32,7 +32,7 @@ default: $(MERLIN_BIN)
     @./$(MERLIN_BIN) all $(if $(RELEASE),RELEASE=1,)
 
 $(MERLIN_BIN): merlin/app.d merlin/builder.d merlin/tui.d
-    @dmd merlin/app.d merlin/builder.d merlin/tui.d -of=bin/merlin
+    @ldc2 merlin/app.d merlin/builder.d merlin/tui.d -of=bin/merlin
 ```
 
 > [!NOTE] Outputs
@@ -40,43 +40,14 @@ $(MERLIN_BIN): merlin/app.d merlin/builder.d merlin/tui.d
 
 | Pros | Cons |
 |------|------|
-| Native process control. | Requires an external compiler (`dmd`) for bootstrapping the build system itself. |
+| Native process control. | Requires an external compiler (`ldc2`) for bootstrapping the build system itself. |
 | Recursive directory scanning. | |
 | Static binary deployment. | |
 
 > [!WARNING] Caveats
-> Requires the D compiler (`dmd`) for bootstrap compilation.
+> Requires the D compiler (`ldc2`) for bootstrap compilation.
 
-## Commands
 
-> [!TIP] Rationale
-> Consolidating build logic into a single binary prevents platform-dependent shell scripting.
-
-### What it does
-Merlin exposes a CLI for project scaffolding, building, testing and cleaning.
-
-### Usage
-
-```bash
-./bin/merlin <command>
-```
-- `all`: Compiles the framework. Scans `src/` and outputs the executable to `bin/camelot`.
-- `test`: Executes the sanitizer test suite. Links `tests/` sources and executes `bin/test_camelot`.
-- `run`: Builds and launches the executable via a child process.
-- `clean`: Recursively deletes the `obj/` and `bin/` directories.
-- `init`: Scaffolds a standard project structure in the **current directory**. Generates `src/main.c`, `tests/test_main.c`, `.gitignore` and `compile_flags.txt`.
-- `new <name>`: Creates a **new directory** with the given name and scaffolds the project structure inside it.
-
-> [!NOTE] Outputs
-> Project directories, binaries or test execution logs depending on the command.
-
-| Pros | Cons |
-|------|------|
-| Unified interface for all developer tasks. | Custom CLI replaces standard `make` workflows. |
-| Non-interactive mode for CI/CD pipelines when invoked with command arguments. | |
-
-> [!CAUTION] Caveats
-> The `test` command requires a zero exit code from ASan, UBSan and LSan. Memory leaks will cause the CI pipeline to crash.
 
 ## Flags
 

@@ -48,12 +48,21 @@ const currentPath = Astro.url.pathname;
             <summary>Overview</summary>
             <ul>
               <li><a href="/docs/merlin/overview" class={currentPath.endsWith('/overview') || currentPath.endsWith('/overview/') ? 'active' : ''}>Introduction</a></li>
+              <li><a href="/docs/merlin/overview/why-d" class={currentPath.endsWith('/why-d') || currentPath.endsWith('/why-d/') ? 'active' : ''}>Design</a></li>
             </ul>
           </details>
+
           <details open>
-            <summary>Design Choices</summary>
+            <summary>Getting Started</summary>
             <ul>
-              <li><a href="/docs/merlin/overview/why-d" class={currentPath.endsWith('/why-d') || currentPath.endsWith('/why-d/') ? 'active' : ''}>Why D?</a></li>
+              <li><a href="/docs/merlin/getting-started" class={currentPath.includes('/docs/merlin/getting-started') ? 'active' : ''}>Getting Started</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Commands</summary>
+            <ul>
+              <li><a href="/docs/merlin/commands" class={currentPath.includes('/docs/merlin/commands') ? 'active' : ''}>CLI</a></li>
             </ul>
           </details>
 

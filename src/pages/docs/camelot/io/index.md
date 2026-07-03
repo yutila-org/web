@@ -11,25 +11,25 @@ The I/O subsystem wraps POSIX and Windows APIs into the `Result` tri-state model
 > [!TIP] Rationale
 > OS APIs return disparate error types and leak file descriptors on panic.
 
-### What it does
+### Concept
 File operations execute system calls to read, write, or append data to the filesystem, routing all buffer allocations through the provided allocator.
 
-### Usage
-```c
-CAMELOT_NODISCARD Result IO_read(Allocator* alloc, String path);
-CAMELOT_NODISCARD Result IO_write(Allocator* alloc, String path, Slice data);
-CAMELOT_NODISCARD Result IO_append(Allocator* alloc, String path, Slice data);
-```
+### API Reference
 
-> [!NOTE] Outputs
-> - `IO_read`: Reads file contents into a dynamically allocated buffer. Returns `OK` with the payload pointer, `NIL` if the file is empty, or `ERR` on system failure.
-> - `IO_write`: Writes a slice of bytes to a file, overwriting existing content or creating the file. Returns `OK` or `ERR`.
-> - `IO_append`: Appends a slice of bytes to the end of an existing file. Returns `OK` or `ERR`.
+#### `IO_read`
+- **Signature**: `CAMELOT_NODISCARD Result IO_read(Allocator* alloc, String path)`
+- **Description**: Reads file contents into a dynamically allocated buffer.
+- **Returns**: `OK` with the payload pointer, `NIL` if the file is empty, or `ERR` on system failure.
 
-| Pros | Cons |
-|------|------|
-| Consistent error reporting across platforms. | Overhead from mapping OS errors. |
-| Deterministic memory lifetimes for read buffers. | Mandatory buffer allocations instead of direct memory mapping. |
+#### `IO_write`
+- **Signature**: `CAMELOT_NODISCARD Result IO_write(Allocator* alloc, String path, Slice data)`
+- **Description**: Writes a slice of bytes to a file, overwriting existing content or creating the file.
+- **Returns**: `OK` or `ERR`.
+
+#### `IO_append`
+- **Signature**: `CAMELOT_NODISCARD Result IO_append(Allocator* alloc, String path, Slice data)`
+- **Description**: Appends a slice of bytes to the end of an existing file.
+- **Returns**: `OK` or `ERR`.
 
 > [!CAUTION] Caveats
 > OS-level failures map to `ERR_FILE_ERROR`. Any buffers returned by `IO_read` must be freed manually using the originating allocator.
@@ -39,7 +39,7 @@ CAMELOT_NODISCARD Result IO_append(Allocator* alloc, String path, Slice data);
 > [!TIP] Rationale
 > `asprintf` bypasses custom allocators and generates double-free hazards. `strcpy` creates severe buffer overflow vulnerabilities.
 
-### What it does
+### Concept
 Camelot replaces raw libc string formatting (`asprintf`) with allocator-aware mechanisms to prevent buffer overflows.
 
 ### Usage
@@ -54,13 +54,7 @@ Camelot replaces raw libc string formatting (`asprintf`) with allocator-aware me
   #endif
 #endif
 ```
-
-> [!NOTE] Outputs
-> Halts compilation immediately if banned functions are referenced.
-
-| Pros | Cons |
-|------|------|
-| Structurally enforces the tracking of string memory via the originating allocator. | Requires rewriting existing C code to use `snprintf` or Camelot's `STRING_format`. |
+- **Description**: Halts compilation immediately if banned functions are referenced.
 
 > [!CAUTION] Caveats
 > Fails on legacy codebases attempting to integrate Camelot without defining `ALLOW_UNSAFE`.
@@ -70,19 +64,11 @@ Camelot replaces raw libc string formatting (`asprintf`) with allocator-aware me
 > [!TIP] Rationale
 > To catch memory leaks in filesystem edge cases.
 
-### What it does
+### Concept
 The I/O module requires strict validation in continuous integration pipelines.
 
 ### Usage
 Run the Merlin test suite on all commits.
-
-> [!NOTE] Outputs
-> Pass or fail based on automated checks.
-
-| Pros | Cons |
-|------|------|
-| Automated memory leak detection. | Slower build pipelines. |
-| SPDX SBOM generation and vulnerability scanning via Trivy. | |
 
 > [!CAUTION] Caveats
 > ASan, UBSan and LSan must return a zero exit code.
